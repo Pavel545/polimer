@@ -1,0 +1,97 @@
+.header {
+  background: var(--temnyy-1);
+  height: 80px;
+  padding: 10px 0;
+}
+.headerContent {
+}
+.headerLogo {
+  height: 100%;
+
+  margin-right: 65px;
+}
+
+.headerLink {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: var(--t14);
+  text-transform: uppercase;
+  color: var(--belyy);
+
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: 300ms all ease;
+}
+
+.headerLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  width: 100%;
+  height: 2px;
+  background: var(--belyy);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+}
+
+.headerLink:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.headerLinkBox {
+  display: flex;
+}
+
+.headerLink:active {
+  color: var(--siniy-1);
+}
+
+.headerButBox {
+  gap: 5px;
+}
+
+.headerTel {
+  padding: 20px;
+}
+
+.headerTel img {
+  width: 12px;
+  height: 12px;
+  margin-right: 20px;
+}
+
+.headerButt {
+  background: var(--siniy-1);
+
+  font-weight: 700;
+  font-size: var(--t14);
+  text-transform: uppercase;
+
+  color: var(--belyy);
+  transition: 300ms all ease;
+}
+
+.headerButt:hover{
+  background: var(--belyy);
+  color: var(--temnyy-2);
+}
+
+.headerButt:active{
+  color: var(--siniy-1);
+  transform: scale(0.98);
+}
+
+.headerButtChat {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--br);
+
+  width: 52px;
+  height: 52px;
+}
+
+.headerButtChat img {
+}

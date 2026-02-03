@@ -1,27 +1,39 @@
+/* globals.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500&display=swap");
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Цветовая схема */
+  --belyy: #fff;
+  --seryy-1: #b2b3b7;
+  --seryy-2: #494a53;
+  --seryy-3: #333641;
+  --temnyy-1: #1b1d28;
+  --temnyy-2: #000412;
+  --siniy-1: #0139b0;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* Основные цвета для темы */
+  --background: var(--temnyy-2);
+  --foreground: var(--belyy);
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  /* Шрифты */
+  --font-family: "Inter", sans-serif;
+  --second-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  --third-family: "Montserrat", sans-serif;
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Размеры шрифтов (в пикселях из макета) */
+  --font-size-inter-medium: 377px;
+  --font-size-inter-bold: 80px;
+  --font-size-sfpro-regular: 35px;
+  --font-size-sfpro-medium: 27px;
+  --font-size-inter-regular: 15px;
+  --font-size-montserrat-regular: 13px;
+  --font-size-montserrat-medium: 12px;
+  --font-size-inter-semibold: 1px; /* Проверьте этот размер */
+
+  --br: 5px;
+
+  --t14: 14px;
+   --container-w: 1600px;
 }
 
 * {
@@ -30,13 +42,162 @@ body {
   margin: 0;
 }
 
-a {
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* Общие стили */
+a,
+li {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+li {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Кастомный scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--temnyy-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--seryy-2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--seryy-1);
+}
+
+.container {
+  width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-sb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.butt {
+  padding: 18px 20px;
+  border-radius: var(--br);
+  background: var(--belyy);
+
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--siniy-1);
+
+  transition: 300ms all ease;
+}
+
+.butt:hover {
+  color: var(--belyy);
+  background: var(--siniy-1);
+}
+
+.butt:active {
+  transform: scale(0.98);
+
+  color: var(--siniy-1);
+  background: var(--belyy);
+}
+
+.h1 {
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: var(--belyy);
+}
+
+.h2{
+font-weight: 700;
+font-size: 40px;
+line-height: 110%;
+color: var(--belyy);
+}
+
+.link {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--belyy);
+  cursor: pointer;
+  position: relative;
+  transition: 300ms all ease;
+  width: min-content;
+  text-wrap: nowrap;
+
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--belyy);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+.link:active {
+  
+  opacity: 0.5;
+}
+
+
+.link:active::after {
+  opacity: 0;
 }

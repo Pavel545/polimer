@@ -1,0 +1,194 @@
+.products {
+  padding: 170px 0;
+}
+
+/* ===== Tabs ===== */
+.productsTabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.productsTabsItem {
+  width: 100%;
+  height: 60px;
+  transition: 300ms all ease;
+  cursor: pointer;
+  border-bottom: 1px solid var(--belyy);
+  opacity: 0.5;
+}
+
+.productsTabsItem:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1;
+  background: var(--temnyy-1);
+  border-bottom: 2px solid var(--belyy);
+}
+
+/* ===== Grid base ===== */
+.productsContent {
+  display: grid;
+  gap: 18px;
+  margin: 30px 0;
+  grid-auto-flow: row dense;
+}
+
+/* ===== Layout modes ===== */
+
+/* 5-ка (мозаика) — как у тебя, но повторяется блоками по 5 */
+.gridMosaic5 {
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 400px;
+}
+
+/* 3 колонки */
+.grid3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 400px;
+}
+
+/* 2 колонки */
+.grid2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 400px;
+}
+
+/* ===== Card ===== */
+.product {
+  border-radius: var(--br);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  height: 100%;
+}
+
+.productOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 66, 114, 0.5);
+  mix-blend-mode: multiply;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.productOverlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.productTitle {
+  font-weight: 400;
+  font-size: clamp(18px, 4vw, 32px);
+  line-height: 110%;
+  text-transform: uppercase;
+  color: var(--belyy);
+}
+
+.productType {
+  border-radius: var(--br);
+  padding: 10px;
+  height: 37px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: var(--temnyy-2);
+  background: var(--belyy);
+}
+.productLink {
+    display: block;
+  text-decoration: none;
+  color: inherit;
+}
+/* ===== 1400 ===== */
+@media (max-width: 1400px) {
+  .products {
+    padding: 120px 0;
+  }
+
+  .gridMosaic5,
+  .grid2,
+  .grid3 {
+    grid-auto-rows: 340px;
+  }
+
+  .productInfo {
+    padding: 18px;
+  }
+}
+
+/* ===== 900 ===== */
+@media (max-width: 900px) {
+  .productsTabs {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 10px;
+  }
+
+  .grid3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== 740 ===== */
+@media (max-width: 740px) {
+  .products {
+    padding: 80px 0;
+  }
+
+  /* На мобиле выключаем мозаику и делаем обычную плитку */
+  .gridMosaic5,
+  .grid3,
+  .grid2 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 260px;
+  }
+
+  /* чтобы инлайновые gridColumn/gridRow из mosaic не ломали мобилку */
+  .product {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .productInfo {
+    padding: 16px;
+  }
+
+  .productTitle {
+    font-size: 20px;
+    line-height: 115%;
+  }
+}
+
+/* ===== 470 ===== */
+@media (max-width: 470px) {
+  .gridMosaic5,
+  .grid3,
+  .grid2 {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+  }
+
+  .productInfo {
+    padding: 14px;
+  }
+
+  .productTitle {
+    font-size: 18px;
+    line-height: 120%;
+  }
+}

@@ -1,0 +1,160 @@
+.reviews {
+  padding: 100px 0;
+}
+
+.reviewsHeader {
+  align-items: flex-end;
+}
+
+.reviewsArrowBox {
+  display: flex;
+  gap: 5px;
+}
+
+.reviewsArrowItem {
+  border-radius: 5px;
+  width: 45px;
+  height: 45px;
+  background: var(--temnyy-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 300ms all ease;
+}
+
+.reviewsArrowItem path {
+  fill: var(--belyy);
+}
+
+.reviewsArrowItem:hover {
+  background: var(--seryy-3);
+}
+
+.reviewsArrowItem:active {
+  background: var(--belyy);
+}
+
+.reviewsArrowItem:active path {
+  fill: var(--temnyy-1);
+}
+
+/* ===== SLIDER ===== */
+:root {
+     --peek: 220px; 
+}
+.reviewsSlider {
+  margin-top: 30px;
+
+  /* ВАЖНО: выносим блок слайдера на всю ширину экрана,
+     даже если он внутри .container */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  /* Центруем активный слайд по контейнеру + делаем “зону” для подглядывания */
+  padding-left: calc((100vw - var(--container-w)) / 2 + var(--peek));
+  padding-right: calc((100vw - var(--container-w)) / 2 + var(--peek));
+
+  scrollbar-width: none;
+}
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.slide {
+  flex: 0 0 min(var(--container-w), calc(100vw - 40px));
+  height: 420px;
+  border-radius: 6px;
+
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  scroll-snap-align: center;
+
+  cursor: pointer;
+  transition: transform 350ms ease, filter 350ms ease, opacity 350ms ease;
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.2) 55%,
+    rgba(0,0,0,0) 100%
+  );
+}
+.overlay {
+  position: absolute;
+  left: 30px;
+  bottom: 26px;
+  max-width: 520px;
+  color: var(--belyy);
+  z-index: 1;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.region {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.text {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.35;
+  white-space: pre-line;
+  opacity: 0.95;
+}
+
+.slideActive {
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
+}
+
+.slideInactive {
+  opacity: 0.35;
+  filter: saturate(0.9);
+  transform: scale(0.98);
+}
+
+/* Адаптив — уменьшаем “подглядывание” на узких */
+@media (max-width: 1200px) {
+  :root { --peek: 120px; }
+  .slide { height: 380px; }
+}
+
+@media (max-width: 900px) {
+  :root { --peek: 40px; }
+  .slide { height: 340px; }
+  .overlay {
+    left: 18px;
+    bottom: 18px;
+    max-width: 85%;
+  }
+}
