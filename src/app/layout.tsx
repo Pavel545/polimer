@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header/header";
 import Footer from "@/components/shared/footer/footer";
+import { ModalProvider } from "@/components/providers/ModalProvider";
 
 // Настройка шрифтов через next/font
 const inter = Inter({
@@ -38,9 +39,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Header/>
-        {children}
-        <Footer/>
+        <ModalProvider>
+          <Header />
+          {children}
+          <Footer />
+        </ModalProvider>
       </body>
     </html>
   );

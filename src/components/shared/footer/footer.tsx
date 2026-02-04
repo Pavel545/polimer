@@ -8,7 +8,7 @@ export default function Footer() {
             text: "Продукция",
         },
         {
-            href: "#",
+            href: "/about-us",
             text: "О нас",
         },
         {

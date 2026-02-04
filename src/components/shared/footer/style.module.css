@@ -12,8 +12,11 @@
 .footerLogo{
     height: 60px;
     justify-content: start;
+    transition: 400ms all ease;
 }
-
+.footerLogo:hover {
+  transform: scale(1.02);
+}
 
 .footerLink{
     display: block;

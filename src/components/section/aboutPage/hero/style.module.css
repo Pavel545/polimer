@@ -1,0 +1,27 @@
+.aboutHero {
+  background: url(../../../../../public/img/aboutPage/fonHero.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.aboutHeroContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+    gap: 64px;
+  margin-bottom: 120px;
+}
+
+.aboutHeroContentText {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  color: var(--belyy);
+  max-width: 475px;
+}

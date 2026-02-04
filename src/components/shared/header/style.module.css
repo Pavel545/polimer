@@ -7,8 +7,12 @@
 }
 .headerLogo {
   height: 100%;
-
+  transition: 400ms all ease;
   margin-right: 65px;
+}
+
+.headerLogo:hover {
+  transform: scale(1.02);
 }
 
 .headerLink {
@@ -56,6 +60,9 @@
 
 .headerTel {
   padding: 20px;
+
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .headerTel img {
@@ -75,12 +82,12 @@
   transition: 300ms all ease;
 }
 
-.headerButt:hover{
+.headerButt:hover {
   background: var(--belyy);
   color: var(--temnyy-2);
 }
 
-.headerButt:active{
+.headerButt:active {
   color: var(--siniy-1);
   transform: scale(0.98);
 }

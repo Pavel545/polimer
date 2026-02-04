@@ -1,0 +1,210 @@
+.popOverley {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(13.399999618530273px);
+  background: rgba(0, 4, 18, 0.6);
+  left: 0;
+  top: 0;
+}
+
+.popBox {
+  background: var(--temnyy-1);
+  padding: 50px;
+  border-radius: var(--br);
+  position: relative;
+  max-width: 550px;
+   box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+}
+
+.popTitle {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 110%;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--belyy);
+}
+
+.popText {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  text-align: center;
+  color: var(--belyy);
+
+  margin-bottom: 20px;
+}
+
+.popForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.popFormInput {
+  padding: 12px 20px;
+  border-radius: 5px;
+  backdrop-filter: blur(17.200000762939453px);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  height: 50px;
+  width: 100%;
+  color: var(--tekst-belyy);
+}
+
+.popFormInput:focus,
+.popFormTextarea:focus {
+  outline: 1px solid var(--tekst-belyy);
+}
+
+.popFormInput::grammar-error,
+.popFormTextarea::grammar-error {
+  outline: 1px solid var(--tekst-red);
+}
+
+.popFormTextarea {
+  padding: 12px 20px;
+  border-radius: 5px;
+  backdrop-filter: blur(17.200000762939453px);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  height: 150px;
+  color: var(--seryy-1);
+
+  resize: none;
+
+  margin-bottom: 30px;
+}
+.popFormPs {
+  margin-top: 20px;
+  text-align: start;
+}
+.popFormTextLink {
+  color: #6596ff;
+
+  transition: all 0.3s ease;
+}
+
+.popFormTextLink:hover {
+  text-decoration: underline;
+  color: var(--tekst-svetlyy-siniy);
+}
+/* NEW */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* NEW */
+.errorText {
+  font-size: 12px;
+  line-height: 120%;
+  color: #ff6b6b;
+}
+
+/* NEW */
+.inputError {
+  outline: 1px solid #ff6b6b !important;
+}
+
+/* NEW */
+.submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ps */
+.popPs {
+  margin-top: 20px;
+  text-align: start;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: var(--belyy);
+}
+
+/* SUCCESS SCREEN (как на скрине) */
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 16px 0;
+}
+
+.successIcon {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  color: #1f66ff;
+}
+
+.successTitle {
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 110%;
+  text-transform: uppercase;
+  color: var(--belyy);
+  margin-top: 6px;
+}
+
+.successText {
+  max-width: 420px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: rgba(255,255,255,0.85);
+}
+
+.successBtn {
+  margin-top: 10px;
+}
+
+/* close — оставляем твой, ок */
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.12);
+}
+.close::before,
+.close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  background: var(--belyy);
+  transform-origin: center;
+}
+.close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.close::after  { transform: translate(-50%, -50%) rotate(-45deg); }

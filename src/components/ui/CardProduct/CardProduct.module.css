@@ -1,0 +1,69 @@
+.card {
+  border-radius: var(--br);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  height: 100%;
+}
+
+/* Link оборачивает всё */
+.link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Блок под картинку */
+.media {
+  position: absolute;
+  inset: 0;
+}
+
+/* сам Image в fill */
+.media :global(img) {
+  object-fit: cover;
+}
+
+/* затемнение как у тебя */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 66, 114, 0.5);
+  mix-blend-mode: multiply;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+/* инфо поверх картинки */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  font-weight: 400;
+  font-size: clamp(18px, 4vw, 32px);
+  line-height: 110%;
+  text-transform: uppercase;
+  color: var(--belyy);
+}
+
+.type {
+  border-radius: var(--br);
+  padding: 10px;
+  height: 37px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 120%;
+  color: var(--temnyy-2);
+  background: var(--belyy);
+}

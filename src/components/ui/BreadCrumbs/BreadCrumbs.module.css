@@ -1,0 +1,35 @@
+.BreadCrumbs {
+  padding: 16px 0;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.separator {
+  opacity: 0.6;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--seryy-2);
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--belyy);
+}
+
+.current {
+  color: var(--belyy);
+  cursor: default;
+}

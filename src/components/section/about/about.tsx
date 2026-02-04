@@ -58,7 +58,7 @@ export default function About() {
         <div className={s.aboutContent}>
           <div className={s.aboutBotLeft}>
             {details.map((e, i) => (
-              <div className={s.aboutBotLeftItem}>
+              <div key={i} className={s.aboutBotLeftItem}>
                 <Image src={e.icon} alt={e.title} width={47} height={47} />
                 <h3>{e.title}</h3>
 

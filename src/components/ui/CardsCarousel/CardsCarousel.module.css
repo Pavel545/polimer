@@ -1,0 +1,34 @@
+.root {
+  width: 100%;
+}
+
+.viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.track {
+  display: flex;
+  gap: var(--gap);
+}
+
+.item {
+  flex: 0 0 calc((100% - (var(--gap) * (var(--perView) - 1))) / var(--perView));
+  scroll-snap-align: start;
+}
+
+@media (max-width: 900px) {
+  .item {
+    flex-basis: calc((100% - var(--gap)) / 2);
+  }
+}
+
+@media (max-width: 560px) {
+  .item {
+    flex-basis: 100%;
+  }
+}

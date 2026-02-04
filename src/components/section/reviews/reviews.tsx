@@ -1,6 +1,7 @@
 "use client";
 import React, { JSX, useEffect, useMemo, useRef, useState } from "react";
 import s from "./style.module.css";
+import { SliderArrows } from "@/components/ui/SliderArrows/SliderArrows";
 
 type ReviewSlide = {
   id: number;
@@ -18,8 +19,7 @@ export default function Reviews(): JSX.Element {
         id: 1,
         name: "ИВАН ИВАНОВ",
         region: "Самарская область",
-        text:
-          "Заказывал люк что бы гармонично сочетался с ландшафтным дизайном заднего двора.\nПодошло отлично, спасибо!",
+        text: "Заказывал люк что бы гармонично сочетался с ландшафтным дизайном заднего двора.\nПодошло отлично, спасибо!",
         img: "/img/reviews/1.jpg",
       },
       {
@@ -44,7 +44,7 @@ export default function Reviews(): JSX.Element {
         img: "/img/reviews/1.jpg",
       },
     ],
-    []
+    [],
   );
 
   const viewportRef = useRef<HTMLDivElement | null>(null);
@@ -126,41 +126,7 @@ export default function Reviews(): JSX.Element {
             Довольные клиенты <br /> по все России
           </h2>
 
-          <div className={s.reviewsArrowBox}>
-            <button
-              type="button"
-              className={s.reviewsArrowItem}
-              onClick={prev}
-              aria-label="Предыдущий отзыв"
-            >
-              <svg
-                width="8"
-                height="14"
-                viewBox="0 0 8 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6.65551 14L0.278481 7.66754C-0.0928259 7.29883 -0.0928268 6.70117 0.278481 6.33246L6.65551 0L8 1.33509L2.29521 7L8 12.6649L6.65551 14Z" />
-              </svg>
-            </button>
-
-            <button
-              type="button"
-              className={s.reviewsArrowItem}
-              onClick={next}
-              aria-label="Следующий отзыв"
-            >
-              <svg
-                width="8"
-                height="14"
-                viewBox="0 0 8 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M1.34449 0L7.72152 6.33246C8.09283 6.70117 8.09283 7.29883 7.72152 7.66754L1.34449 14L0 12.6649L5.70479 7L0 1.33509L1.34449 0Z" />
-              </svg>
-            </button>
-          </div>
+          <SliderArrows onPrev={prev} onNext={next} theme="dark" size="md" />
         </div>
 
         <div className={s.reviewsSlider}>

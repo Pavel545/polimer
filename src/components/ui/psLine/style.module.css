@@ -1,0 +1,12 @@
+
+.psLine {
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px;
+}
+
+.psLineText {
+  font-weight: 500;
+  font-size: var(--t14);
+  color: var(--belyy);
+}

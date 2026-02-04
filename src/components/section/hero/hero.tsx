@@ -1,6 +1,7 @@
 import { text } from "stream/consumers";
 import s from "./style.module.css";
 import Image from "next/image";
+import PsLine from "@/components/ui/psLine/psLine";
 
 export default function Hero() {
     const advantages = [
@@ -24,14 +25,7 @@ export default function Hero() {
 
     return (
         <section className={s.hero}>
-            <div className={s.heroPs}>
-                <div className="container flex-center">
-                    <p className={s.heroPsText}>
-                        На нашем сайте работает удобный чат-бот, который с удовольствием ответит на все ваши вопросы и поможет найти нужную информацию
-                    </p>
-                </div>
-
-            </div>
+            <PsLine/>
             <div className="container">
 
                 <div className={s.heroContent}>

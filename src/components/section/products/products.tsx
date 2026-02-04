@@ -6,6 +6,7 @@ import { JSX, useMemo, useState } from "react";
 import s from "./style.module.css";
 import { Stagger } from "@/components/ui/Motion";
 import Link from "next/link";
+import CardProduct from "@/components/ui/CardProduct/CardProduct";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 18, scale: 0.98 },
@@ -256,42 +257,16 @@ export default function Products(): JSX.Element {
           stagger={0.09}
           amount={0.2}
         >
-          {filteredProducts.map((product, idx) => {
-            const mosaicStyle =
-              layoutMode === "mosaic5" ? getMosaicPlacement(idx) : undefined;
-
-            return (
-              <motion.article
-                  key={product.id}
-
-                className={s.product}
-                variants={itemVariants}
-                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4 }}
-                layout
-                style={mosaicStyle}
-              >
-                <Link
-                  href={`/product/${product.id}`}
-                  className={s.product}
-                >
-                  <div className={s.productOverlay}>
-                    <Image
-                      src={product.img}
-                      alt={product.title}
-                      width={900}
-                      height={600}
-                    />
-                  </div>
-
-                  <div className={s.productInfo}>
-                    <p className={s.productType}>{product.type}</p>
-                    <h3 className={s.productTitle}>{product.title}</h3>
-                  </div>
-                </Link>
-              </motion.article>
-            );
-          })}
+          {filteredProducts.map((product, idx) => (
+            <CardProduct
+              key={product.id}
+              product={product}
+              idx={idx}
+              layoutMode={layoutMode}
+              getMosaicPlacement={getMosaicPlacement}
+              variants={itemVariants}
+            />
+          ))}
         </Stagger>
 
         <div className="flex-center">

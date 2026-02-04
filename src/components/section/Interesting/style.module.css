@@ -1,0 +1,16 @@
+.Interesting{
+    margin: 120px 0;
+}
+
+
+
+.InterestingHeader {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+}
+
+
+.InterestingContent {
+    margin: 40px 0;
+}

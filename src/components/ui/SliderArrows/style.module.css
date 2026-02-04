@@ -1,0 +1,79 @@
+.root {
+  display: flex;
+  gap: 5px;
+}
+
+/* размеры */
+.size_sm { --btn: 38px; --br: 5px; }
+.size_md { --btn: 45px; --br: 5px; }
+.size_lg { --btn: 54px; --br: 8px; }
+
+.btn {
+  width: var(--btn);
+  height: var(--btn);
+  border-radius: var(--br);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 300ms all ease;
+
+  background: var(--arrows-bg);
+}
+
+.btn path {
+  fill: var(--arrows-icon);
+}
+
+.btn:hover {
+  background: var(--arrows-bg-hover);
+}
+
+.btn:active {
+  background: var(--arrows-bg-active);
+}
+
+.btn:active path {
+  fill: var(--arrows-icon-active);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ===== themes ===== */
+
+/* под тёмный фон (как у тебя сейчас) */
+.theme_dark {
+  --arrows-bg: var(--temnyy-1);
+  --arrows-bg-hover: var(--seryy-3);
+  --arrows-bg-active: var(--belyy);
+
+  --arrows-icon: var(--belyy);
+  --arrows-icon-active: var(--temnyy-1);
+}
+
+/* под светлый фон */
+.theme_light {
+  --arrows-bg: var(--belyy);
+  --arrows-bg-hover: rgba(0,0,0,0.06);
+  --arrows-bg-active: var(--temnyy-1);
+
+  --arrows-icon: var(--temnyy-1);
+  --arrows-icon-active: var(--belyy);
+}
+
+/* если хочешь “авто”, но без JS: 
+   можно привязать к родителю, который сам задаёт переменные */
+.theme_auto {
+  /* дефолт как dark */
+  --arrows-bg: var(--temnyy-1);
+  --arrows-bg-hover: var(--seryy-3);
+  --arrows-bg-active: var(--belyy);
+
+  --arrows-icon: var(--belyy);
+  --arrows-icon-active: var(--temnyy-1);
+}
