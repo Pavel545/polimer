@@ -47,12 +47,7 @@ function getMosaicPlacement(idx: number): MosaicPlacement {
   const pos = idx % 5; // позиция внутри блока
   const rowBase = group * 2 + 1; // 1-based rows: блоки идут (1-2), (3-4), (5-6)...
 
-  // Шаблон как у тебя:
-  // 0: a => col 1-2, row 1
-  // 1: b => col 3-4, row 1
-  // 2: c => col 5-6, row 1
-  // 3: d => col 1-3, row 2
-  // 4: e => col 4-6, row 2
+
   switch (pos) {
     case 0:
       return { gridColumn: "1 / span 2", gridRow: `${rowBase} / span 1` };

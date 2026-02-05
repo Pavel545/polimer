@@ -1,4 +1,6 @@
+
 import ProductHero from "@/components/section/productPage/ProductHero/ProductHero";
+
 
 export default function ProductCard() {
     
