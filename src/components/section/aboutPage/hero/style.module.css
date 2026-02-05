@@ -4,18 +4,34 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  height: 90vh;
+  /* вместо жесткого height: 90vh */
+  min-height: 90vh;
+  min-height: 90svh;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  position: relative;
+}
+
+/* лёгкое затемнение, чтобы текст читался (опционально, но обычно нужно) */
+.aboutHero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
 }
 
 .aboutHeroContent {
+  position: relative; /* поверх overlay */
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-    gap: 64px;
-  margin-bottom: 120px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px;
+
+  /* “резиновый” низ вместо фикс margin-bottom */
+  padding: 70px 0 120px;
 }
 
 .aboutHeroContentText {
@@ -24,4 +40,47 @@
   line-height: 120%;
   color: var(--belyy);
   max-width: 475px;
+}
+
+/* ====== 1200 ====== */
+@media (max-width: 1200px) {
+  .aboutHeroContent {
+    gap: 32px;
+    padding: 56px 0 90px;
+  }
+
+  .aboutHeroContentText {
+    font-size: 16px;
+    max-width: 520px;
+  }
+}
+
+/* ====== 900 ====== */
+@media (max-width: 900px) {
+  .aboutHeroContent {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 48px 0 70px;
+  }
+
+  .aboutHeroContentText {
+    max-width: 100%;
+  }
+}
+
+/* ====== 470 ====== */
+@media (max-width: 470px) {
+  .aboutHero {
+    min-height: 80vh;
+    min-height: 80svh;
+  }
+
+  .aboutHeroContent {
+    padding: 36px 0 54px;
+  }
+
+  .aboutHeroContentText {
+    font-size: 14px;
+    line-height: 140%;
+  }
 }

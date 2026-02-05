@@ -5,17 +5,18 @@
 .aboutDecorative {
   width: 100%;
   height: 50vh;
+  height: 50svh;
   background: url(../../../../public/img/about/fon.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+/* 2 колонки */
 .aboutContent {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-
   padding: 100px 0;
 }
 
@@ -33,14 +34,14 @@
   color: var(--tekst-svetlo-seryy);
 }
 
+/* ===== Нижняя часть (карточки + большая карточка) ===== */
 .aboutBotLeft {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 310px);
-
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
+/* вместо фиксированных рядов — резиново */
 .aboutBotLeftItem {
   padding: 20px;
   border-radius: var(--br);
@@ -51,7 +52,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: start;
+  align-items: flex-start;
+
+  min-height: 280px; /* держим дизайн, но можно расти */
 }
 
 .aboutBotLeftItem:hover {
@@ -61,9 +64,7 @@
 .aboutBotLeftItem img {
   width: 47px;
   height: 47px;
-
-  margin-bottom: 40px;
-
+  margin-bottom: 34px;
   transition: 300ms all ease;
 }
 
@@ -101,8 +102,10 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 10px;
+
+  min-height: 280px;
 }
 
 .aboutBotRight h3 {
@@ -118,12 +121,14 @@
   line-height: 130%;
   color: var(--belyy);
 }
-/* === Адаптив под 1400 / 740 / 470 === */
+
+/* ================== АДАПТИВ ================== */
 
 /* 1400px */
 @media (max-width: 1400px) {
   .aboutDecorative {
     height: 45vh;
+    height: 45svh;
   }
 
   .aboutContent {
@@ -131,12 +136,31 @@
     padding: 80px 0;
   }
 
-  .aboutText h3 {
-    font-size: 22px;
-  }
-
   .aboutText p {
     font-size: 15px;
+  }
+
+  .aboutBotLeftItem {
+    min-height: 260px;
+  }
+
+  .aboutBotRight {
+    min-height: 260px;
+  }
+}
+
+/* 1024px (удобно добавить промежуточно) */
+@media (max-width: 1024px) {
+  .aboutContent {
+    padding: 64px 0;
+  }
+
+  .aboutBotLeftItem img {
+    margin-bottom: 26px;
+  }
+
+  .aboutBotRight {
+    padding: 32px 24px;
   }
 }
 
@@ -144,33 +168,37 @@
 @media (max-width: 740px) {
   .aboutDecorative {
     height: 34vh;
+    height: 34svh;
   }
 
-  /* общий грид — в колонку (актуально для блока с h2 и текстом) */
+  /* Первый блок (h2 + текст) — в колонку */
   .aboutContent {
     grid-template-columns: 1fr;
     gap: 18px;
     padding: 56px 0;
   }
 
-  /* сбрасываем размещение текста по колонкам */
-  .aboutText {
-    grid-column: auto;
+  .aboutText p {
+    font-size: 14px;
+    line-height: 140%;
   }
 
-  /* блок с цифрами (второй aboutContent): 2 в ряд */
+  /* Второй блок (details + right) — остаётся 2 колонки */
   .aboutContent:last-of-type {
     grid-template-columns: 1fr 1fr;
   }
 
-  .aboutText h3 {
-    font-size: 20px;
-    line-height: 120%;
+  /* cards: 2 в ряд (как было), но ниже */
+  .aboutBotLeft {
+    grid-template-columns: 1fr;
   }
 
-  .aboutText p {
-    font-size: 14px;
-    line-height: 140%;
+  .aboutBotLeftItem {
+    min-height: 220px;
+  }
+
+  .aboutBotRight {
+    min-height: 220px;
   }
 }
 
@@ -178,6 +206,7 @@
 @media (max-width: 470px) {
   .aboutDecorative {
     height: 28vh;
+    height: 28svh;
   }
 
   .aboutContent {
@@ -185,7 +214,7 @@
     padding: 40px 0;
   }
 
-  /* цифры — по одной в ряд */
+  /* второй блок теперь в колонку */
   .aboutContent:last-of-type {
     grid-template-columns: 1fr;
   }
@@ -194,11 +223,11 @@
     gap: 14px;
   }
 
-  .aboutText h3 {
-    font-size: 18px;
-  }
-
   .aboutText p {
     font-size: 13px;
+  }
+
+  .aboutBotRight {
+    padding: 26px 18px;
   }
 }

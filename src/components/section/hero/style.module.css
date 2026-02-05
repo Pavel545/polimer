@@ -4,47 +4,72 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  height: 90vh;
-
-
+  /* вместо жесткого 90vh — адекватно на мобилках */
+  min-height: 90vh;
+  min-height: 90svh; /* лучше для мобильных браузеров */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  position: relative;
 }
 
+/* можно добавить легкое затемнение, чтобы текст читался лучше */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
 
 .heroContent {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 15px;
-    max-width: 600px;
+  position: relative; /* поверх overlay */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+
+  max-width: 600px;
+  padding: 56px 0 24px;
 }
 
-.heroContent :global(.butt){
-    margin-top: 70px;
+.heroBtn {
+  margin-top: 48px; /* вместо 70px, чтобы резиново */
 }
 
+/* ===== Advantages ===== */
 .heroAdvantages {
   background: var(--temnyy-1);
   padding: 30px 0;
+  position: relative;
+}
+
+.advGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: stretch;
 }
 
 .heroAdvantagesItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   position: relative;
 
-  gap: 20px;
+  padding: 10px 0;
 }
 
+/* аккуратные разделители на десктопе */
 .heroAdvantagesItem:not(:last-child)::after {
   content: "";
-
   position: absolute;
+  right: -9px;
+  top: 10px;
+  bottom: 10px;
   width: 1px;
-  height: 100%;
   background: rgba(255, 255, 255, 0.2);
-  top: 0;
-  right: -30%;
 }
 
 .heroAdvantagesItem p {
@@ -52,5 +77,68 @@
   font-size: 16px;
   text-transform: uppercase;
   color: var(--belyy);
-  max-width: 250;
+
+  /* фикс: у тебя было max-width: 250 без px */
+  max-width: 250px;
+  line-height: 1.25;
+}
+
+/* ================== RESPONSIVE ================== */
+
+/* ноут/планшет */
+@media (max-width: 1024px) {
+  .heroContent {
+    max-width: 560px;
+    padding: 44px 0 18px;
+  }
+
+  .heroBtn {
+    margin-top: 28px;
+  }
+
+  .advGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* на 2 колонки лучше убирать вертикальные разделители */
+  .heroAdvantagesItem::after {
+    display: none;
+  }
+}
+
+/* мобилка */
+@media (max-width: 640px) {
+  .hero {
+    min-height: 154vh;
+    min-height: 154svh;
+  }
+
+  .heroContent {
+    max-width: 100%;
+    padding: 36px 0 14px;
+    gap: 12px;
+  }
+
+  .heroBtn {
+    margin-top: 18px;
+    width: 100%;
+  }
+
+  .advGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .heroAdvantages {
+    padding: 22px 0;
+  }
+
+  .heroAdvantagesItem {
+    padding: 12px 0;
+  }
+
+  .heroAdvantagesItem p {
+    font-size: 14px;
+    max-width: 100%;
+  }
 }

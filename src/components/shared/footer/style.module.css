@@ -1,41 +1,126 @@
-.footer{
-    background: var(--temnyy-2);
-    padding: 50px 0;
-} 
-
-.footerContant{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+.footer {
+  background: var(--temnyy-2);
+  padding: 50px 0;
 }
 
-.footerLogo{
-    height: 60px;
-    justify-content: start;
-    transition: 400ms all ease;
+/* 3 колонки -> резиновая сетка */
+.footerContent {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr;
+  gap: 24px;
+  align-items: start;
 }
+
+/* логотип */
+.footerLogo {
+  height: 60px;
+  justify-content: flex-start;
+  transition: 400ms all ease;
+}
+
 .footerLogo:hover {
   transform: scale(1.02);
 }
 
-.footerLink{
-    display: block;
-    margin-bottom: 20px;
+.col {
+  min-width: 0;
 }
 
-
-.footerSoc{
-    opacity: 0.5;
-    transition: 300ms;
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
+.footerLink {
+  display: block;
+  line-height: 1.45;
+  opacity: 0.9;
+}
 
+.footerLink:hover {
+  opacity: 1;
+}
+
+/* соцсети */
+.socRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.footerSoc {
+  opacity: 0.55;
+  transition: 300ms;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .footerSoc:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
-
 .footerSoc:active {
-    transform: scale(0.99);
-}   
+  transform: scale(0.99);
+}
+
+/* нижняя строка (опционально) */
+.bottom {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+}
+
+.policy {
+  opacity: 0.8;
+}
+.policy:hover {
+  opacity: 1;
+}
+
+/* ================== RESPONSIVE ================== */
+
+/* планшет: 2 колонки */
+@media (max-width: 1024px) {
+  .footerContent {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footerLogo {
+    grid-column: 1 / -1; /* логотип на всю ширину */
+    justify-content: center;
+  }
+}
+
+/* мобилка: 1 колонка */
+@media (max-width: 640px) {
+  .footer {
+    padding: 36px 0;
+  }
+
+  .footerContent {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .footerLogo {
+    justify-content: center;
+  }
+
+  .socRow {
+    justify-content: center;
+  }
+
+  .bottom {
+    justify-content: center;
+    text-align: center;
+  }
+}

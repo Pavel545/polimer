@@ -1,12 +1,100 @@
-
 .psLine {
   backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.3);
-  padding: 5px;
+  padding: 8px 0;
+  overflow: hidden;
+
+  /* локальные переменные */
+  --speed: 22s;
 }
 
-.psLineText {
+/* если blur не поддерживается — просто фон */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .psLine {
+    background: rgba(255, 255, 255, 0.18);
+  }
+}
+
+.psLineInner {
+  width: 100%;
+}
+
+.marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.track {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+
+  will-change: transform;
+  animation: psMarquee var(--speed) linear infinite;
+}
+
+/* пауза при наведении мышью */
+.psLine:hover .track {
+  animation-play-state: paused;
+}
+
+.item {
   font-weight: 500;
   font-size: var(--t14);
   color: var(--belyy);
+}
+
+.sep {
+  opacity: 0.8;
+  color: var(--belyy);
+}
+
+@keyframes psMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* уважение к настройке "уменьшить движения" */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .marquee {
+    overflow: visible;
+    white-space: normal;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10px;
+  }
+}
+
+/* адаптив: чуть быстрее на больших экранах, чуть медленнее на мобилке */
+@media (max-width: 900px) {
+  .psLine {
+    --speed: 26s;
+    padding: 7px 0;
+  }
+
+  .item {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 470px) {
+  .psLine {
+    --speed: 30s;
+    padding: 6px 0;
+  }
+
+  .item {
+    font-size: 12px;
+  }
 }

@@ -6,50 +6,17 @@
   align-items: flex-end;
 }
 
-.reviewsArrowBox {
-  display: flex;
-  gap: 5px;
-}
-
-.reviewsArrowItem {
-  border-radius: 5px;
-  width: 45px;
-  height: 45px;
-  background: var(--temnyy-1);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 300ms all ease;
-}
-
-.reviewsArrowItem path {
-  fill: var(--belyy);
-}
-
-.reviewsArrowItem:hover {
-  background: var(--seryy-3);
-}
-
-.reviewsArrowItem:active {
-  background: var(--belyy);
-}
-
-.reviewsArrowItem:active path {
-  fill: var(--temnyy-1);
-}
-
 /* ===== SLIDER ===== */
-:root {
-     --peek: 220px; 
-}
 .reviewsSlider {
   margin-top: 30px;
 
-  /* ВАЖНО: выносим блок слайдера на всю ширину экрана,
-     даже если он внутри .container */
+  /* выносим на всю ширину */
   width: 100vw;
   margin-left: calc(50% - 50vw);
+
+  /* локальные переменные, НЕ :root */
+  --peek: 220px;
+  --containerW: var(--container-w, 1200px); /* fallback если нет переменной */
 }
 
 .viewport {
@@ -58,10 +25,15 @@
 
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  scroll-padding-left: calc((100vw - var(--containerW)) / 2 + var(--peek));
+  scroll-padding-right: calc((100vw - var(--containerW)) / 2 + var(--peek));
 
-  /* Центруем активный слайд по контейнеру + делаем “зону” для подглядывания */
-  padding-left: calc((100vw - var(--container-w)) / 2 + var(--peek));
-  padding-right: calc((100vw - var(--container-w)) / 2 + var(--peek));
+  /* “зона подглядывания” */
+  padding-left: calc((100vw - var(--containerW)) / 2 + var(--peek));
+  padding-right: calc((100vw - var(--containerW)) / 2 + var(--peek));
+
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 
   scrollbar-width: none;
 }
@@ -76,7 +48,7 @@
 }
 
 .slide {
-  flex: 0 0 min(var(--container-w), calc(100vw - 40px));
+  flex: 0 0 min(var(--containerW), calc(100vw - 40px));
   height: 420px;
   border-radius: 6px;
 
@@ -85,6 +57,7 @@
   position: relative;
 
   scroll-snap-align: center;
+  scroll-snap-stop: always;
 
   cursor: pointer;
   transition: transform 350ms ease, filter 350ms ease, opacity 350ms ease;
@@ -97,11 +70,12 @@
   border-radius: 6px;
   background: linear-gradient(
     90deg,
-    rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.2) 55%,
-    rgba(0,0,0,0) 100%
+    rgba(0, 0, 0, 0.58) 0%,
+    rgba(0, 0, 0, 0.22) 55%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
+
 .overlay {
   position: absolute;
   left: 30px;
@@ -140,21 +114,95 @@
 .slideInactive {
   opacity: 0.35;
   filter: saturate(0.9);
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
-/* Адаптив — уменьшаем “подглядывание” на узких */
+/* ====== 1200 ====== */
 @media (max-width: 1200px) {
-  :root { --peek: 120px; }
-  .slide { height: 380px; }
+  .reviews {
+    padding: 80px 0;
+  }
+
+  .reviewsSlider {
+    --peek: 120px;
+  }
+
+  .slide {
+    height: 380px;
+  }
 }
 
+/* ====== 900 ====== */
 @media (max-width: 900px) {
-  :root { --peek: 40px; }
-  .slide { height: 340px; }
+  .reviewsSlider {
+    --peek: 40px;
+  }
+
+  .slide {
+    height: 340px;
+  }
+
   .overlay {
     left: 18px;
     bottom: 18px;
     max-width: 85%;
+  }
+}
+
+/* ====== 740 ====== */
+@media (max-width: 740px) {
+  .reviews {
+    padding: 64px 0;
+  }
+
+  .reviewsHeader {
+    gap: 14px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reviewsSlider {
+    --peek: 14px;
+  }
+
+  .slide {
+    flex-basis: calc(100vw - 28px);
+    height: 300px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .text {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+/* ====== 470 ====== */
+@media (max-width: 470px) {
+  .reviewsSlider {
+    --peek: 10px;
+  }
+
+  .slide {
+    flex-basis: calc(100vw - 20px);
+    height: 270px;
+  }
+
+  .overlay {
+    left: 14px;
+    bottom: 14px;
+    max-width: 92%;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+
+  .region {
+    font-size: 13px;
   }
 }

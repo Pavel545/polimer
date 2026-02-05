@@ -58,7 +58,7 @@ export default function CardProduct({
             src={product.img}
             alt={product.title}
             fill
-            sizes="(max-width: 740px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 470px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={idx < 2}
           />
           <div className={s.overlay} />

@@ -5,6 +5,7 @@
   cursor: pointer;
   z-index: 1;
   height: 100%;
+  transform: translateZ(0); /* помогает на мобилках с blend/overlay */
 }
 
 /* Link оборачивает всё */
@@ -26,44 +27,122 @@
   object-fit: cover;
 }
 
-/* затемнение как у тебя */
+/* затемнение */
 .overlay {
   position: absolute;
   inset: 0;
   background: rgba(10, 66, 114, 0.5);
   mix-blend-mode: multiply;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, background 0.3s ease;
   z-index: 1;
+}
+
+.card:hover .overlay {
+  opacity: 0.85;
 }
 
 /* инфо поверх картинки */
 .info {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 20px;
   position: relative;
   z-index: 2;
+  gap: 12px;
 }
 
-.title {
-  font-weight: 400;
-  font-size: clamp(18px, 4vw, 32px);
-  line-height: 110%;
-  text-transform: uppercase;
-  color: var(--belyy);
-}
-
+/* бейдж */
 .type {
   border-radius: var(--br);
-  padding: 10px;
-  height: 37px;
+  padding: 10px 12px;
+  min-height: 37px;
+  display: inline-flex;
+  align-items: center;
+
   font-weight: 500;
   font-size: 14px;
   line-height: 120%;
   color: var(--temnyy-2);
   background: var(--belyy);
+
+  max-width: 100%;
+}
+
+/* заголовок */
+.title {
+  font-weight: 400;
+  font-size: clamp(18px, 2.3vw, 32px);
+  line-height: 110%;
+  text-transform: uppercase;
+  color: var(--belyy);
+
+  /* чтобы не распирало карточку визуально */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ====== 1024 ====== */
+@media (max-width: 1024px) {
+  .info {
+    padding: 16px;
+  }
+
+  .type {
+    font-size: 13px;
+    padding: 8px 10px;
+    min-height: 34px;
+  }
+
+  .title {
+    font-size: clamp(16px, 3.2vw, 26px);
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* ====== 740 ====== */
+@media (max-width: 740px) {
+  /* на мобилке hover не всегда есть — делаем overlay чуть спокойнее */
+  .overlay {
+    background: rgba(10, 66, 114, 0.42);
+  }
+
+  .info {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .type {
+    font-size: 12px;
+    padding: 7px 10px;
+    min-height: 32px;
+  }
+
+  .title {
+    font-size: clamp(16px, 4.6vw, 22px);
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* ====== 470 ====== */
+@media (max-width: 470px) {
+  .info {
+    padding: 12px;
+  }
+
+  .type {
+    font-size: 12px;
+    padding: 6px 9px;
+    min-height: 30px;
+  }
+
+  .title {
+    font-size: 20px; /* можно оставить clamp, но так часто выглядит “дороже” */
+    -webkit-line-clamp: 2;
+  }
 }

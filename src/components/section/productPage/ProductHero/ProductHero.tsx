@@ -1,57 +1,197 @@
 "use client";
 
 import PsLine from "@/components/ui/psLine/psLine";
-import s from "./style.module.css";
 import BreadCrumbs from "@/components/ui/BreadCrumbs/BreadCrumbs";
-import { useRouter } from "next/navigation";
+import s from "./style.module.css";
+import { JSX, useMemo, useState } from "react";
 import Image from "next/image";
-const product = {
-  titleMini: "Люк «Л»",
-  title: "полимерный Люк «Л» / легкий",
-  text: "Полимерпесчаный канализационный люк или как его ее называют в быту пластиковый люк — это изделие предназначенное для защиты колодцев системы канализации, водоснабжения или других инженерных сетей. Широко распространены полимернопесчаные люки и в быту, т. к. часто устанавливаются на приусадебных участках, газонах, переходных зонах и проезжих частях. Полимер-песчаные канализационные люки зачастую можно увидеть на септиках, выгребных ямах в частном секторе.",
-  gallary: [
-    "/img/products/luk-l/1.jpg",
-    "/img/products/luk-l/2.jpg",
-    "/img/products/luk-l/3.jpg",
-  ],
-  price: "1 470",
+import { useRouter } from "next/navigation";
+
+type ProductColor = {
+  id: string;
+  name: string;
+  hex: string;
 };
-export default function ProductHero() {
+
+type ProductImage = {
+  id: string;
+  url: string;
+  alt?: string;
+  colorId: string;
+  sort?: number;
+};
+
+type ProductVariant = {
+  id: string;
+  title: string;
+  priceRub: number;
+  colors: ProductColor[];
+  images: ProductImage[];
+};
+
+type ProductEntity = {
+  id: string;
+  titleShort: string;
+  titleFull: string;
+  description: string;
+  instructionUrl?: string;
+  variants: ProductVariant[];
+};
+
+function formatRub(v: number): string {
+  return new Intl.NumberFormat("ru-RU").format(v);
+}
+
+// DEMO — позже будет из БД
+const demoProduct: ProductEntity = {
+  id: "1",
+  titleShort: "Люк «Л»",
+  titleFull: "ПОЛИМЕРНЫЙ ЛЮК «Л» / ЛЕГКИЙ",
+  description:
+    "Полимерпесчаный канализационный люк или как его ее называют в быту пластиковый люк — это изделие предназначенное для защиты колодцев системы канализации, водоснабжения или других инженерных сетей. Широко распространены полимернопесчаные люки и в быту, т. к. часто устанавливаются на приусадебных участках, газонах, переходных зонах и проезжих частях. Полимер-песчаные канализационные люки зачастую можно увидеть на септиках, выгребных ямах в частном секторе.",
+  instructionUrl: "#",
+  variants: [
+    {
+      id: "v1",
+      title: "Легкий",
+      priceRub: 1470,
+      colors: [
+        { id: "black", name: "Черный", hex: "#0B0B0B" },
+        { id: "green", name: "Зеленый", hex: "#15A146" },
+        { id: "brown", name: "Коричневый", hex: "#7A4B1F" },
+        { id: "red", name: "Красный", hex: "#C61B1B" },
+        { id: "gray", name: "Серый", hex: "#BDBDBD" },
+      ],
+      images: [
+        // black
+        {
+          id: "b1",
+          url: "/img/products/luk-l/1.jpg",
+          colorId: "black",
+          sort: 1,
+        },
+        {
+          id: "b2",
+          url: "/img/products/luk-l/2.jpg",
+          colorId: "black",
+          sort: 2,
+        },
+        {
+          id: "b3",
+          url: "/img/products/luk-l/3.jpg",
+          colorId: "black",
+          sort: 3,
+        },
+        // red (пример — подставь реальные)
+        { id: "r1", url: "/img/products/luk-l/1.jpg", colorId: "red", sort: 1 },
+        { id: "r2", url: "/img/products/luk-l/2.jpg", colorId: "red", sort: 2 },
+        // gray (пример)
+        {
+          id: "g1",
+          url: "/img/products/luk-l/3.jpg",
+          colorId: "gray",
+          sort: 1,
+        },
+      ],
+    },
+  ],
+};
+
+type Props = {
+  product?: ProductEntity;
+};
+
+export default function ProductHero({
+  product = demoProduct,
+}: Props): JSX.Element {
   const router = useRouter();
-  const handleGoBack = () => {
-    // Возврат на предыдущую страницу
-    router.back();
+
+  // пока 1 вариант — берём первый (позже можно добавить выбор variant)
+  const variant = product.variants[0];
+
+  const imagesSorted = useMemo(() => {
+    return [...variant.images].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
+  }, [variant.images]);
+
+  const [activeColorId, setActiveColorId] = useState<string>(
+    variant.colors[0]?.id ?? "",
+  );
+
+  const [activeImageId, setActiveImageId] = useState<string>(() => {
+    const first = imagesSorted.find(
+      (i) => i.colorId === (variant.colors[0]?.id ?? ""),
+    );
+    return first?.id ?? imagesSorted[0]?.id ?? "";
+  });
+
+  const activeImage = useMemo(() => {
+    return imagesSorted.find((i) => i.id === activeImageId) ?? imagesSorted[0];
+  }, [imagesSorted, activeImageId]);
+
+  const handleColorPick = (colorId: string) => {
+    setActiveColorId(colorId);
+
+    // НЕ фильтруем список миниатюр — просто “перепрыгиваем”
+    // на первое изображение нужного цвета
+    const firstOfColor = imagesSorted.find((img) => img.colorId === colorId);
+    if (firstOfColor) setActiveImageId(firstOfColor.id);
   };
+
+  const handleThumbPick = (img: ProductImage) => {
+    setActiveImageId(img.id);
+
+    // синхронизируем выбранный цвет с выбранной картинкой
+    if (img.colorId !== activeColorId) {
+      setActiveColorId(img.colorId);
+    }
+  };
+
   return (
     <section className={s.pHero}>
       <PsLine />
-      <BreadCrumbs items={[{ title: "Люк «Л»" }]} />
+      <BreadCrumbs items={[{ title: product.titleShort }]} />
+
       <div className="container">
         <div className={s.pHeroContent}>
-          <div className={s.gallary}>
-            <div className={s.gallaryPrev}>
-              <Image
-                src={product.gallary[0]}
-                alt="Картинка"
-                width={670}
-                height={550}
-              />
+          {/* GALLERY */}
+          <div className={s.gallery}>
+            <div className={s.galleryPrev}>
+              {activeImage && (
+                <Image
+                  src={activeImage.url}
+                  alt={activeImage.alt ?? product.titleFull}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              )}
             </div>
 
-            <div className={s.gallaryList}>
-              {product.gallary.map((e, i) => (
-                <div
-                  key={i}
-                  className={s.gallaryListItem}
-                  style={{ background: `url(${e})` }}
-                ></div>
+            <div className={s.galleryList} role="list">
+              {imagesSorted.map((img) => (
+                <button
+                  key={img.id}
+                  type="button"
+                  className={`${s.galleryListItem} ${
+                    img.id === activeImageId ? s.galleryListItemActive : ""
+                  }`}
+                  style={{ backgroundImage: `url(${img.url})` }}
+                  onClick={() => handleThumbPick(img)}
+                  aria-label="Выбрать фото"
+                  data-active-color={img.colorId === activeColorId}
+                />
               ))}
             </div>
           </div>
 
+          {/* INFO */}
           <div className={s.info}>
-            <button onClick={handleGoBack} className={s.infoBack}>
-              <span className={s.infoBackButt}>
+            <button
+              onClick={() => router.back()}
+              className={s.infoBack}
+              type="button"
+            >
+              <span className={s.infoBackButt} aria-hidden="true">
                 <svg
                   width="8"
                   height="14"
@@ -64,24 +204,57 @@ export default function ProductHero() {
                     fill="white"
                   />
                 </svg>
-              </span>{" "}
-              <span className="link">Вернуться назад</span>
+              </span>
+              <span className={s.infoBackText}>Вернуться назад</span>
             </button>
 
-            <h1 className={s.infoTitle}>{product.title}</h1>
+            <h1 className={s.infoTitle}>{product.titleFull}</h1>
 
-            <p className={s.infoText}>{product.text}</p>
+            <p className={s.infoText}>{product.description}</p>
 
-            <a className="link" href="#">
-              Скачать инструкцию
-            </a>
+            {product.instructionUrl && (
+              <a className={"link " + s.infoLink} href={product.instructionUrl}>
+                Скачать инструкцию
+              </a>
+            )}
+
+            {/* COLORS */}
+            <div className={s.colors}>
+              <span className={s.colorsLabel}>Цвета:</span>
+
+              <div
+                className={s.colorsRow}
+                role="radiogroup"
+                aria-label="Выбор цвета"
+              >
+                {variant.colors.map((c) => {
+                  const isActive = c.id === activeColorId;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      className={`${s.colorDot} ${isActive ? s.colorDotActive : ""}`}
+                      style={{ backgroundColor: c.hex }}
+                      onClick={() => handleColorPick(c.id)}
+                      aria-label={c.name}
+                      aria-checked={isActive}
+                      role="radio"
+                    />
+                  );
+                })}
+              </div>
+            </div>
 
             <div className={"flex-col " + s.infoPrice}>
               <span className={s.infoPriceText}>Стоимость:</span>
-              <span className={s.infoPriceCount}>{product.price + "  ₽"}</span>
+              <span className={s.infoPriceCount}>
+                {formatRub(variant.priceRub)} ₽
+              </span>
             </div>
 
-            <button className="butt">Оформить заказ</button>
+            <button className={"butt " + s.infoCta} type="button">
+              Оформить заказ
+            </button>
           </div>
         </div>
       </div>

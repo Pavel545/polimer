@@ -1,18 +1,54 @@
+/* ================== HEADER ================== */
 .header {
   background: var(--temnyy-1);
   height: 80px;
   padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
+
 .headerContent {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
+
+/* ================== LAYOUT ================== */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ================== LOGO ================== */
 .headerLogo {
   height: 100%;
-  transition: 400ms all ease;
-  margin-right: 65px;
+  flex-shrink: 0;
+  transition: 0.4s ease;
 }
 
 .headerLogo:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
+}
+
+/* ================== DESKTOP NAV ================== */
+.navDesktop {
+  display: block;
+}
+
+.headerLinkBox {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .headerLink {
@@ -21,11 +57,11 @@
   font-size: var(--t14);
   text-transform: uppercase;
   color: var(--belyy);
-
   padding: 20px;
   cursor: pointer;
   position: relative;
-  transition: 300ms all ease;
+  transition: 0.3s ease;
+  white-space: nowrap;
 }
 
 .headerLink::after {
@@ -38,7 +74,7 @@
   background: var(--belyy);
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 300ms ease;
+  transition: transform 0.3s ease;
 }
 
 .headerLink:hover::after {
@@ -46,40 +82,35 @@
   transform-origin: left;
 }
 
-.headerLinkBox {
-  display: flex;
-}
-
 .headerLink:active {
   color: var(--siniy-1);
 }
 
-.headerButBox {
-  gap: 5px;
+/* ================== DESKTOP ACTIONS ================== */
+.actionsDesktop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .headerTel {
   padding: 20px;
-
   font-size: 14px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .headerTel img {
-  width: 12px;
-  height: 12px;
-  margin-right: 20px;
+  margin-right: 12px;
 }
 
 .headerButt {
   background: var(--siniy-1);
-
   font-weight: 700;
   font-size: var(--t14);
   text-transform: uppercase;
-
   color: var(--belyy);
-  transition: 300ms all ease;
+  transition: 0.3s ease;
 }
 
 .headerButt:hover {
@@ -95,10 +126,154 @@
 .headerButtChat {
   background: rgba(255, 255, 255, 0.2);
   border-radius: var(--br);
-
   width: 52px;
   height: 52px;
 }
 
-.headerButtChat img {
+/* ================== BURGER ================== */
+.burger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  z-index: 120;
+}
+
+.burgerLine {
+  position: absolute;
+  left: 9px;
+  width: 24px;
+  height: 2px;
+  background: var(--belyy);
+  transition: 0.35s ease;
+}
+
+.burgerLine:nth-child(1) {
+  top: 13px;
+}
+.burgerLine:nth-child(2) {
+  top: 20px;
+}
+.burgerLine:nth-child(3) {
+  top: 27px;
+}
+
+/* burger open */
+.lineTopOpen {
+  transform: translateY(7px) rotate(45deg);
+}
+.lineMidOpen {
+  opacity: 0;
+}
+.lineBotOpen {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ================== OVERLAY ================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 90;
+}
+
+.overlayOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ================== MOBILE PANEL ================== */
+.mobilePanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(86vw, 360px);
+  background: var(--temnyy-1);
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  z-index: 110;
+  padding: 90px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mobilePanelOpen {
+  transform: translateX(0);
+}
+
+.navMobile {
+  margin-bottom: 32px;
+}
+
+.mobileLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mobileLink {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--belyy);
+}
+
+/* ================== MOBILE ACTIONS ================== */
+.mobileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobileTel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--belyy);
+}
+
+.mobileBtn {
+  width: 100%;
+}
+
+.mobileChat {
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--br);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 1024px) {
+  .navDesktop,
+  .actionsDesktop {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 64px;
+  }
+
+  .headerContent {
+    height: 44px;
+  }
 }

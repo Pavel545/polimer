@@ -1,49 +1,60 @@
-.pHero {
-}
+.pHero {}
 
 .pHeroContent {
   margin: 30px 0 120px 0;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
-
-  margin-bottom: 120px;
 }
 
-.gallary {
+/* ===== Gallery ===== */
+.gallery {}
+
+.galleryPrev {
+  width: 100%;
+  border-radius: var(--br);
+  overflow: hidden;
+  position: relative;
+
+  /* резиново вместо min-height:550 */
+  aspect-ratio: 670 / 550;
+  background: var(--temnyy-2);
 }
 
-.gallaryPrev {
-    width: 100%;
-    min-height:550px ;
-   overflow: hidden;
-    border-radius: var(--br);
-
+.galleryPrev :global(img) {
+  object-fit: cover;
 }
 
-.gallaryPrev img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
+.galleryList {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
 
-.gallaryList{
-    display: flex;
-    gap: 10px;
+.galleryListItem {
+  border-radius: var(--br);
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.6;
+  transition: 0.25s ease;
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-.gallaryListItem{
-    border-radius: var(--br);
-    width: 100px;
-    height: 100px;
-
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+.galleryListItem:hover {
+  opacity: 0.9;
 }
 
+.galleryListItemActive {
+  opacity: 1;
+  border: 1px solid rgba(255,255,255,0.55);
+}
+
+/* ===== Info ===== */
 .info {
   display: flex;
   flex-direction: column;
@@ -53,9 +64,7 @@
 .infoBack {
   display: flex;
   gap: 15px;
-
   align-items: center;
-
   margin-bottom: 30px;
 }
 
@@ -66,7 +75,6 @@
 
   border-radius: var(--br);
   background: var(--temnyy-2);
-
   width: 45px;
   height: 45px;
 
@@ -77,13 +85,36 @@
   background: var(--seryy-3);
 }
 
+/* лучше не тянуть глобальный .link внутрь кнопки */
+.infoBackText {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--belyy);
+  position: relative;
+}
+.infoBackText::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--belyy);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms ease;
+}
+.infoBack:hover .infoBackText::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 .infoTitle {
   font-weight: 700;
   font-size: 30px;
   line-height: 110%;
   text-transform: uppercase;
   color: var(--belyy);
-
   margin-bottom: 10px;
 }
 
@@ -92,15 +123,51 @@
   font-size: 16px;
   line-height: 130%;
   color: var(--seryy-1);
-
   margin-bottom: 25px;
+}
+
+.infoLink {
+  width: fit-content;
+}
+
+/* Colors */
+.colors {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.colorsLabel {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--seryy-1);
+}
+
+.colorsRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.colorDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.18);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15) inset;
+  transition: 0.2s ease;
+}
+
+.colorDotActive {
+  border-color: rgba(255,255,255,0.9);
+  transform: scale(1.06);
 }
 
 .infoPrice {
   gap: 10px;
-
-  margin-top: 40px;
-  margin-bottom: 80px;
+  margin-top: 28px;
+  margin-bottom: 36px;
 }
 
 .infoPriceText {
@@ -116,4 +183,56 @@
   line-height: 110%;
   text-transform: uppercase;
   color: var(--belyy);
+}
+
+.infoCta {
+  width: 100%;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 1024px) {
+  .pHeroContent {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-bottom: 80px;
+  }
+
+  .infoTitle {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 740px) {
+  .pHeroContent {
+    margin: 20px 0 64px 0;
+  }
+
+  .galleryListItem {
+    width: 84px;
+    height: 84px;
+  }
+
+  .infoBack {
+    margin-bottom: 18px;
+  }
+
+  .infoTitle {
+    font-size: 22px;
+  }
+
+  .infoText {
+    font-size: 14px;
+    line-height: 140%;
+  }
+
+  .infoPriceCount {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 470px) {
+  .galleryListItem {
+    width: 72px;
+    height: 72px;
+  }
 }

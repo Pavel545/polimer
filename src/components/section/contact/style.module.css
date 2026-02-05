@@ -1,40 +1,54 @@
 .contact {
   background: url(../../../../public/img/contact/fon.jpg);
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
   padding: 90px 0;
+  position: relative;
+}
+
+/* лёгкий затемняющий слой для читаемости (опционально, но обычно лучше) */
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  pointer-events: none;
 }
 
 .contactsFormBox {
+  width: 100%;
   max-width: 450px;
+
   background: var(--fon-chernyy-3);
   border-radius: 20px;
-
   z-index: 2;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-
   text-align: center;
+
+  /* важное: чтобы всё “дышало” */
+  padding: 28px 22px;
 }
+
 .contactsFormBox h2 {
   font-weight: 700;
   font-size: 30px;
   line-height: 110%;
   text-transform: uppercase;
-  text-align: center;
   color: var(--belyy);
 }
+
 .contactsFormText {
   font-weight: 500;
   font-size: clamp(12px, 2vw, 14px);
   line-height: 120%;
   color: var(--belyy);
-  padding: 10px 0 30px 0;
+
+  padding: 10px 0 22px 0;
 }
 
 .contactsForm {
@@ -44,57 +58,117 @@
   width: 100%;
 }
 
-.contactsFormInput {
+.contactsFormInput,
+.contactsFormTextarea {
   padding: 12px 20px;
   border-radius: 5px;
-  backdrop-filter: blur(17.200000762939453px);
+
   background: rgba(255, 255, 255, 0.2);
   border: none;
+
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
-  height: 50px;
+
   width: 100%;
   color: var(--tekst-belyy);
+
+  /* более приятное поведение */
+  outline: none;
 }
 
+/* blur — только если поддерживается */
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .contactsFormInput,
+  .contactsFormTextarea {
+    backdrop-filter: blur(17.2px);
+    -webkit-backdrop-filter: blur(17.2px);
+  }
+}
+
+.contactsFormInput {
+  height: 50px;
+}
+
+.contactsFormTextarea {
+  height: 150px;
+  resize: none;
+  margin-bottom: 18px;
+}
+
+/* плейсхолдеры читаемее */
+.contactsFormInput::placeholder,
+.contactsFormTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* фокус */
 .contactsFormInput:focus,
 .contactsFormTextarea:focus {
   outline: 1px solid var(--tekst-belyy);
 }
 
-.contactsFormInput::grammar-error,
-.contactsFormTextarea::grammar-error {
-  outline: 1px solid var(--tekst-red);
+/* ВНИМАНИЕ: ::grammar-error — не кроссбраузерно.
+   Если хочешь подсветку ошибок, лучше делать через :invalid */
+.contactsFormInput:invalid,
+.contactsFormTextarea:invalid {
+  /* без агрессии, чтобы не бесило пользователя */
+  /* box-shadow: 0 0 0 1px rgba(255, 90, 90, 0.55); */
 }
 
-.contactsFormTextarea {
-  padding: 12px 20px;
-  border-radius: 5px;
-  backdrop-filter: blur(17.200000762939453px);
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 120%;
-  height: 150px;
-  color: var(--seryy-1);
-
-  resize: none;
-
-  margin-bottom: 30px;
-}
 .contactsFormPs {
   text-align: start;
+  padding: 0; /* чтобы не разъезжалось */
 }
+
 .contactsFormTextLink {
   color: #6596ff;
-
   transition: all 0.3s ease;
 }
 
 .contactsFormTextLink:hover {
   text-decoration: underline;
   color: var(--tekst-svetlyy-siniy);
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 740px) {
+  .contact {
+    padding: 64px 0;
+  }
+
+  .contactsFormBox {
+    padding: 22px 16px;
+    border-radius: 18px;
+  }
+
+  .contactsFormBox h2 {
+    font-size: 24px;
+  }
+
+  .contactsFormTextarea {
+    height: 130px;
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 470px) {
+  .contact {
+    padding: 48px 0;
+  }
+
+  .contactsFormBox h2 {
+    font-size: 20px;
+  }
+
+  .contactsFormInput,
+  .contactsFormTextarea {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .contactsFormInput {
+    height: 46px;
+  }
 }
