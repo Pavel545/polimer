@@ -7,7 +7,7 @@ export default function AboutHero() {
     <section className={s.aboutHero}>
       <PsLine />
       <BreadCrumbs items={[{title:'О нас'}]}/>
-      <div className="container">
+      <div className={"container "+s.aboutHeroText}>
         <div className={s.aboutHeroContent}>
           <h1 className="h1">Технологии, которым доверяют</h1>
           <p className={s.aboutHeroContentText}>

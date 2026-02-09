@@ -1,0 +1,59 @@
+.ProductInfo {
+    padding: 120px 0;
+}
+
+.ProductInfoContent {
+    margin-top: 40px;
+}
+
+.twoCols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.colTitle {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.paragraph {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.list {
+    padding-left: 18px;
+}
+
+.listItem {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.kv {
+    display: grid;
+    gap: 10px;
+}
+
+.kvRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 10px 10px 10px;
+    border-bottom: 1px solid var(--seryy-3);
+}
+
+.kvLabel {
+    opacity: 0.9;
+}
+
+.kvValue {
+    opacity: 0.9;
+}
+
+.bold {
+    font-weight: 600;
+}

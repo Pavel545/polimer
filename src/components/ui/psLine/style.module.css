@@ -5,7 +5,7 @@
   overflow: hidden;
 
   /* локальные переменные */
-  --speed: 22s;
+  --speed: 30s;
 }
 
 /* если blur не поддерживается — просто фон */
@@ -79,7 +79,7 @@
 /* адаптив: чуть быстрее на больших экранах, чуть медленнее на мобилке */
 @media (max-width: 900px) {
   .psLine {
-    --speed: 26s;
+    --speed: 30s;
     padding: 7px 0;
   }
 
@@ -90,7 +90,7 @@
 
 @media (max-width: 470px) {
   .psLine {
-    --speed: 30s;
+    --speed: 50s;
     padding: 6px 0;
   }
 

@@ -1,0 +1,113 @@
+"use client";
+
+
+import AboutAdvantages from "@/components/section/aboutPage/advantages/advantages";
+import AboutHero from "@/components/section/aboutPage/hero/AboutHero";
+import AboutInfo from "@/components/section/aboutPage/info/info";
+import Contact from "@/components/section/contact/contact";
+import Interesting from "@/components/section/Interesting/Interesting";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    Telegram?: any;
+  }
+}
+
+export default function TgPage() {
+  const [ready, setReady] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const tg = window.Telegram?.WebApp;
+    if (!tg) return;
+
+    tg.ready(); // сообщаем Telegram что приложение готово
+    tg.expand(); // раскрыть по высоте (по желанию)
+    setUser(tg.initDataUnsafe?.user ?? null);
+    setReady(true);
+
+    // пример: кнопка снизу в Telegram
+    tg.MainButton.setText("Готово");
+    tg.MainButton.show();
+    tg.MainButton.onClick(() => {
+      tg.close(); // закрыть мини-апп
+    });
+
+    return () => {
+      try {
+        tg.MainButton.offClick(() => {});
+      } catch {}
+    };
+  }, []);
+ const blogMock = [
+  {
+    id: 1,
+    title: "Как выбрать люк для частного дома",
+    img: "/img/blog/1.jpg",
+    date: "12 марта 2024",
+    text:
+      "Выбор люка для частного дома — важный этап благоустройства участка. "
+      + "Нужно учитывать нагрузку, материал, климатические условия и внешний вид. "
+      + "В этой статье разберём основные типы люков и подскажем, какой подойдёт именно вам.",
+  },
+  {
+    id: 2,
+    title: "Полимерпесчаные люки: плюсы и минусы",
+    img: "/img/blog/2.jpg",
+    date: "2 апреля 2024",
+    text:
+      "Полимерпесчаные люки активно используются в частном и коммерческом строительстве. "
+      + "Они лёгкие, не ржавеют и устойчивы к влаге. Однако есть и ограничения, о которых "
+      + "важно знать перед покупкой.",
+  },
+  {
+    id: 3,
+    title: "Монтаж люка своими руками",
+    img: "/img/blog/3.jpg",
+    date: "18 апреля 2024",
+    text:
+      "Установить люк можно самостоятельно, если соблюдать технологию. "
+      + "Подготовка основания, правильная фиксация и проверка уровня — ключевые этапы, "
+      + "которые обеспечат долгий срок службы конструкции.",
+  },
+  {
+    id: 4,
+    title: "Чем отличается лёгкий люк от тяжёлого",
+    img: "/img/blog/4.jpg",
+    date: "30 апреля 2024",
+    text:
+      "Люки различаются не только по размеру, но и по классу нагрузки. "
+      + "В статье объясняем, в чём разница между лёгкими, средними и тяжёлыми люками, "
+      + "и где каждый из них применяется.",
+  },
+  {
+    id: 5,
+    title: "Ошибки при выборе люка",
+    img: "/img/blog/5.jpg",
+    date: "10 мая 2024",
+    text:
+      "Неправильно подобранный люк может привести к просадке, трещинам и даже травмам. "
+      + "Разбираем самые частые ошибки и рассказываем, как их избежать.",
+  },
+  {
+    id: 6,
+    title: "Современные решения для благоустройства",
+    img: "/img/blog/6.jpg",
+    date: "22 мая 2024",
+    text:
+      "Сегодня люк — это не просто технический элемент, а часть ландшафтного дизайна. "
+      + "Современные материалы и формы позволяют сделать его почти незаметным.",
+  },
+];
+  return (
+    <main style={{ padding: 16 }}>
+<AboutHero/>
+            <AboutInfo/>
+            <AboutAdvantages/>
+            <Interesting items={blogMock} />
+            <Contact/>
+    </main>
+  );
+}

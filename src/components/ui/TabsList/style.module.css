@@ -1,0 +1,76 @@
+/* ===== Tabs ===== */
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    /* как у тебя */
+}
+
+.tabsItem {
+    width: 100%;
+    height: 60px;
+    transition: 300ms all ease;
+    cursor: pointer;
+    border-bottom: 1px solid var(--belyy);
+    opacity: 0.5;
+
+    /* чтобы длинные заголовки не рвали сетку */
+    padding: 0 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--seryy-1);
+}
+
+.tabsItem:hover {
+    opacity: 1;
+}
+
+.active {
+    opacity: 1;
+    background: var(--temnyy-1);
+    border-bottom: 2px solid var(--belyy);
+}
+
+
+@media (max-width: 1024px) {
+
+    /* табы чуть компактнее */
+    .tabsItem {
+        height: 54px;
+        font-size: 13px;
+    }
+}
+
+
+@media (max-width: 740px) {
+
+    /* Табы -> горизонтальный скролл (самый удобный вариант) */
+    .tabs {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 10px;
+    }
+
+    .tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tabsItem {
+        width: 70%;
+        flex: 0 0 auto;
+        height: 44px;
+        padding: 0 14px;
+        white-space: nowrap;
+        opacity: 0.75;
+        background: transparent;
+    }
+
+    .active {
+        background: var(--temnyy-1);
+        opacity: 1;
+    }
+}
