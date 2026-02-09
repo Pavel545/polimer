@@ -3,7 +3,9 @@
 import { useMemo, useState } from "react";
 import s from "./style.module.css";
 import TabsList, { TabItem } from "@/components/ui/TabsList/TabsList";
-import type { ProductInfoData, ProductInfoTabContent, ProductInfoTabId } from "@/types/product-info";
+import type { ProductInfoData } from "@/types/product";
+
+type ProductInfoTabId = number; // или string, если у вас id в формате строки
 
 export default function ProductInfo({ data }: { data: ProductInfoData }) {
   const [catActive, setCatActive] = useState<ProductInfoTabId>(data.tabs[0]?.id ?? 1);
@@ -13,10 +15,14 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
     [data.tabs],
   );
 
-  const activeContent: ProductInfoTabContent | undefined = useMemo(
+  const activeContent = useMemo(
     () => data.tabs.find((t) => t.id === catActive)?.content,
     [data.tabs, catActive],
   );
+
+  // Удаляем тип ProductInfoTabContent, используем inference
+  // или если нужно явно, можно использовать:
+  // const activeContent = useMemo(() => {...}) as ProductInfoData['tabs'][0]['content'] | undefined;
 
   return (
     <section className={s.ProductInfo}>
@@ -78,7 +84,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                 </ol>
               </div>
             </div>
-          ) : (
+          ) : activeContent.kind === "instruction_columns" ? (
             <div className={s.twoCols}>
               {activeContent.columns.map((c, idx) => (
                 <div key={idx} className={s.col}>
@@ -91,7 +97,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                 </div>
               ))}
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </section>

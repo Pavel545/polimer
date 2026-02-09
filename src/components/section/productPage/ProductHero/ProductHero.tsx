@@ -6,104 +6,19 @@ import s from "./style.module.css";
 import { JSX, useMemo, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-type ProductColor = {
-  id: string;
-  name: string;
-  hex: string;
-};
-
-type ProductImage = {
-  id: string;
-  url: string;
-  alt?: string;
-  colorId: string;
-  sort?: number;
-};
-
-type ProductVariant = {
-  id: string;
-  title: string;
-  priceRub: number;
-  colors: ProductColor[];
-  images: ProductImage[];
-};
-
-type ProductEntity = {
-  id: string;
-  titleShort: string;
-  titleFull: string;
-  description: string;
-  instructionUrl?: string;
-  variants: ProductVariant[];
-};
+import { ProductEntity, ProductImage } from "@/types/product";
 
 function formatRub(v: number): string {
   return new Intl.NumberFormat("ru-RU").format(v);
 }
 
-// DEMO — позже будет из БД
-const demoProduct: ProductEntity = {
-  id: "1",
-  titleShort: "Люк «Л»",
-  titleFull: "ПОЛИМЕРНЫЙ ЛЮК «Л» / ЛЕГКИЙ",
-  description:
-    "Полимерпесчаный канализационный люк или как его ее называют в быту пластиковый люк — это изделие предназначенное для защиты колодцев системы канализации, водоснабжения или других инженерных сетей. Широко распространены полимернопесчаные люки и в быту, т. к. часто устанавливаются на приусадебных участках, газонах, переходных зонах и проезжих частях. Полимер-песчаные канализационные люки зачастую можно увидеть на септиках, выгребных ямах в частном секторе.",
-  instructionUrl: "#",
-  variants: [
-    {
-      id: "v1",
-      title: "Легкий",
-      priceRub: 1470,
-      colors: [
-        { id: "black", name: "Черный", hex: "#0B0B0B" },
-        { id: "green", name: "Зеленый", hex: "#15A146" },
-        { id: "brown", name: "Коричневый", hex: "#7A4B1F" },
-        { id: "red", name: "Красный", hex: "#C61B1B" },
-        { id: "gray", name: "Серый", hex: "#BDBDBD" },
-      ],
-      images: [
-        // black
-        {
-          id: "b1",
-          url: "/img/products/luk-l/1.jpg",
-          colorId: "black",
-          sort: 1,
-        },
-        {
-          id: "b2",
-          url: "/img/products/luk-l/2.jpg",
-          colorId: "black",
-          sort: 2,
-        },
-        {
-          id: "b3",
-          url: "/img/products/luk-l/3.jpg",
-          colorId: "black",
-          sort: 3,
-        },
-        // red (пример — подставь реальные)
-        { id: "r1", url: "/img/products/luk-l/1.jpg", colorId: "red", sort: 1 },
-        { id: "r2", url: "/img/products/luk-l/2.jpg", colorId: "red", sort: 2 },
-        // gray (пример)
-        {
-          id: "g1",
-          url: "/img/products/luk-l/3.jpg",
-          colorId: "gray",
-          sort: 1,
-        },
-      ],
-    },
-  ],
-};
+// Удаляем demoProduct, будем получать из пропсов
 
 type Props = {
-  product?: ProductEntity;
+  product: ProductEntity; // теперь обязательный пропс
 };
 
-export default function ProductHero({
-  product = demoProduct,
-}: Props): JSX.Element {
+export default function ProductHero({ product }: Props): JSX.Element {
   const router = useRouter();
 
   // пока 1 вариант — берём первый (позже можно добавить выбор variant)
@@ -131,7 +46,7 @@ export default function ProductHero({
   const handleColorPick = (colorId: string) => {
     setActiveColorId(colorId);
 
-    // НЕ фильтруем список миниатюр — просто “перепрыгиваем”
+    // НЕ фильтруем список миниатюр — просто "перепрыгиваем"
     // на первое изображение нужного цвета
     const firstOfColor = imagesSorted.find((img) => img.colorId === colorId);
     if (firstOfColor) setActiveImageId(firstOfColor.id);

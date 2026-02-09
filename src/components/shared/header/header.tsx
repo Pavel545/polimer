@@ -18,7 +18,7 @@ export default function Header(): JSX.Element {
     { href: "#", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
     { href: "#", text: "Блог" },
-    { href: "#", text: "Вакансии" },
+    { href: "/vacancies", text: "Вакансии" },
   ];
 
   const closeMenu = (): void => setIsOpen(false);

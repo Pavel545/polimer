@@ -1,0 +1,42 @@
+[
+  {
+    "id": "luk-lm",
+    "slug": "luk-lm",
+    "titleShort": "Люк \"ЛМ\"",
+    "titleFull": "Люк полимерпесчаный \"ЛМ\" (Легкий малый)",
+    "description": "Полимерпесчаный канализационный люк нагрузкой до 1,5 тонн",
+    "priceRub": 1040 ,
+    "categoryId": 1,
+    "img": "/img/products/luk-lm/1.jpg"
+  },
+   {
+    "id": "2",
+    "slug": "luk-l",
+    "titleShort": "Люк \"Л\"",
+    "titleFull": "Люк полимерпесчаный \"Л\" (Легкий)",
+    "description": "Полимерпесчаный люк нагрузкой до 3 тонн. «Легкий люк»",
+    "priceRub": 1470 ,
+    "categoryId": 1,
+    "img": "/img/products/luk-l/1.jpg"
+  },
+   {
+    "id": "3",
+    "slug": "luk-m",
+    "titleShort": "Люк \"С\"",
+    "titleFull": "Люк полимерпесчаный \"С\" (Средний)",
+    "description": "Полимерпесчаный люк нагрузкой до 15 тонн. «Тяжелый люк»",
+    "priceRub": 2100 ,
+    "categoryId": 1,
+    "img": "/img/products/luk-m/1.jpg"
+  },
+   {
+    "id": "4",
+    "slug": "luk-h",
+    "titleShort": "Люк \"Т\"",
+    "titleFull": "Люк полимерпесчаный \"Т\" (Тяжелый)",
+    "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Магистральный люк»",
+    "priceRub": 2400 ,
+    "categoryId": 1,
+    "img": "/img/products/luk-h/1.jpg"
+  }
+]

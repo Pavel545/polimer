@@ -5,18 +5,12 @@ import s from "./style.module.css";
 import { Stagger } from "@/components/ui/Motion";
 import CardProduct from "@/components/ui/CardProduct/CardProduct";
 import TabsList, { TabItem } from "@/components/ui/TabsList/TabsList";
+import { ProductListItem, ProductCategory } from "@/types/product";
+import { getAllProductsList, getAllCategories } from "@/lib/products";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 18, scale: 0.98 },
   show: { opacity: 1, y: 0, scale: 1 },
-};
-
-type Product = {
-  id: number;
-  title: string;
-  type: string;
-  img: string;
-  categoryId: number;
 };
 
 type LayoutMode = "mosaic5" | "grid3" | "grid2";
@@ -52,40 +46,20 @@ function getMosaicPlacement(idx: number): MosaicPlacement {
 export default function Products(): JSX.Element {
   const [catActive, setCatActive] = useState<number>(1);
 
-  const categories: TabItem[] = [
-    { id: 1, title: "Полимерпесчанные люки" },
-    { id: 2, title: "Заказные позиции" },
-    { id: 3, title: "Благоустройство территории" },
-    { id: 4, title: "Обустройство колодца люки" },
-  ];
+  // Получаем данные из JSON файлов
+  const categories: ProductCategory[] = getAllCategories();
+  const allProducts: ProductListItem[] = getAllProductsList();
 
-  const products: Product[] = [
-    { id: 1, title: "Люк «ЛМ»", type: "Легкий", img: "/img/products/1.jpg", categoryId: 1 },
-    { id: 2, title: "Люк «Л»", type: "Легкий малый", img: "/img/products/1.jpg", categoryId: 1 },
-    { id: 3, title: "Люк «С»", type: "Средний", img: "/img/products/1.jpg", categoryId: 1 },
+  // Преобразуем категории в формат для TabsList
+  const categoryTabs: TabItem[] = categories.map(cat => ({
+    id: cat.id,
+    title: cat.title
+  }));
 
-    { id: 4, title: "Люк «Т»", type: "Тяжёлый", img: "/img/products/1.jpg", categoryId: 2 },
-    { id: 5, title: "Конус люк", type: "Переходник", img: "/img/products/1.jpg", categoryId: 2 },
-    { id: 6, title: "Люк «ЛМ»", type: "Легкий", img: "/img/products/1.jpg", categoryId: 2 },
-    { id: 7, title: "Люк «Л»", type: "Легкий малый", img: "/img/products/1.jpg", categoryId: 2 },
-    { id: 8, title: "Люк «С»", type: "Средний", img: "/img/products/1.jpg", categoryId: 2 },
-
-    { id: 9, title: "Плитка", type: "Брусчатка", img: "/img/products/1.jpg", categoryId: 3 },
-    { id: 10, title: "Борт", type: "Бордюр", img: "/img/products/1.jpg", categoryId: 3 },
-    { id: 11, title: "Лоток", type: "Водоотвод", img: "/img/products/1.jpg", categoryId: 3 },
-    { id: 12, title: "Крышка", type: "Комплект", img: "/img/products/1.jpg", categoryId: 3 },
-
-    { id: 13, title: "Кольцо", type: "Колодец", img: "/img/products/1.jpg", categoryId: 4 },
-    { id: 14, title: "Днище", type: "Колодец", img: "/img/products/1.jpg", categoryId: 4 },
-    { id: 15, title: "Плита", type: "Колодец", img: "/img/products/1.jpg", categoryId: 4 },
-    { id: 16, title: "Люк", type: "Колодец", img: "/img/products/1.jpg", categoryId: 4 },
-    { id: 17, title: "Горловина", type: "Колодец", img: "/img/products/1.jpg", categoryId: 4 },
-    { id: 18, title: "Переходник", type: "Колодец", img: "/img/products/1.jpg", categoryId: 4 },
-  ];
-
+  // Фильтруем продукты по выбранной категории
   const filteredProducts = useMemo(
-    () => products.filter((p) => p.categoryId === catActive),
-    [products, catActive],
+    () => allProducts.filter((p) => p.categoryId === catActive),
+    [allProducts, catActive],
   );
 
   const layoutMode = useMemo(
@@ -100,12 +74,12 @@ export default function Products(): JSX.Element {
     <section className={s.products}>
       <div className="container">
         <TabsList
-          items={categories}
+          items={categoryTabs}
           activeId={catActive}
           onChange={setCatActive}
-          className={s.productsTabs}          // контейнер
-          itemClassName={s.productsTabsItem}   // таб
-          activeItemClassName={s.active}       // активный таб (если надо отдельно)
+          className={s.productsTabs}
+          itemClassName={s.productsTabsItem}
+          activeItemClassName={s.active}
         />
 
         <Stagger
@@ -127,7 +101,7 @@ export default function Products(): JSX.Element {
         </Stagger>
 
         <div className="flex-center">
-          <button className="butt">Инструкция по мантажу</button>
+          <button className="butt">Инструкция по монтажу</button>
         </div>
       </div>
     </section>

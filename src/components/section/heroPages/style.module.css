@@ -1,8 +1,5 @@
-.aboutHero {
-  background: url(../../../../../public/img/aboutPage/fonHero.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.HeroPages {
+
 
   /* вместо жесткого height: 90vh */
   min-height: 90vh;
@@ -15,17 +12,17 @@
 }
 
 /* лёгкое затемнение, чтобы текст читался (опционально, но обычно нужно) */
-.aboutHero::before {
+.HeroPages::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
-.aboutHeroText{
+.HeroPagesText{
   margin-top: auto;
 }
-.aboutHeroContent {
+.HeroPagesContent {
   position: relative; /* поверх overlay */
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -35,7 +32,7 @@
   padding: 70px 0 120px;
 }
 
-.aboutHeroContentText {
+.HeroPagesContentText {
   font-weight: 500;
   font-size: 18px;
   line-height: 120%;
@@ -45,12 +42,12 @@
 
 /* ====== 1200 ====== */
 @media (max-width: 1200px) {
-  .aboutHeroContent {
+  .HeroPagesContent {
     gap: 32px;
     padding: 56px 0 90px;
   }
 
-  .aboutHeroContentText {
+  .HeroPagesContentText {
     font-size: 16px;
     max-width: 520px;
   }
@@ -58,29 +55,29 @@
 
 /* ====== 900 ====== */
 @media (max-width: 900px) {
-  .aboutHeroContent {
+  .HeroPagesContent {
     grid-template-columns: 1fr;
     gap: 18px;
     padding: 48px 0 70px;
   }
 
-  .aboutHeroContentText {
+  .HeroPagesContentText {
     max-width: 100%;
   }
 }
 
 /* ====== 470 ====== */
 @media (max-width: 470px) {
-  .aboutHero {
+  .HeroPages {
     min-height: 80vh;
     min-height: 80svh;
   }
 
-  .aboutHeroContent {
+  .HeroPagesContent {
     padding: 36px 0 54px;
   }
 
-  .aboutHeroContentText {
+  .HeroPagesContentText {
     font-size: 14px;
     line-height: 140%;
   }
