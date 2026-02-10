@@ -1,0 +1,300 @@
+.story {
+  padding: 90px 0 70px;
+  background: radial-gradient(1200px 600px at 40% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
+              radial-gradient(900px 500px at 70% 10%, rgba(1, 57, 176, 0.14), transparent 60%),
+              var(--temnyy-2);
+}
+
+.wrap {
+  margin-top: 50px;
+  position: relative;
+}
+
+/* верх */
+.hero {
+  position: relative;
+  min-height: 230px;
+  padding-left: 26px;
+}
+
+.leftMark {
+  position: absolute;
+  left: 0;
+  top: 64px;
+  width: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.square {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.vLine {
+  margin-top: 10px;
+  width: 1px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  column-gap: 44px;
+  row-gap: 8px;
+  align-items: start;
+  max-width: 860px;
+}
+
+.heroYear {
+  grid-column: 1 / 2;
+  font-size: clamp(56px, 6vw, 78px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.heroTitle {
+  grid-column: 1 / 2;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.95;
+  margin-top: -6px;
+}
+
+.heroText {
+  grid-column: 2 / 3;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 520px;
+  margin-top: 40px;
+}
+
+/* timeline */
+.timelineArea {
+  position: relative;
+  margin-top: 10px;
+  padding-bottom: 28px;
+}
+
+/* базовые риски */
+.rulerBase {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  height: 52px;
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.10) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  opacity: 0.55;
+}
+
+/* “осветлённые” риски слева до прогресса */
+.rulerGlow {
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  height: 52px;
+    width: 520px;  
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0.22) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+  mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+  opacity: 0.85;
+  transition: width 700ms ease;
+}
+
+/* viewport */
+.viewport {
+  position: relative;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 68px; /* место под стемы и цифры */
+  touch-action: pan-x;
+  cursor: grab;
+  user-select: none;
+}
+
+.viewport.dragging {
+  cursor: grabbing;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 260px;
+  padding-left: 420px;
+  padding-right: 420px;
+}
+
+/* год */
+.yearItem {
+  position: relative;
+  height: 150px;
+  min-width: 160px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0;
+  padding-bottom: 12px;
+}
+
+.stem {
+  position: absolute;
+  left: 6px;
+  bottom: 54px;
+  width: 1px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: height 700ms ease, background 700ms ease, opacity 700ms ease;
+}
+
+.yearText {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.18);
+  letter-spacing: 0.5px;
+  transition: color 700ms ease, transform 700ms ease;
+}
+
+.yearItem:hover .yearText {
+  color: rgba(255, 255, 255, 0.26);
+}
+
+.yearActive .yearText {
+  color: rgba(255, 255, 255, 0.32);
+  transform: translateY(-2px);
+}
+
+.yearActive .stem {
+  height: 95px;
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* виньетки: обязательно pointer-events:none, чтобы НЕ ломать клики */
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 130px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, var(--temnyy-2), rgba(0, 4, 18, 0));
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, var(--temnyy-2), rgba(0, 4, 18, 0));
+}
+
+/* навигация */
+.nav {
+  position: absolute;
+  right: 0;
+  top: -6px;
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0,0,0,0.22);
+  transition: 200ms all ease;
+}
+
+.navBtn:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.rulerBase,
+.rulerGlow {
+  pointer-events: none;   /* ВАЖНО: не перехватывать клики */
+  z-index: 1;
+}
+
+.viewport {
+  position: relative;
+  z-index: 2;            /* кнопки/годы выше рисок */
+}
+
+.track {
+  position: relative;
+  z-index: 2;
+}
+
+
+@media (max-width: 1100px) {
+  .track {
+    gap: 200px;
+    padding-left: 240px;
+    padding-right: 240px;
+  }
+  .heroGrid {
+    grid-template-columns: 200px 1fr;
+    column-gap: 26px;
+  }
+  .heroText {
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .story {
+    padding: 60px 0 50px;
+  }
+  .hero {
+    min-height: auto;
+    padding-left: 22px;
+  }
+  .vLine {
+    height: 110px;
+  }
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+  .heroText {
+    margin-top: 10px;
+    grid-column: 1 / 2;
+    max-width: 100%;
+  }
+  .track {
+    gap: 160px;
+    padding-left: 140px;
+    padding-right: 140px;
+  }
+  .yearText {
+    font-size: 38px;
+  }
+}

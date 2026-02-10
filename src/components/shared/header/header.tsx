@@ -17,7 +17,7 @@ export default function Header(): JSX.Element {
   const links: NavLink[] = [
     { href: "/#products", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
-    { href: "#", text: "Блог" },
+    { href: "/blog", text: "Блог" },
     { href: "/vacancies", text: "Вакансии" },
   ];
 

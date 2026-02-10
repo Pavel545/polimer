@@ -3,6 +3,7 @@ import AboutInfo from "@/components/section/aboutPage/info/info";
 import Contact from "@/components/section/contact/contact";
 import HeroPages from "@/components/section/heroPages/HeroPages";
 import Interesting from "@/components/section/Interesting/Interesting";
+import Story from "@/components/section/story/story";
 
 export default function AboutPage() {
   const blogMock = [
@@ -71,6 +72,7 @@ export default function AboutPage() {
       <HeroPages fon='/img/aboutPage/fonHero.jpg' title='О нас' h1="Технологии, которым доверяют" text="Благодаря современным инновациям и строгому контролю качества, наши
             полимерные люки пользуются доверием профессионалов по всей стране"/>
       <AboutInfo />
+      <Story /> 
       <AboutAdvantages />
       <Interesting items={blogMock} />
       <Contact />
