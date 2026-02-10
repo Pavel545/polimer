@@ -9,7 +9,7 @@ type NavLink = {
 
 export default function Footer(): JSX.Element {
   const link: NavLink[] = [
-    { href: "#", text: "Продукция" },
+    { href: "/#products", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
     { href: "#", text: "Блог" },
     { href: "/vacancies", text: "Вакансии" },

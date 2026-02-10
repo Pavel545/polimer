@@ -20,10 +20,10 @@
 }
 
 
-.wrap [data-layer="region"]:hover{
+/* .wrap [data-layer="region"]:hover{
     fill: var(--seryy-1);
     transform: scale(1.02);
-}
+} */
 
 /* 
 .wrap [data-layer="okrug"]:hover {

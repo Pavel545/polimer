@@ -71,7 +71,7 @@ export default function Products(): JSX.Element {
     layoutMode === "mosaic5" ? s.gridMosaic5 : layoutMode === "grid2" ? s.grid2 : s.grid3;
 
   return (
-    <section className={s.products}>
+    <section className={s.products} id="products">
       <div className="container">
         <TabsList
           items={categoryTabs}
