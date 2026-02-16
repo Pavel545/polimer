@@ -1,0 +1,88 @@
+.hero {
+    min-height: 90vh;
+    min-height: 90svh;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+
+.heroContent {
+    position: relative;
+    /* поверх overlay */
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    z-index: 2;
+    gap: 10px;
+    height: 100%;
+    /* “резиновый” низ вместо фикс margin-bottom */
+    padding: 70px 0 120px;
+}
+
+.date {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: var(--seryy-1);
+
+}
+
+.title{
+    max-width: 670px;
+}
+
+/* ====== 1200 ====== */
+@media (max-width: 1200px) {
+    .heroContent {
+        padding: 56px 0 90px;
+    }
+
+    .heroContentText {
+        font-size: 16px;
+        max-width: 520px;
+    }
+}
+
+/* ====== 900 ====== */
+@media (max-width: 900px) {
+    .heroContent {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 48px 0 70px;
+    }
+
+    .heroContentText {
+        max-width: 100%;
+    }
+}
+
+/* ====== 470 ====== */
+@media (max-width: 470px) {
+    .hero {
+        min-height: 80vh;
+        min-height: 80svh;
+    }
+
+    .heroContent {
+        padding: 36px 0 54px;
+    }
+
+    .heroContentText {
+        font-size: 14px;
+        line-height: 140%;
+    }
+}

@@ -7,9 +7,10 @@ import {
   CardsCarousel,
   CarouselHandle,
 } from "@/components/ui/CardsCarousel/CardsCarousel";
-import CardBlog, { BlogCard } from "@/components/ui/CardBlog/CardBlog";
+import CardBlog from "@/components/ui/CardBlog/CardBlog";
+import { BlogCardData } from "@/types/blog";
 
-export default function Interesting({ items }: { items: BlogCard[] }) {
+export default function Interesting({ items }: { items: BlogCardData[] }) {
   const carouselRef = useRef<CarouselHandle | null>(null);
 
   return (

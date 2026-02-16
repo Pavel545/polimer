@@ -1,12 +1,45 @@
-.blogList{
-
+.blogList {
+  width: 100%;
 }
 
+.blogListContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 60px 0;
+}
 
-.blogListContent{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+/* ---------- Large tablets ---------- */
+@media (max-width: 1200px) {
+  .blogListContent {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    padding: 48px 0;
+  }
+}
 
-    gap: 20px;
-    
+/* ---------- Tablets ---------- */
+@media (max-width: 900px) {
+  .blogListContent {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 40px 0;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .blogListContent {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 32px 0;
+  }
+}
+
+/* ---------- Small mobile ---------- */
+@media (max-width: 420px) {
+  .blogListContent {
+    gap: 22px;
+    padding: 26px 0;
+  }
 }

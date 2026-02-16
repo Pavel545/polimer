@@ -1,0 +1,72 @@
+{
+  "tabs": [
+    {
+      "id": 1,
+      "title": "Преимущества и характеристика",
+      "content": {
+        "kind": "advantages_characteristics",
+        "leftTitle": "ПРЕИМУЩЕСТВА:",
+        "advantages": [
+          "Постоянное наличие складских остатков всех цветов"
+        ],
+        "rightTitle": "ХАРАКТЕРИСТИКА:",
+        "characteristics": [
+          {
+            "label": "Диаметр крышки",
+            "value": "630 мм"
+          },
+          {
+            "label": "Высота",
+            "value": "90 мм"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "title": "Описание и виды",
+      "content": {
+        "kind": "description_types",
+        "leftTitle": "ОПИСАНИЕ:",
+        "description": [
+          "",
+          ""
+        ],
+        "rightTitle": "ВИДЫ:",
+        "types": [
+          {
+            "title": "",
+            "text": ""
+          },
+          {
+            "title": "",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "title": "Инструкция по монтажу",
+      "content": {
+        "kind": "instruction_columns",
+        "columns": [
+          {
+            "title": "ОПЛАТА:",
+            "text": [
+              "Первый абзац про оплату.",
+              "Второй абзац про оплату."
+            ]
+          },
+          {
+            "title": "ДОСТАВКА:",
+            "text": [
+              "Первый абзац про доставку.",
+              "Второй абзац про доставку."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

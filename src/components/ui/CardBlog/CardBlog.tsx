@@ -1,26 +1,18 @@
 import Image from "next/image";
 import s from "./CardBlog.module.css";
 import { truncateText } from "@/utils/text";
+import { a } from "framer-motion/client";
+import Link from "next/link";
+import { BlogCardData } from "@/types/blog";
 
-type CardBlogProps = {
-  id: number;
-  title: string;
-  img: string;
-  date: string;
-  text: string;
+type CardBlogProps = BlogCardData & {
+  variant?: 'default' | 'compact'; // на случай разных вариантов отображения
 };
 
-export type BlogCard = {
-  id: number;
-  title: string;
-  img: string;
-  date: string;
-  text: string;
-};
-
-export default function CardBlog({ title, img, date, text }: CardBlogProps) {
+export default function CardBlog({ title, slug, img, date, excerpt }: CardBlogProps) {
   return (
-    <article className={s.card}>
+   <Link href={`/blog/${slug}`} >
+     <article className={s.card}>
       <div className={s.cardImg}>
         <Image
           src={img}
@@ -34,7 +26,8 @@ export default function CardBlog({ title, img, date, text }: CardBlogProps) {
 
       <h3 className={s.cardTitle}>{title}</h3>
 
-      <p className={s.cardText}>{truncateText(text, 150)}</p>
+      <p className={s.cardText}>{truncateText(excerpt, 150)}</p>
     </article>
+   </Link>
   );
 }

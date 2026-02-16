@@ -21,7 +21,7 @@
 
 .link {
   text-decoration: none;
-  color: var(--seryy-2);
+  color: var(--seryy-1);
   transition: color 0.2s ease;
 }
 

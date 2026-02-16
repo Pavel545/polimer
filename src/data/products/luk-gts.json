@@ -1,0 +1,48 @@
+{
+  "id": "luk-gts",
+  "slug": "luk-gts",
+  "titleShort": "Люк полимерпесчаный ГТС",
+  "titleFull": "Люк полимерпесчаный ГТС",
+  "description": "",
+  "instructionUrl": "#",
+  "variants": [
+    {
+      "id": "v1",
+      "title": "Название варианта (Легкий/Средний/Тяжелый)",
+      "priceRub": 2800,
+      "colors": [
+        {
+          "id": "black",
+          "name": "Черный",
+          "hex": "#000000"
+        },
+        {
+          "id": "green",
+          "name": "Зеленый",
+          "hex": "#00FF00"
+        }
+      ],
+      "images": [
+        {
+          "id": "img1",
+          "url": "/img/products/luk-gts/1.jpg",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        },
+        {
+          "id": "img2",
+          "url": "/img/products/luk-gts/2.jpg",
+          "colorId": "black",
+          "sort": 2
+        },
+        {
+          "id": "img3",
+          "url": "/img/products/luk-gts/3.jpg",
+          "colorId": "green",
+          "sort": 1
+        }
+      ]
+    }
+  ]
+}

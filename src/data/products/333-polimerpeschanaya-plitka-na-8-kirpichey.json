@@ -1,0 +1,48 @@
+{
+  "id": "333-polimerpeschanaya-plitka-na-8-kirpichey",
+  "slug": "333-polimerpeschanaya-plitka-na-8-kirpichey",
+  "titleShort": "Полимерпесчаная плитка",
+  "titleFull": "Полимерпесчаная плитка 333 (8 кирпичей)",
+  "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
+  "instructionUrl": "/# ",
+  "variants": [
+    {
+      "id": "v1",
+      "title": "Название варианта (Легкий/Средний/Тяжелый)",
+      "priceRub": 180 ,
+      "colors": [
+        {
+          "id": "black",
+          "name": "Черный",
+          "hex": "#000000"
+        },
+        {
+          "id": "green",
+          "name": "Зеленый",
+          "hex": "#00FF00"
+        }
+      ],
+      "images": [
+        {
+          "id": "img1",
+          "url": "/img/products/слаг-продукта/1.jpg",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        },
+        {
+          "id": "img2",
+          "url": "/img/products/слаг-продукта/2.jpg",
+          "colorId": "black",
+          "sort": 2
+        },
+        {
+          "id": "img3",
+          "url": "/img/products/слаг-продукта/3.jpg",
+          "colorId": "green",
+          "sort": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+import { BlogArticle } from '@/types/blog';
+import s from './style.module.css';
+import PsLine from '@/components/ui/psLine/psLine';
+import BreadCrumbs from '@/components/ui/BreadCrumbs/BreadCrumbs';
+
+interface BlogHeroProps {
+    article: BlogArticle;
+}
+
+export default function BlogHero({ article }: BlogHeroProps) {
+
+
+    return (
+        <section style={{ background: `url(${article.img}) center / cover no-repeat` }} className={s.hero}>
+            <PsLine />
+            <BreadCrumbs items={[{ title: 'Блог', href: "/blog" }, { title: article.title }]} />
+
+            <div className={'container ' + s.heroContent}>
+
+                <time className={s.date} dateTime={article.date}>
+                    {article.date}
+                </time>
+                <h1 className={'h2 ' + s.title}>
+                    {article.title}
+                </h1>
+            </div>
+        </section>
+    )
+}

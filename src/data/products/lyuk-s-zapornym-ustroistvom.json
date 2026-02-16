@@ -1,0 +1,48 @@
+{
+  "id": "lyuk-s-zapornym-ustroistvom",
+  "slug": "lyuk-s-zapornym-ustroistvom",
+  "titleShort": "Люк с запорным устройством",
+  "titleFull": "Люк с запорным устройством",
+  "description": "Полимерпесчаный канализационный люк или как его ее называют в быту пластиковый люк — это изделие предназначенное для защиты колодцев системы канализации, водоснабжения или других инженерных сетей.",
+  "instructionUrl": "# или https://example.com/instruction.pdf",
+  "variants": [
+    {
+      "id": "v1",
+      "title": "Название варианта (Легкий/Средний/Тяжелый)",
+      "priceRub": 1000,
+      "colors": [
+        {
+          "id": "black",
+          "name": "Черный",
+          "hex": "#000000"
+        },
+        {
+          "id": "green",
+          "name": "Зеленый",
+          "hex": "#00FF00"
+        }
+      ],
+      "images": [
+        {
+          "id": "img1",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/1.jpg",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 1
+        },
+        {
+          "id": "img2",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/2.jpg",
+          "colorId": "black",
+          "sort": 2
+        },
+        {
+          "id": "img3",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/3.jpg",
+          "colorId": "green",
+          "sort": 1
+        }
+      ]
+    }
+  ]
+}
