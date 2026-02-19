@@ -15,11 +15,6 @@
           "id": "black",
           "name": "Черный",
           "hex": "#000000"
-        },
-        {
-          "id": "green",
-          "name": "Зеленый",
-          "hex": "#00FF00"
         }
       ],
       "images": [
@@ -39,8 +34,26 @@
         {
           "id": "img3",
           "url": "/img/products/luk-lm/3.jpg",
-          "colorId": "green",
-          "sort": 1
+          "colorId": "black",
+          "sort": 3
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/luk-lm/4.jpg",
+          "colorId": "black",
+          "sort": 4
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/luk-lm/5.jpg",
+          "colorId": "black",
+          "sort": 5
+        },
+        {
+          "id": "img6",
+          "url": "/img/products/luk-lm/6.jpg",
+          "colorId": "black",
+          "sort": 6
         }
       ]
     }

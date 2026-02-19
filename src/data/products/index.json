@@ -27,7 +27,7 @@
     "description": "Полимерпесчаный люк нагрузкой до 15 тонн. «Тяжелый люк»",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/luk-m/1.jpg"
+    "img": "/img/products/luk-m/3.jpg"
   },
   {
     "id": "4",
@@ -47,7 +47,7 @@
     "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Люк с логотипом» ",
     "priceRub": 2800,
     "categoryId": 2,
-    "img": "/img/products/luk-h/1.jpg"
+    "img": "/img/products/luk-gts/1.jpg"
   },
   {
     "id": "6",
@@ -57,7 +57,7 @@
     "description": "Полимерпесчаный люк с запорным устройством",
     "priceRub": 3000,
     "categoryId": 2,
-    "img": "/img/products/luk-h/1.jpg"
+    "img": "/img/products/lyuk-s-zapornym-ustroistvom/1.jpg"
   },
   {
     "id": "7",
@@ -67,7 +67,7 @@
     "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
     "priceRub": 180,
     "categoryId": 3,
-    "img": "/img/products/luk-h/1.jpg"
+    "img": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/1.jpg"
   },
   {
     "id": "8",
@@ -75,8 +75,48 @@
     "titleShort": "Полимерпесчаный поребрик, бордюр",
     "titleFull": "Полимерпесчаный поребрик, бордюр",
     "description": "Полимерпесчаный бордюр — это изделие предназначенное для ограничения или фиксации полимернопесчаной тротуарной плитки. ",
-    "priceRub": 260 ,
+    "priceRub": 260,
     "categoryId": 3,
-    "img": "/img/products/luk-h/1.jpg"
+    "img": "/img/products/polimerpeschaniy-bordyur-porebrik/1.jpg"
+  },
+  {
+    "id": "9",
+    "slug": "polimerpeschaniy-livneviy-lotok",
+    "titleShort": "Полимерпесчаный ливневый лоток",
+    "titleFull": "Полимерпесчаный ливневый лоток",
+    "description": "Полимерпесчаный водоотвод или дождеприемник — это изделие, предназначенное для организации водоотведения в тех местах, где есть необходимость отвода воды. ",
+    "priceRub": 210,
+    "categoryId": 3,
+    "img": "/img/products/polimerpeschaniy-livneviy-lotok/1.jpg"
+  },
+  {
+    "id": "10",
+    "slug": "konusniy-perehodnik-smotrovogo-kolodca",
+    "titleShort": "Конус люк",
+    "titleFull": "Конус люк",
+    "description": "",
+    "priceRub": 2100,
+    "categoryId": 1,
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.jpg"
+  },
+  {
+    "id": "11",
+    "slug": "kolco-smotrovogo-kolodca",
+    "titleShort": "Кольцо смотрового колодца",
+    "titleFull": "Кольцо смотрового колодца",
+    "description": "",
+    "priceRub": 1800 ,
+    "categoryId": 4,
+    "img": "/img/products/kolco-smotrovogo-kolodca/1.jpg"
+  },
+  {
+    "id": "12",
+    "slug": "dno-smotrovogo-kolodca",
+    "titleShort": "Дно смотрового колодца",
+    "titleFull": "Дно смотрового колодца",
+    "description": "",
+    "priceRub": 2100,
+    "categoryId": 4,
+    "img": "/img/products/dno-smotrovogo-kolodca/3.jpg"
   }
 ]

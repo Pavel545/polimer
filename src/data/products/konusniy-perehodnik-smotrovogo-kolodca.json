@@ -1,0 +1,56 @@
+{
+  "id": "konusniy-perehodnik-smotrovogo-kolodca",
+  "slug": "konusniy-perehodnik-smotrovogo-kolodca",
+  "titleShort": "Конус люк",
+  "titleFull": "Конус люк",
+  "description": "",
+  "instructionUrl": "/# ",
+  "variants": [
+    {
+      "id": "v1",
+      "title": "Название варианта (Легкий/Средний/Тяжелый)",
+      "priceRub": 180 ,
+      "colors": [
+        {
+          "id": "black",
+          "name": "Черный",
+          "hex": "#000000"
+        }
+      ],
+      "images": [
+        {
+          "id": "img1",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.jpg",
+          "colorId": "black",
+          "sort": 1
+        },
+        {
+          "id": "img2",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/2.jpg",
+          "colorId": "black",
+          "sort": 2
+        }, {
+          "id": "img3",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/3.jpg",
+          "colorId": "black",
+          "sort": 2
+        }, {
+          "id": "img4",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/4.jpg",
+          "colorId": "black",
+          "sort": 2
+        }, {
+          "id": "img5",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg",
+          "colorId": "black",
+          "sort": 2
+        }, {
+          "id": "img6",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/6.jpg",
+          "colorId": "black",
+          "sort": 2
+        }
+      ]
+    }
+  ]
+}

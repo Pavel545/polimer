@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import s from "./style.module.css";
 import TabsList, { TabItem } from "@/components/ui/TabsList/TabsList";
 import type { ProductInfoData } from "@/types/product";
@@ -9,6 +9,19 @@ type ProductInfoTabId = number; // или string, если у вас id в фо�
 
 export default function ProductInfo({ data }: { data: ProductInfoData }) {
   const [catActive, setCatActive] = useState<ProductInfoTabId>(data.tabs[0]?.id ?? 1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Проверка на мобильное устройство
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const tabs: TabItem[] = useMemo(
     () => data.tabs.map((t) => ({ id: t.id, title: t.title })),
@@ -19,10 +32,6 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
     () => data.tabs.find((t) => t.id === catActive)?.content,
     [data.tabs, catActive],
   );
-
-  // Удаляем тип ProductInfoTabContent, используем inference
-  // или если нужно явно, можно использовать:
-  // const activeContent = useMemo(() => {...}) as ProductInfoData['tabs'][0]['content'] | undefined;
 
   return (
     <section className={s.ProductInfo}>
@@ -78,7 +87,9 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                 <ol className={s.list}>
                   {activeContent.types.map((t, i) => (
                     <li key={i} className={s.listItem}>
-                      <b className={s.bold}>{t.title}</b> {t.text}
+                      {!isMobile && <b className={s.bold}>{t.title}</b>}
+                      {isMobile && <><b className={s.bold}>{t.title}</b><br /></>}
+                      {t.text}
                     </li>
                   ))}
                 </ol>

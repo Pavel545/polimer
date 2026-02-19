@@ -41,6 +41,24 @@
           "url": "/img/products/luk-gts/3.jpg",
           "colorId": "green",
           "sort": 1
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/luk-gts/4.jpg",
+          "colorId": "green",
+          "sort": 1
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/luk-gts/5.jpg",
+          "colorId": "green",
+          "sort": 1
+        },
+        {
+          "id": "img6",
+          "url": "/img/products/luk-gts/6.jpg",
+          "colorId": "green",
+          "sort": 1
         }
       ]
     }

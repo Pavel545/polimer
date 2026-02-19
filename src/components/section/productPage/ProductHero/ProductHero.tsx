@@ -1,6 +1,5 @@
 "use client";
 
-import PsLine from "@/components/ui/psLine/psLine";
 import BreadCrumbs from "@/components/ui/BreadCrumbs/BreadCrumbs";
 import s from "./style.module.css";
 import { JSX, useMemo, useState } from "react";
@@ -63,7 +62,6 @@ export default function ProductHero({ product }: Props): JSX.Element {
 
   return (
     <section className={s.pHero}>
-      <PsLine />
       <BreadCrumbs items={[{ title: product.titleShort }]} />
 
       <div className="container">

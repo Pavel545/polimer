@@ -15,30 +15,37 @@
           "id": "black",
           "name": "Черный",
           "hex": "#000000"
-        },
-        {
-          "id": "green",
-          "name": "Зеленый",
-          "hex": "#00FF00"
         }
       ],
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/слаг-продукта/1.jpg",
+          "url": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/1.jpg",
           "alt": "Описание фото",
           "colorId": "black",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/слаг-продукта/2.jpg",
+          "url": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/2.jpg",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img3",
-          "url": "/img/products/слаг-продукта/3.jpg",
+          "url": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/3.jpg",
+          "colorId": "green",
+          "sort": 1
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/4.jpg",
+          "colorId": "green",
+          "sort": 1
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/5.jpg",
           "colorId": "green",
           "sort": 1
         }

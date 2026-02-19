@@ -1,6 +1,5 @@
 import s from "./style.module.css";
 import Image from "next/image";
-import PsLine from "@/components/ui/psLine/psLine";
 import { JSX } from "react";
 
 type Advantage = {
@@ -18,8 +17,9 @@ export default function Hero(): JSX.Element {
 
   return (
     <section className={s.hero}>
-      <PsLine />
-
+      <div>
+        
+      </div>
       <div className="container">
         <div className={s.heroContent}>
           <h1 className="h1">полимерпесчанные технологии</h1>
@@ -30,7 +30,7 @@ export default function Hero(): JSX.Element {
           </p>
 
           <button className={"butt " + s.heroBtn} type="button">
-            Скачать прайс-лист
+            Посмотреть прайс лист
           </button>
         </div>
       </div>

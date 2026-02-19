@@ -57,3 +57,125 @@
 .bold {
     font-weight: 600;
 }
+
+/* Адаптив для планшетов */
+@media (max-width: 1024px) {
+    .ProductInfo {
+        padding: 80px 0;
+    }
+    
+    .twoCols {
+        gap: 40px;
+    }
+}
+
+/* Адаптив для мобильных устройств */
+@media (max-width: 768px) {
+    .ProductInfo {
+        padding: 60px 0;
+    }
+    
+    .ProductInfoContent {
+        margin-top: 30px;
+    }
+    
+    .twoCols {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .col:first-child {
+        margin-top: 0;
+    }
+    
+    .colTitle {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .kvRow {
+        padding: 15px 5px 8px 5px;
+        gap: 12px;
+    }
+}
+
+/* Адаптив для маленьких мобильных устройств */
+@media (max-width: 480px) {
+    .ProductInfo {
+        padding: 40px 0;
+    }
+    
+    .ProductInfoContent {
+        margin-top: 20px;
+    }
+    
+    .twoCols {
+        gap: 30px;
+    }
+    
+    .colTitle {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .list {
+        padding-left: 15px;
+    }
+    
+    .listItem {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+    
+    .paragraph {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .kvRow {
+        padding: 12px 0 6px 0;
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+    
+    .kvLabel {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+    
+    .kvValue {
+        width: 100%;
+        font-weight: 500;
+    }
+}
+
+/* Адаптив для табов */
+@media (max-width: 768px) {
+    .ProductInfoTabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .ProductInfoTabs::-webkit-scrollbar {
+        height: 3px;
+    }
+    
+    .ProductInfoTabs::-webkit-scrollbar-track {
+        background: var(--seryy-2);
+    }
+    
+    .ProductInfoTabs::-webkit-scrollbar-thumb {
+        background: var(--seryy-4);
+        border-radius: 3px;
+    }
+    
+    .ProductInfoTabsItem {
+        display: inline-block;
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+}

@@ -73,6 +73,9 @@ export default function Products(): JSX.Element {
   return (
     <section className={s.products} id="products">
       <div className="container">
+        <h2 className={"h2 " + s.productsTitle}>
+          Продукция 
+        </h2>
         <TabsList
           items={categoryTabs}
           activeId={catActive}

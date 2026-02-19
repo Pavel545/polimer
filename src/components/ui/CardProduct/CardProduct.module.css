@@ -5,10 +5,9 @@
   cursor: pointer;
   z-index: 1;
   height: 100%;
-  transform: translateZ(0); /* помогает на мобилках с blend/overlay */
+  transform: translateZ(0);
 }
 
-/* Link оборачивает всё */
 .link {
   display: block;
   height: 100%;
@@ -16,18 +15,22 @@
   color: inherit;
 }
 
-/* Блок под картинку */
 .media {
   position: absolute;
   inset: 0;
 }
 
-/* сам Image в fill */
-.media :global(img) {
+/* Обесцвечиваем изображение */
+.image {
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
   object-fit: cover;
 }
 
-/* затемнение */
+.card:hover .image {
+  filter: grayscale(0%);
+}
+
 .overlay {
   position: absolute;
   inset: 0;
@@ -41,50 +44,82 @@
   opacity: 0.85;
 }
 
-/* инфо поверх картинки */
 .info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 20px;
   position: relative;
   z-index: 2;
-  gap: 12px;
 }
 
-/* бейдж */
+.topContent {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+}
+
+.card:hover .topContent {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bottomContent {
+  transition: all 0.4s ease;
+}
+
+.card:hover .bottomContent {
+  transform: translateY(-30px);
+}
+
 .type {
   border-radius: var(--br);
   padding: 10px 12px;
   min-height: 37px;
   display: inline-flex;
   align-items: center;
-
   font-weight: 500;
   font-size: 14px;
   line-height: 120%;
   color: var(--temnyy-2);
   background: var(--belyy);
-
   max-width: 100%;
+  margin-bottom: 10px;
 }
 
-/* заголовок */
 .title {
   font-weight: 400;
   font-size: clamp(18px, 2.3vw, 32px);
   line-height: 110%;
   text-transform: uppercase;
   color: var(--belyy);
-
-  /* чтобы не распирало карточку визуально */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-weight: 500;
+  font-size: clamp(16px, 2vw, 24px);
+  color: var(--belyy);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease 0.1s;
+}
+
+.card:hover .price {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.currency {
+  font-size: 0.8em;
+  opacity: 0.8;
+  margin-left: 2px;
 }
 
 /* ====== 1024 ====== */
@@ -103,18 +138,20 @@
     font-size: clamp(16px, 3.2vw, 26px);
     -webkit-line-clamp: 3;
   }
+  
+  .price {
+    font-size: clamp(14px, 2.5vw, 20px);
+  }
 }
 
 /* ====== 740 ====== */
 @media (max-width: 740px) {
-  /* на мобилке hover не всегда есть — делаем overlay чуть спокойнее */
   .overlay {
     background: rgba(10, 66, 114, 0.42);
   }
 
   .info {
     padding: 14px;
-    gap: 10px;
   }
 
   .type {
@@ -126,6 +163,10 @@
   .title {
     font-size: clamp(16px, 4.6vw, 22px);
     -webkit-line-clamp: 2;
+  }
+  
+  .card:hover .bottomContent {
+    transform: translateY(-20px);
   }
 }
 
@@ -142,7 +183,16 @@
   }
 
   .title {
-    font-size: 20px; /* можно оставить clamp, но так часто выглядит “дороже” */
+    font-size: 20px;
     -webkit-line-clamp: 2;
+    margin-bottom: 4px;
+  }
+  
+  .price {
+    font-size: 16px;
+  }
+  
+  .card:hover .bottomContent {
+    transform: translateY(-15px);
   }
 }

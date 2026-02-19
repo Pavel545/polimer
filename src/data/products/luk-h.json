@@ -41,6 +41,18 @@
           "url": "/img/products/luk-h/3.jpg",
           "colorId": "green",
           "sort": 1
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/luk-h/4.jpg",
+          "colorId": "green",
+          "sort": 1
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/luk-h/5.jpg",
+          "colorId": "green",
+          "sort": 1
         }
       ]
     }

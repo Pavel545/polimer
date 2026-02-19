@@ -15,14 +15,10 @@ type MosaicPlacement = {
 };
 
 type Props = {
-  product: ProductListItem; // Изменяем тип на ProductListItem
+  product: ProductListItem;
   idx: number;
   layoutMode: LayoutMode;
-
-  /** функция для позиционирования в mosaic */
   getMosaicPlacement: (idx: number) => MosaicPlacement;
-
-  /** framer */
   variants: Variants;
 };
 
@@ -36,7 +32,6 @@ export default function CardProduct({
   const mosaicStyle =
     layoutMode === "mosaic5" ? getMosaicPlacement(idx) : undefined;
 
-  // Форматируем цену
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("ru-RU").format(price);
   };
@@ -50,31 +45,35 @@ export default function CardProduct({
       layout
       style={mosaicStyle}
     >
-      <Link href={`/product/${product.slug}`} className={s.link}> {/* Используем slug вместо id */}
+      <Link href={`/product/${product.slug}`} className={s.link}>
         <div className={s.media}>
           <Image
             src={product.img}
-            alt={product.titleShort} // Используем titleShort
+            alt={product.titleShort}
             fill
             sizes="(max-width: 470px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={idx < 2}
+            className={s.image}
           />
           <div className={s.overlay} />
         </div>
 
         <div className={s.info}>
-          {/* Можно оставить type, если он есть в данных, или использовать категорию */}
-          <p className={s.type}>
-            {product.categoryId === 1 && "Люк"}
-            {product.categoryId === 2 && "Заказная позиция"}
-            {product.categoryId === 3 && "Для благоустройства"}
-            {product.categoryId === 4 && "Для колодца"}
-          </p>
-          <h3 className={s.title}>{product.titleShort}</h3>
+          <div className={s.topContent}>
+            <p className={s.type}>
+              {product.categoryId === 1 && "Люк"}
+              {product.categoryId === 2 && "Заказная позиция"}
+              {product.categoryId === 3 && "Для благоустройства"}
+              {product.categoryId === 4 && "Для колодца"}
+            </p>
+          </div>
           
-          {/* Добавляем отображение цены */}
-          <div className={s.price}>
-            {formatPrice(product.priceRub)} <span className={s.currency}>₽</span>
+          <div className={s.bottomContent}>
+            <h3 className={s.title}>{product.titleShort}</h3>
+            
+            <div className={s.price}>
+              {formatPrice(product.priceRub)} <span className={s.currency}>₽</span>
+            </div>
           </div>
         </div>
       </Link>

@@ -28,11 +28,14 @@ export default function About() {
   ];
   return (
     <section className={s.about}>
+      <h2 className="h2">
+          Он нас
+      </h2>
       <div className={s.aboutDecorative}></div>
 
       <div className="container">
         <div className={s.aboutContent}>
-          <h2 className="h2">Полимерные технологии</h2>
+          <h3 className="h2">Полимерные технологии</h3>
           <div className={s.aboutText}>
             <p>
               Это ведущий российский производитель и поставщик современных

@@ -15,11 +15,6 @@
           "id": "black",
           "name": "Черный",
           "hex": "#000000"
-        },
-        {
-          "id": "green",
-          "name": "Зеленый",
-          "hex": "#00FF00"
         }
       ],
       "images": [
@@ -39,7 +34,7 @@
         {
           "id": "img3",
           "url": "/img/products/lyuk-s-zapornym-ustroistvom/3.jpg",
-          "colorId": "green",
+          "colorId": "black",
           "sort": 1
         }
       ]

@@ -2,6 +2,9 @@
   padding: 170px 0;
 }
 
+.productsTitle{
+  margin-bottom: 50px;
+}
 /* ===== Tabs ===== */
 .productsTabs {
   display: grid;
