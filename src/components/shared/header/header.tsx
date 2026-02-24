@@ -70,10 +70,10 @@ export default function Header(): JSX.Element {
           <div className={s.actionsDesktop + " flex-center"}>
             <a
               className={s.headerLink + " flex-center " + s.headerTel}
-              href="tel:+79278023071"
+              href="tel:+79677717986"
             >
               <Image src="/icons/tel.svg" alt="" width={12} height={12} />
-              8 (927) 802-30-71
+              +7 967 771 79 86
             </a>
 
             <button onClick={openRequest} className={"butt " + s.headerButt}>
@@ -126,9 +126,9 @@ export default function Header(): JSX.Element {
         </nav>
 
         <div className={s.mobileActions}>
-          <a className={s.mobileTel} href="tel:+79278023071" onClick={closeMenu}>
+          <a className={s.mobileTel} href="tel:+79677717986" onClick={closeMenu}>
             <Image src="/icons/tel.svg" alt="" width={14} height={14} />
-            8 (927) 802-30-71
+            +7 (967) 771 79 86
           </a>
 
           <button

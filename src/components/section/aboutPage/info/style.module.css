@@ -2,6 +2,9 @@
   padding: 120px 0;
 }
 
+.infoTitle {
+  margin-bottom: 50px;
+}
 .infoContent {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -40,7 +43,8 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 120%;
-  color: #d1d2d3;
+  color: var(--belyy);
+  opacity: 0.6;
   margin-bottom: 50px; /* было 70 — чуть резиновее */
 }
 

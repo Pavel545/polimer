@@ -17,7 +17,7 @@
   position: relative;
 
   /* резиново вместо min-height:550 */
-  aspect-ratio: 670 / 550;
+  aspect-ratio: 16 / 9;
   background: var(--temnyy-2);
 }
 

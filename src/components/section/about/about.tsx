@@ -28,9 +28,11 @@ export default function About() {
   ];
   return (
     <section className={s.about}>
-      <h2 className="h2">
+        <div className="container">
+           <h2 className={"h2 " + s.aboutTitle}>
           Он нас
       </h2>
+        </div>
       <div className={s.aboutDecorative}></div>
 
       <div className="container">
@@ -53,7 +55,7 @@ export default function About() {
               самые современные и экологичные решения
             </p>
 
-            <a href="" className="link">
+            <a href="/about-us" className="link">
               Подробнее
             </a>
           </div>

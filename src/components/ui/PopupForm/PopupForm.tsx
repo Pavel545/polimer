@@ -12,27 +12,31 @@ type FormState = {
   name: string;
   phone: string; // masked
   message: string;
+  agreement: boolean;
 };
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
-const initial: FormState = { name: "", phone: "", message: "" };
+const initial: FormState = { 
+  name: "", 
+  phone: "", 
+  message: "",
+  agreement: false 
+};
 
 function digitsOnly(v: string) {
   return v.replace(/\D/g, "");
 }
 
 function formatPhoneRU(input: string): string {
-  // делаем формат под +7 (999) 999-99-99
   let d = digitsOnly(input);
 
-  // если человек вставил 8 или 7 в начале
   if (d.startsWith("8")) d = "7" + d.slice(1);
-  if (!d.startsWith("7")) d = "7" + d; // всегда начинаем с 7
+  if (!d.startsWith("7")) d = "7" + d;
 
-  d = d.slice(0, 11); // 7 + 10 цифр
+  d = d.slice(0, 11);
 
-  const p = d.slice(1); // без первой 7
+  const p = d.slice(1);
   const a = p.slice(0, 3);
   const b = p.slice(3, 6);
   const c = p.slice(6, 8);
@@ -49,11 +53,11 @@ function formatPhoneRU(input: string): string {
 }
 
 function isPhoneComplete(masked: string): boolean {
-  // +7 (999) 999-99-99 => 11 digits total
   return digitsOnly(masked).length === 11;
 }
 
-function validate(values: FormState): FormErrors {
+// Валидация только полей (без agreement)
+function validateFields(values: FormState): FormErrors {
   const errors: FormErrors = {};
 
   const name = values.name.trim();
@@ -67,18 +71,29 @@ function validate(values: FormState): FormErrors {
   return errors;
 }
 
+// Полная валидация для отправки
+function validateForSubmit(values: FormState): FormErrors {
+  const errors = validateFields(values);
+  
+  if (!values.agreement) {
+    errors.agreement = "Необходимо согласие на обработку данных";
+  }
+  
+  return errors;
+}
+
 export default function PopupForm({ onClose }: Props) {
   const [values, setValues] = useState<FormState>(initial);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  // Проверяем только поля для активации кнопки
   const canSubmit = useMemo(() => {
-    const e = validate(values);
+    const e = validateFields(values);
     return Object.keys(e).length === 0;
   }, [values]);
 
-  // ESC + lock scroll
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -94,15 +109,16 @@ export default function PopupForm({ onClose }: Props) {
     };
   }, [onClose]);
 
-  const onChange =
-    (key: keyof FormState) =>
+  const onChange = (key: keyof FormState) => 
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const next =
-        key === "phone" ? formatPhoneRU(e.target.value) : e.target.value;
-
+      let next: string | boolean = e.target.value;
+      
+      if (key === "phone") {
+        next = formatPhoneRU(e.target.value);
+      }
+      
       setValues((p) => ({ ...p, [key]: next }));
 
-      // мягко убираем ошибку по полю при вводе
       setErrors((prev) => {
         if (!prev[key]) return prev;
         const copy = { ...prev };
@@ -111,10 +127,20 @@ export default function PopupForm({ onClose }: Props) {
       });
     };
 
+  const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues((p) => ({ ...p, agreement: e.target.checked }));
+    setErrors((prev) => {
+      if (!prev.agreement) return prev;
+      const copy = { ...prev };
+      delete copy.agreement;
+      return copy;
+    });
+  };
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nextErrors = validate(values);
+    const nextErrors = validateForSubmit(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
 
@@ -127,20 +153,12 @@ export default function PopupForm({ onClose }: Props) {
         message: values.message.trim(),
       };
 
-      // ✅ Реальная отправка (включишь позже)
-      // const res = await fetch("/api/lead", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(payload),
-      // });
-      // if (!res.ok) throw new Error("Ошибка отправки");
+      console.log("Отправка данных:", payload);
 
-      // ✅ Псевдо-успех
       await new Promise((r) => setTimeout(r, 650));
       setIsSuccess(true);
       setValues(initial);
-    } catch (err) {
-      // можешь показать toast или общий текст ошибки
+    } catch {
       setErrors((p) => ({ ...p, message: "Не удалось отправить. Попробуйте ещё раз." }));
     } finally {
       setIsSubmitting(false);
@@ -182,6 +200,7 @@ export default function PopupForm({ onClose }: Props) {
                     type="text"
                     placeholder="Ваше имя"
                     autoComplete="name"
+                    disabled={isSubmitting}
                   />
                   {errors.name && <div className={s.errorText}>{errors.name}</div>}
                 </div>
@@ -195,6 +214,7 @@ export default function PopupForm({ onClose }: Props) {
                     placeholder="+7 (___) ___-__-__"
                     inputMode="tel"
                     autoComplete="tel"
+                    disabled={isSubmitting}
                   />
                   {errors.phone && <div className={s.errorText}>{errors.phone}</div>}
                 </div>
@@ -205,21 +225,44 @@ export default function PopupForm({ onClose }: Props) {
                     value={values.message}
                     onChange={onChange("message")}
                     placeholder="Ваше сообщение"
+                    disabled={isSubmitting}
                   />
                   {errors.message && <div className={s.errorText}>{errors.message}</div>}
                 </div>
 
-                <button className={`butt ${s.submit}`} type="submit" disabled={isSubmitting || !canSubmit}>
+                <div className={s.field}>
+                  <label className={s.checkboxLabel}>
+                    <input 
+                      type="checkbox" 
+                      className={s.checkboxInput}
+                      checked={values.agreement}
+                      onChange={onCheckboxChange}
+                      disabled={isSubmitting}
+                    />
+                    <span className={s.checkboxCustom}></span>
+                    <span className={s.checkboxText}>
+                      Я ознакомился с{" "}
+                      <a
+                        className={s.popFormTextLink}
+                        href="/policy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Правилами обработки персональных данных
+                      </a>
+                    </span>
+                  </label>
+                  {errors.agreement && <div className={s.errorText}>{errors.agreement}</div>}
+                </div>
+
+                <button 
+                  className={`butt ${s.submit}`} 
+                  type="submit" 
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? "Отправляем..." : "Отправить"}
                 </button>
               </form>
-
-              <p className={s.popPs}>
-                Нажимая кнопку “Отправить”, Вы подтверждаете что ознакомились с{" "}
-                <a className={s.popFormTextLink} href="" target="_blank" rel="noopener noreferrer">
-                  Правилами обработки персональных данных
-                </a>
-              </p>
             </>
           ) : (
             <motion.div

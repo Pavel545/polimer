@@ -5,6 +5,9 @@ export default function AboutInfo() {
   return (
     <section className={s.info}>
       <div className="container">
+        <h2 className={"h2 " + s.infoTitle}>
+          О нас
+        </h2>
         <div className={s.infoContent}>
           <div className={s.infoContentImg}>
             <Image
@@ -41,7 +44,7 @@ export default function AboutInfo() {
               <span>Поставки по всей России</span>
             </div>
 
-            <button className="butt">Смотреть продукцию</button>
+            <a href="/#products" className="butt">Смотреть продукцию</a>
           </div>
         </div>
 

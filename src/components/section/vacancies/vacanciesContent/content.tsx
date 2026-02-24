@@ -46,8 +46,8 @@ export default function VacanciesContent() {
             "Обучение: непосредственно на производстве",
           ],
           actions: [
-            { type: "link", label: "Перейти на hh.ru", href: "https://hh.ru" },
-            { type: "phone", label: "+7 902 006-48-75", href: "tel:+79020064875" },
+            { type: "link", label: "Откликнуться на вакансию", href: "#" },
+            { type: "phone", label: "+7 967 771 79 86", href: "tel:+79677717986" },
           ],
         },
       },

@@ -3,12 +3,10 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
   padding: 90px 0;
   position: relative;
 }
 
-/* лёгкий затемняющий слой для читаемости (опционально, но обычно лучше) */
 .contact::before {
   content: "";
   position: absolute;
@@ -20,17 +18,13 @@
 .contactsFormBox {
   width: 100%;
   max-width: 450px;
-
   background: var(--fon-chernyy-3);
   border-radius: 20px;
   z-index: 2;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-  /* важное: чтобы всё “дышало” */
   padding: 28px 22px;
 }
 
@@ -47,7 +41,6 @@
   font-size: clamp(12px, 2vw, 14px);
   line-height: 120%;
   color: var(--belyy);
-
   padding: 10px 0 22px 0;
 }
 
@@ -58,27 +51,27 @@
   width: 100%;
 }
 
+.field {
+  width: 100%;
+  position: relative;
+}
+
 .contactsFormInput,
 .contactsFormTextarea {
   padding: 12px 20px;
   border-radius: 5px;
-
   background: rgba(255, 255, 255, 0.2);
-  border: none;
-
+  border: 1px solid transparent;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 120%;
-
   width: 100%;
   color: var(--tekst-belyy);
-
-  /* более приятное поведение */
   outline: none;
+  transition: all 0.3s ease;
 }
 
-/* blur — только если поддерживается */
 @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
   .contactsFormInput,
   .contactsFormTextarea {
@@ -97,39 +90,140 @@
   margin-bottom: 18px;
 }
 
-/* плейсхолдеры читаемее */
 .contactsFormInput::placeholder,
 .contactsFormTextarea::placeholder {
   color: rgba(255, 255, 255, 0.65);
 }
 
-/* фокус */
 .contactsFormInput:focus,
 .contactsFormTextarea:focus {
-  outline: 1px solid var(--tekst-belyy);
+  border-color: var(--tekst-belyy);
 }
 
-/* ВНИМАНИЕ: ::grammar-error — не кроссбраузерно.
-   Если хочешь подсветку ошибок, лучше делать через :invalid */
-.contactsFormInput:invalid,
-.contactsFormTextarea:invalid {
-  /* без агрессии, чтобы не бесило пользователя */
-  /* box-shadow: 0 0 0 1px rgba(255, 90, 90, 0.55); */
+.inputError {
+  border-color: #ff6b6b !important;
+  background: rgba(255, 107, 107, 0.1);
 }
 
-.contactsFormPs {
-  text-align: start;
-  padding: 0; /* чтобы не разъезжалось */
+.errorText {
+  color: #ff6b6b;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-top: 4px;
+  text-align: left;
+  font-weight: 400;
+  padding-left: 8px;
+}
+
+/* Стили для чекбокса */
+.checkboxWrapper {
+  margin: 5px 0 10px 0;
+  text-align: left;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkboxInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxCustom {
+  min-width: 20px;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(17.2px);
+  -webkit-backdrop-filter: blur(17.2px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-top: 2px;
+}
+
+.checkboxInput:checked + .checkboxCustom {
+  background: var(--tekst-svetlyy-siniy, #6596ff);
+  border-color: var(--tekst-svetlyy-siniy, #6596ff);
+}
+
+.checkboxInput:checked + .checkboxCustom::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkboxInput:focus + .checkboxCustom {
+  box-shadow: 0 0 0 2px rgba(101, 150, 255, 0.5);
+}
+
+.checkboxInput:disabled + .checkboxCustom {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.checkboxText {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--belyy);
+  flex: 1;
+  text-align: left;
 }
 
 .contactsFormTextLink {
   color: #6596ff;
   transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .contactsFormTextLink:hover {
   text-decoration: underline;
   color: var(--tekst-svetlyy-siniy);
+}
+
+/* Кнопка */
+.submit {
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submit.success {
+  background: #4caf50;
+  border-color: #4caf50;
+  cursor: default;
+}
+
+/* Анимация успеха */
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.success {
+  animation: successPulse 0.5s ease;
 }
 
 /* ================== RESPONSIVE ================== */
@@ -151,6 +245,18 @@
     height: 130px;
     margin-bottom: 14px;
   }
+  
+  .checkboxWrapper {
+    margin: 0 0 8px 0;
+  }
+  
+  .checkboxText {
+    font-size: 11px;
+  }
+  
+  .errorText {
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 470px) {
@@ -170,5 +276,27 @@
 
   .contactsFormInput {
     height: 46px;
+  }
+  
+  .checkboxCustom {
+    min-width: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .checkboxInput:checked + .checkboxCustom::after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+  }
+  
+  .checkboxText {
+    font-size: 10px;
+  }
+  
+  .errorText {
+    font-size: 9px;
+    margin-top: 2px;
   }
 }
