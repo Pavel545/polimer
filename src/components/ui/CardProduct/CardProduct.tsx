@@ -71,9 +71,9 @@ export default function CardProduct({
           <div className={s.bottomContent}>
             <h3 className={s.title}>{product.titleShort}</h3>
             
-            <div className={s.price}>
+            {/* <div className={s.price}>
               {formatPrice(product.priceRub)} <span className={s.currency}>₽</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </Link>

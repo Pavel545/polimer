@@ -127,7 +127,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
 
             {product.instructionUrl && (
               <a className={"link " + s.infoLink} href={product.instructionUrl}>
-                Скачать инструкцию
+                Скачать инструкцию по монтажу 
               </a>
             )}
 
@@ -159,10 +159,10 @@ export default function ProductHero({ product }: Props): JSX.Element {
             </div>
 
             <div className={"flex-col " + s.infoPrice}>
-              <span className={s.infoPriceText}>Стоимость:</span>
+              {/* <span className={s.infoPriceText}>Стоимость:</span>
               <span className={s.infoPriceCount}>
                 {formatRub(variant.priceRub)} ₽
-              </span>
+              </span> */}
             </div>
 
             <button className={"butt " + s.infoCta} type="button">

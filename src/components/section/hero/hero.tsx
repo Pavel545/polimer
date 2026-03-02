@@ -29,9 +29,14 @@ export default function Hero(): JSX.Element {
             бордюры и водоотводы, гарантируя высокое качество и надежность нашей продукции
           </p>
 
-          <button className={"butt " + s.heroBtn} type="button">
-            Посмотреть прайс лист
+          <div className={s.heroButBox}>
+            <button className={"butt " + s.heroBtn} type="button">
+            Получить консультацию 
           </button>
+          <a className={"butt " + s.heroBtn + " " + s.heroBtn2} href="/" type="button">
+            Инструкция по монтажу
+          </a>
+          </div>
         </div>
       </div>
 

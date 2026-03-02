@@ -128,6 +128,8 @@
 
 .infoLink {
   width: fit-content;
+
+  font-size: clamp(14px, 1.5vw, 20px);
 }
 
 /* Colors */

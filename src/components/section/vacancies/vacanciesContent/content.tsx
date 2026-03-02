@@ -47,7 +47,7 @@ export default function VacanciesContent() {
           ],
           actions: [
             { type: "link", label: "Откликнуться на вакансию", href: "#" },
-            { type: "phone", label: "+7 967 771 79 86", href: "tel:+79677717986" },
+            { type: "phone", label: "+7 927 802 30 71", href: "tel:+79278023071" },
           ],
         },
       },

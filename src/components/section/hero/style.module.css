@@ -6,7 +6,8 @@
 
   /* вместо жесткого 90vh — адекватно на мобилках */
   min-height: 90vh;
-  min-height: 90svh; /* лучше для мобильных браузеров */
+  min-height: 90svh;
+  /* лучше для мобильных браузеров */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,8 +24,16 @@
   pointer-events: none;
 }
 
+.heroButBox {
+  display: flex;
+  gap: 20px;
+}
+
+
+
 .heroContent {
-  position: relative; /* поверх overlay */
+  position: relative;
+  /* поверх overlay */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -35,7 +44,18 @@
 }
 
 .heroBtn {
-  margin-top: 48px; /* вместо 70px, чтобы резиново */
+  margin-top: 48px;
+  /* вместо 70px, чтобы резиново */
+}
+
+.heroBtn2 {
+  background: var(--siniy-1);
+  color: var(--belyy);
+}
+
+.heroBtn2:hover {
+  background: var(--belyy);
+  color: var(--temnyy-2);
 }
 
 /* ===== Advantages ===== */

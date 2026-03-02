@@ -38,17 +38,17 @@ export default function Footer(): JSX.Element {
           <nav className={s.col}>
             <ul className={s.list}>
               <li>
-                <a className={s.footerLink + " link"} href="#">
-                  432070, Россия, г. Ульяновск, <br /> ул. Урицкого, д. 58, 3 этаж
+                <a className={s.footerLink + " link"} target="_blank" href="https://yandex.ru/maps/-/CPq6ZWNy">
+                  г. Ульяновск, проезд Максимова 33 <br /> строение 3(бывш. 9-й проезд Инженерный 33,строение 3)
                 </a>
               </li>
               <li>
-                <a className={s.footerLink + " link"} href="tel:+79677717986">
-                  +7 (967) 771-79-86
+                <a className={s.footerLink + " link"} href="tel:+79278023071">
+                  +7 (927) 802 30 71
                 </a>
               </li>
               <li>
-                <a className={s.footerLink + " link"} href="mailto:73polimer@mail.ru">
+                <a className={s.footerLink + " link"} target="_blank" href="mailto:73polimer@mail.ru">
                   73polimer@mail.ru
                 </a>
               </li>
