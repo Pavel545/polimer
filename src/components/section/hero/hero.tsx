@@ -33,7 +33,7 @@ export default function Hero(): JSX.Element {
             <button className={"butt " + s.heroBtn} type="button">
             Получить консультацию 
           </button>
-          <a className={"butt " + s.heroBtn + " " + s.heroBtn2} href="/" type="button">
+          <a className={"butt " + s.heroBtn + " " + s.heroBtn2} href="/docs/Инструкция по монтажу.pdf" target="_blank" type="button">
             Инструкция по монтажу
           </a>
           </div>

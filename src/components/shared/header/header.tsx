@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import s from "./style.module.css";
+import s from "./style.module.scss";
 import { useModal } from "@/components/providers/ModalProvider";
 import { JSX, useEffect, useState } from "react";
 

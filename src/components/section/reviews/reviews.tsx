@@ -1,6 +1,6 @@
 "use client";
 import React, { JSX, useEffect, useMemo, useRef, useState } from "react";
-import s from "./style.module.css";
+import s from "./style.module.scss";
 import { SliderArrows } from "@/components/ui/SliderArrows/SliderArrows";
 
 type ReviewSlide = {
@@ -120,46 +120,49 @@ export default function Reviews(): JSX.Element {
 
   return (
     <section className={s.reviews}>
-      <div className="container">
-        <div className={`${s.reviewsHeader} flex-sb`}>
-          <h2 className="h2">
-            Довольные клиенты <br /> по все России
-          </h2>
+  <div className="container">
+    <div className={`${s.reviewsHeader} flex-sb`}>
+      <h2 className="h2">
+        Довольные клиенты <br /> по все России
+      </h2>
 
-          <SliderArrows onPrev={prev} onNext={next} theme="dark" size="md" />
-        </div>
+      <SliderArrows onPrev={prev} onNext={next} theme="dark" size="md" />
+    </div>
 
-        <div className={s.reviewsSlider}>
-          <div ref={viewportRef} className={s.viewport}>
-            <div className={s.track}>
-              {slides.map((item, idx) => (
-                <article
-                  key={item.id}
-                  className={`${s.slide} ${
-                    idx === active ? s.slideActive : s.slideInactive
-                  }`}
-                  style={{ backgroundImage: `url(${item.img})` }}
-                  onClick={() => scrollToIndex(idx)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      scrollToIndex(idx);
-                    }
-                  }}
-                >
-                  <div className={s.overlay}>
-                    <div className={s.name}>{item.name}</div>
-                    <div className={s.region}>{item.region}</div>
-                    <p className={s.text}>{item.text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+    <div className={s.reviewsSlider}>
+      <div ref={viewportRef} className={s.viewport}>
+        <div className={s.track}>
+          {slides.map((item, idx) => (
+            <article
+              key={item.id}
+              className={`${s.slide} ${
+                idx === active ? s.slideActive : s.slideInactive
+              }`}
+              style={{ backgroundImage: `url(${item.img})` }}
+              onClick={() => scrollToIndex(idx)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  scrollToIndex(idx);
+                }
+              }}
+            >
+              {/* 3D-эффект как в примере с карточками */}
+              <div className={s.card3d}>
+                <div className={s.overlay}>
+                  <div className={s.name}>{item.name}</div>
+                  <div className={s.region}>{item.region}</div>
+                  <p className={s.text}>{item.text}</p>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 }

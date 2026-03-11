@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import s from "./style.module.css";
 
 export type TabItem = {
   id: number;
   title: string;
+  isFileLink?: boolean;
 };
 
 type TabsListProps = {
   items: TabItem[];
   activeId: number;
   onChange: (id: number) => void;
-
-  /** опционально: доп. классы под разные места использования */
   className?: string;
   itemClassName?: string;
   activeItemClassName?: string;
@@ -45,7 +45,6 @@ export default function TabsList({
       return;
     }
 
-    // простая, но приятная навигация
     if (e.key === "ArrowRight") {
       e.preventDefault();
       focusByIndex((idx + 1) % items.length);
@@ -74,23 +73,45 @@ export default function TabsList({
         const isActive = activeId === el.id;
 
         return (
-          <div
+          <motion.div
             key={el.id}
             className={[
               s.tabsItem,
               "flex-center",
               itemClassName ?? "",
               isActive ? s.active : "",
-              isActive ? activeItemClassName ?? "" : "",
+              isActive ? activeItemClassName : "",
+              el.isFileLink ? s.fileLink : "",
             ].join(" ")}
             role="tab"
             aria-selected={isActive}
             tabIndex={idx === activeIndex ? 0 : -1}
             onClick={() => onChange(el.id)}
             onKeyDown={(e) => onKeyDownItem(e, idx)}
+            // Анимация для табов
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.4, 
+              delay: idx * 0.1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            whileHover={{ 
+              y: -2,
+              transition: { duration: 0.2 }
+            }}
+            whileTap={{ scale: 0.98 }}
           >
             {el.title}
-          </div>
+            {el.isFileLink && (
+              <motion.span 
+                className={s.linkIcon}
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 0.5, delay: idx * 0.1 + 0.5 }}
+              >
+              </motion.span>
+            )}
+          </motion.div>
         );
       })}
     </div>

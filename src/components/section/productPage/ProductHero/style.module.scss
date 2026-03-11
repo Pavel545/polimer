@@ -23,6 +23,7 @@
 
 .galleryPrev :global(img) {
   object-fit: cover;
+  
 }
 
 .galleryList {
@@ -32,28 +33,27 @@
   flex-wrap: wrap;
 }
 
-.galleryListItem {
-  border-radius: var(--br);
+.card {
   width: 100px;
   height: 100px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
+  border-radius: var(--br);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  
+  // Базовое состояние
   opacity: 0.6;
-  transition: 0.25s ease;
-  border: 1px solid rgba(255,255,255,0.12);
+  
+  // Hover эффект
+  &:hover {
+    opacity: 0.9;
+  }
+  
+  // Активное состояние
+  &.cardActive {
+    opacity: 1;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
 }
-
-.galleryListItem:hover {
-  opacity: 0.9;
-}
-
-.galleryListItemActive {
-  opacity: 1;
-  border: 1px solid rgba(255,255,255,0.55);
-}
-
 /* ===== Info ===== */
 .info {
   display: flex;

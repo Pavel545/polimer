@@ -60,7 +60,7 @@
     }
 
     .tabsItem {
-        width: 70%;
+        width: fit-content;
         flex: 0 0 auto;
         height: 44px;
         padding: 0 14px;

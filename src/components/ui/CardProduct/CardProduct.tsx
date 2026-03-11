@@ -60,12 +60,9 @@ export default function CardProduct({
 
         <div className={s.info}>
           <div className={s.topContent}>
-            <p className={s.type}>
-              {product.categoryId === 1 && "Люк"}
-              {product.categoryId === 2 && "Заказная позиция"}
-              {product.categoryId === 3 && "Для благоустройства"}
-              {product.categoryId === 4 && "Для колодца"}
-            </p>
+            <h3 className={s.type}>
+              {product.titleShort}
+            </h3>
           </div>
           
           <div className={s.bottomContent}>

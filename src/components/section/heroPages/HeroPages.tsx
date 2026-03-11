@@ -1,27 +1,87 @@
+"use client";
+
+import { motion } from "framer-motion";
 import s from './style.module.css';
 import BreadCrumbs from '@/components/ui/BreadCrumbs/BreadCrumbs';
+
 
 type HeroPages = {
     title: string;
     h1: string;
     text?: string;
-    fon:string;
+    fon: string;
 }
 
 export default function HeroPages({ title, h1, text, fon }: HeroPages) {
-
-
     return (
-        <section style={{background: `url(${fon}) center / cover no-repeat`}} className={s.HeroPages}>
-            <BreadCrumbs items={[{ title: title }]} />
+        <motion.section 
+            className={s.HeroPages}
+            style={{ background: `url(${fon}) center / cover no-repeat` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+            {/* Затемняющий overlay с анимацией */}
+            <motion.div 
+                className={s.heroOverlay}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+            />
+
+            {/* Хлебные крошки */}
+                <BreadCrumbs items={[{ title: title }]} />
+
             <div className={"container " + s.HeroPagesText}>
-                <div className={s.HeroPagesContent}>
-                    <h1 className="h1">{h1}</h1>
-                    <p className={s.HeroPagesContentText}>
-                        {text}
-                    </p>
-                </div>
+                <motion.div 
+                    className={s.HeroPagesContent}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                        duration: 0.8, 
+                        delay: 0.5,
+                        ease: [0.22, 1, 0.36, 1]
+                    }}
+                >
+                    {/* Заголовок */}
+                    <motion.h1 
+                        className="h1"
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ 
+                            duration: 0.6, 
+                            delay: 0.7,
+                            ease: [0.22, 1, 0.36, 1]
+                        }}
+                    >
+                        {h1}
+                    </motion.h1>
+
+                    {/* Текст (если есть) */}
+                    {text && (
+                        <motion.p 
+                            className={s.HeroPagesContentText}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ 
+                                duration: 0.6, 
+                                delay: 0.9,
+                                ease: [0.22, 1, 0.36, 1]
+                            }}
+                        >
+                            {text}
+                        </motion.p>
+                    )}
+                </motion.div>
             </div>
-        </section>
+
+            {/* Декоративный элемент (необязательно) */}
+            <motion.div 
+                className={s.heroDecoration}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.8, delay: 1.1 }}
+            />
+        </motion.section>
     )
 }

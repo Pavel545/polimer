@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 // Генерируем метаданные для SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params; // Распаковываем Promise
+  const { slug } = await params;
   const product = getProductBySlug(slug);
   
   if (!product) {
@@ -31,20 +31,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-  // Распаковываем params с помощью await
   const { slug } = await params;
   
   const product = getProductBySlug(slug);
   const productInfo = getProductInfo(slug);
   
   if (!product) {
-    notFound(); // покажет 404 страницу
+    notFound();
   }
   
   return (
     <main style={{ background: "var(--temnyy-1)" }}>
-      <ProductHero product={product} />
-      {productInfo && <ProductInfo data={productInfo} />}
+      {/* Используем slug как key для принудительного перемонтирования */}
+      <ProductHero key={`hero-${slug}`} product={product} />
+      {productInfo && <ProductInfo key={`info-${slug}`} data={productInfo} />}
     </main>
   );
 }

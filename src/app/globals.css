@@ -1,5 +1,74 @@
-/* globals.css */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500&display=swap");
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../public/fonts/Inter/Inter-Regular.otf') format('opentype');
+}
+/* inter-italic - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../../public/fonts/Inter/Inter-Italic.otf') format('opentype');
+}
+/* inter-bold - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../public/fonts/Inter/Inter-Bold.otf') format('opentype');
+}
+/* inter-bolditalic - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../../public/fonts/Inter/Inter-BoldItalic.otf') format('opentype');
+}
+/* inter-black - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../public/fonts/Inter/Inter-Black.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../public/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+/* montserrat-italic - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../../public/fonts/Montserrat/Montserrat-Italic.ttf') format('truetype');
+}
+/* montserrat-bold - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../public/fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+}
+/* montserrat-bolditalic - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../../public/fonts/Montserrat/Montserrat-BoldItalic.ttf') format('truetype');
+}
+/* montserrat-black - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../public/fonts/Montserrat/Montserrat-Black.ttf') format('truetype');
+}
+
+
 
 :root {
   /* Цветовая схема */
@@ -17,7 +86,6 @@
 
   /* Шрифты */
   --font-family: "Inter", sans-serif;
-  --second-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
   --third-family: "Montserrat", sans-serif;
 
   /* Размеры шрифтов (в пикселях из макета) */

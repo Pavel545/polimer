@@ -104,7 +104,7 @@ export default function Products(): JSX.Element {
         </Stagger>
 
         <div className="flex-center">
-          <button className="butt">Инструкция по монтажу</button>
+          <a href="/docs/Инструкция по монтажу.pdf" target="_blank" className="butt">Инструкция по монтажу</a>
         </div>
       </div>
     </section>

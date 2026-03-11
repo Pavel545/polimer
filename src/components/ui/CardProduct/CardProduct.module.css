@@ -22,19 +22,35 @@
 
 /* Обесцвечиваем изображение */
 .image {
-  filter: grayscale(100%);
-  transition: filter 0.5s ease;
-  object-fit: cover;
+  /* filter: grayscale(100%); */
+  /* transition: filter 0.5s ease; */
+
+    --s: 550px;   /* the size of the image */
+  --b: 8px;     /* the border thickness*/
+  --g: 14px;    /* the gap */
+  --c: var(--temnyy-1); /* the color */
+  
+  aspect-ratio: 1;
+  outline: calc(var(--s)/2) solid rgba(0, 0, 0, 0.329);
+  outline-offset: calc(var(--s)/-2);
+  cursor: pointer;
+  transition: .5s;
+  object-fit: contain;
+  background: var(--temnyy-1);
+
+  background: linear-gradient(45deg, #f5f5f5, #727376);
 }
 
 .card:hover .image {
-  filter: grayscale(0%);
+   outline: var(--b) solid var(--c);
+  outline-offset: var(--g);
+  /* filter: grayscale(0%); */
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 66, 114, 0.5);
+  /* background: rgba(10, 66, 114, 0.5); */
   mix-blend-mode: multiply;
   transition: opacity 0.3s ease, background 0.3s ease;
   z-index: 1;

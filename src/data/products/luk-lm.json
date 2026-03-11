@@ -36,15 +36,15 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/luk-lm/1.jpg",
+          "url": "/img/products/luk-lm/1ч.png",
           "alt": "Описание фото",
           "colorId": "black",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/luk-lm/2.jpg",
-          "colorId": "black",
+          "url": "/img/products/luk-lm/1з.png",
+          "colorId": "green",
           "sort": 2
         },
         {

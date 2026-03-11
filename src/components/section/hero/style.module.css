@@ -85,7 +85,7 @@
 .heroAdvantagesItem:not(:last-child)::after {
   content: "";
   position: absolute;
-  right: -9px;
+  right: 18px;
   top: 10px;
   bottom: 10px;
   width: 1px;
@@ -132,7 +132,10 @@
     min-height: 154vh;
     min-height: 154svh;
   }
-
+.heroButBox{
+  flex-direction: column;
+  gap: 0;
+}
   .heroContent {
     max-width: 100%;
     padding: 36px 0 14px;

@@ -35,29 +35,6 @@
         "rightTitle": "ВИДЫ:",
         "types": []
       }
-    },
-    {
-      "id": 3,
-      "title": "Инструкция по монтажу",
-      "content": {
-        "kind": "instruction_columns",
-        "columns": [
-          {
-            "title": "",
-            "text": [
-              "",
-              ""
-            ]
-          },
-          {
-            "title": "",
-            "text": [
-              "",
-              ""
-            ]
-          }
-        ]
-      }
     }
   ]
 }

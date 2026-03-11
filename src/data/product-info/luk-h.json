@@ -74,25 +74,8 @@
     {
       "id": 3,
       "title": "Паспорт изделия",
-      "content": {
-        "kind": "instruction_columns",
-        "columns": [
-          {
-            "title": "",
-            "text": [
-              "",
-              ""
-            ]
-          },
-          {
-            "title": "",
-            "text": [
-              "",
-              ""
-            ]
-          }
-        ]
-      }
+      "fileUrl": "/docs/Паспорт на люки Т.pdf",
+      "content": null
     }
   ]
 }

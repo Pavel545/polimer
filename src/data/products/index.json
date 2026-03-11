@@ -7,7 +7,7 @@
     "description": "Полимерпесчаный канализационный люк нагрузкой до 1,5 тонн",
     "priceRub": 1040,
     "categoryId": 1,
-    "img": "/img/products/luk-lm/1.jpg"
+    "img": "/img/products/luk-lm/1з.png"
   },
   {
     "id": "2",
@@ -17,7 +17,7 @@
     "description": "Полимерпесчаный люк нагрузкой до 3 тонн. «Легкий люк»",
     "priceRub": 1470,
     "categoryId": 1,
-    "img": "/img/products/luk-l/1.jpg"
+    "img": "/img/products/luk-l/1з.png"
   },
   {
     "id": "3",
@@ -27,7 +27,7 @@
     "description": "Полимерпесчаный люк нагрузкой до 15 тонн. «Тяжелый люк»",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/luk-m/3.jpg"
+    "img": "/img/products/luk-m/1с.png"
   },
   {
     "id": "4",
@@ -37,7 +37,7 @@
     "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Магистральный люк»",
     "priceRub": 2400,
     "categoryId": 1,
-    "img": "/img/products/luk-h/1.jpg"
+    "img": "/img/products/luk-h/1ч.png"
   },
   {
     "id": "5",
@@ -97,7 +97,7 @@
     "description": "",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.jpg"
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1з.png"
   },
   {
     "id": "11",

@@ -73,7 +73,8 @@ export type TabContent =
 export type ProductTab = {
   id: number;
   title: string;
-  content: TabContent;
+  content?: TabContent;
+  fileUrl?: string;
 };
 
 export type ProductInfoData = {
