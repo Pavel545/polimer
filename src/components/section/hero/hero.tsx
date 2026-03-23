@@ -1,7 +1,5 @@
-import { getSiteContext } from "@/lib/getSiteContext";
 import s from "./style.module.css";
 import Image from "next/image";
-import { JSX } from "react";
 
 type Advantage = {
   icon: string;
@@ -9,7 +7,6 @@ type Advantage = {
 };
 
 export default async function Hero() {
-  const { seo } = await getSiteContext();
   const advantages: Advantage[] = [
     { icon: "/icons/about/4.svg", text: "доставка по всей россии от нас до клиента" },
     { icon: "/icons/advantages/2.svg", text: "большой складской запас продукции" },
