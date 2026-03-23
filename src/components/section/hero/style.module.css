@@ -14,7 +14,13 @@
 
   position: relative;
 }
+.heroContentSpan{
+  all: unset;
 
+
+  color: var(--siniy-1);
+  opacity: 0.8;
+}
 /* можно добавить легкое затемнение, чтобы текст читался лучше */
 .hero::before {
   content: "";

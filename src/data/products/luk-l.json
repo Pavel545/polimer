@@ -12,24 +12,14 @@
       "priceRub": 1000,
       "colors": [
         {
-          "id": "black",
-          "name": "Черный",
-          "hex": "#000000"
-        },
-        {
-          "id": "green",
-          "name": "Зеленый",
-          "hex": "#00FF00"
-        },
-        {
           "id": "korichneviy",
           "name": "Коричневый",
           "hex": "#482b00"
         },
         {
-          "id": "red",
-          "name": "Красный",
-          "hex": "red"
+          "id": "gray",
+          "name": "Серый",
+          "hex": "#808080"
         }
       ],
       "images": [
@@ -37,20 +27,20 @@
           "id": "img1",
           "url": "/img/products/luk-l/1.jpg",
           "alt": "Описание фото",
-          "colorId": "black",
+          "colorId": "korichneviy",
           "sort": 1
         },
         {
           "id": "img2",
           "url": "/img/products/luk-l/2.jpg",
-          "colorId": "black",
+          "colorId": "gray",
           "sort": 2
         },
         {
           "id": "img3",
           "url": "/img/products/luk-l/3.jpg",
-          "colorId": "green",
-          "sort": 1
+          "colorId": "korichneviy",
+          "sort":2
         }
       ]
     }

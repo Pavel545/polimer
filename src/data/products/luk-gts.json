@@ -12,14 +12,19 @@
       "priceRub": 2800,
       "colors": [
         {
-          "id": "black",
-          "name": "Черный",
-          "hex": "#000000"
-        },
-        {
           "id": "green",
           "name": "Зеленый",
           "hex": "#00FF00"
+        },
+        {
+          "id": "gray",
+          "name": "Серый",
+          "hex": "#808080"
+        },
+        {
+          "id": "brown",
+          "name": "Коричневый",
+          "hex": "#482b00"
         }
       ],
       "images": [
@@ -27,14 +32,14 @@
           "id": "img1",
           "url": "/img/products/luk-gts/1.jpg",
           "alt": "Описание фото",
-          "colorId": "black",
-          "sort": 1
+          "colorId": "gray",
+          "sort": 2
         },
         {
           "id": "img2",
           "url": "/img/products/luk-gts/2.jpg",
-          "colorId": "black",
-          "sort": 2
+          "colorId": "green",
+          "sort": 1
         },
         {
           "id": "img3",
@@ -45,20 +50,20 @@
         {
           "id": "img4",
           "url": "/img/products/luk-gts/4.jpg",
-          "colorId": "green",
-          "sort": 1
+          "colorId": "brown",
+          "sort": 3
         },
         {
           "id": "img5",
           "url": "/img/products/luk-gts/5.jpg",
-          "colorId": "green",
-          "sort": 1
+          "colorId": "brown",
+          "sort": 3
         },
         {
           "id": "img6",
           "url": "/img/products/luk-gts/6.jpg",
-          "colorId": "green",
-          "sort": 1
+          "colorId": "gray",
+          "sort": 2
         }
       ]
     }

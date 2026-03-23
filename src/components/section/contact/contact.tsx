@@ -224,7 +224,7 @@ export default function Contact() {
                       Я ознакомился с{" "}
                       <a
                         className={s.contactsFormTextLink}
-                        href="/policy"
+                        href="/politiko"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

@@ -98,12 +98,7 @@
 }
 
 .aboutBotRight {
-  background: url(../../../../public/img/about/fon2.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 
-  padding: 40px 30px;
   border-radius: var(--br);
 
   display: flex;
@@ -128,7 +123,22 @@
   line-height: 130%;
   color: var(--belyy);
 }
+.aboutBotRight {
+  position: relative;
+  border-radius: var(--br);
+  overflow: hidden;
+  min-height: 280px;
+}
 
+.aboutBotRightInner {
+  height: 100%;
+  padding: 40px 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
 /* ================== АДАПТИВ ================== */
 
 /* 1400px */

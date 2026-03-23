@@ -9,10 +9,10 @@ type ReviewSlide = {
   region: string;
   text: string;
   img: string;
+  avatar: "men" | "girl";
 };
 
 export default function Reviews(): JSX.Element {
-  // Пример данных — подставь свои
   const slides = useMemo<ReviewSlide[]>(
     () => [
       {
@@ -21,6 +21,7 @@ export default function Reviews(): JSX.Element {
         region: "Самарская область",
         text: "Заказывал люк что бы гармонично сочетался с ландшафтным дизайном заднего двора.\nПодошло отлично, спасибо!",
         img: "/img/reviews/1.jpg",
+        avatar: "men",
       },
       {
         id: 2,
@@ -28,6 +29,7 @@ export default function Reviews(): JSX.Element {
         region: "Москва",
         text: "Качественно, быстро и аккуратно.\nОтдельно спасибо за консультацию!",
         img: "/img/reviews/1.jpg",
+        avatar: "girl",
       },
       {
         id: 3,
@@ -35,6 +37,7 @@ export default function Reviews(): JSX.Element {
         region: "Казань",
         text: "Все подошло по размерам, монтаж без проблем.\nРекомендую!",
         img: "/img/reviews/1.jpg",
+        avatar: "men",
       },
       {
         id: 4,
@@ -42,6 +45,7 @@ export default function Reviews(): JSX.Element {
         region: "Краснодар",
         text: "Отличный сервис, оперативная доставка.\nБуду обращаться еще.",
         img: "/img/reviews/1.jpg",
+        avatar: "girl",
       },
     ],
     [],
@@ -107,62 +111,105 @@ export default function Reviews(): JSX.Element {
     };
 
     viewport.addEventListener("scroll", onScroll, { passive: true });
-
-    // старт — центрируем первый слайд
     scrollToIndex(0);
 
     return () => {
       viewport.removeEventListener("scroll", onScroll);
       window.cancelAnimationFrame(rafId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slides.length]);
 
   return (
     <section className={s.reviews}>
-  <div className="container">
-    <div className={`${s.reviewsHeader} flex-sb`}>
-      <h2 className="h2">
-        Довольные клиенты <br /> по все России
-      </h2>
+      <div className="container">
+        <div className={`${s.reviewsHeader} flex-sb`}>
+          <h2 className="h2">
+            Довольные клиенты <br /> по всей России
+          </h2>
 
-      <SliderArrows onPrev={prev} onNext={next} theme="dark" size="md" />
-    </div>
+          {/* <SliderArrows onPrev={prev} onNext={next} theme="dark" size="md" /> */}
+        </div>
 
-    <div className={s.reviewsSlider}>
-      <div ref={viewportRef} className={s.viewport}>
-        <div className={s.track}>
-          {slides.map((item, idx) => (
-            <article
-              key={item.id}
-              className={`${s.slide} ${
-                idx === active ? s.slideActive : s.slideInactive
-              }`}
-              style={{ backgroundImage: `url(${item.img})` }}
-              onClick={() => scrollToIndex(idx)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  scrollToIndex(idx);
-                }
-              }}
+        <div className={s.reviewsSlider}>
+          <div ref={viewportRef} className={s.viewport}>
+            <div className={s.track}>
+              {slides.map((item, idx) => (
+                <article
+                  key={item.id}
+                  className={`${s.slide} ${
+                    idx === active ? s.slideActive : s.slideInactive
+                  }`}
+                  style={{ backgroundImage: `url(${item.img})` }}
+                  onClick={() => scrollToIndex(idx)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      scrollToIndex(idx);
+                    }
+                  }}
+                >
+                  <div className={s.card3d}>
+                    <div className={s.overlay}>
+                      <div className={s.name}>{item.name}</div>
+                      <div className={s.region}>{item.region}</div>
+                      <p className={s.text}>{item.text}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className={s.pagination}>
+            <button
+              type="button"
+              className={s.paginationArrow}
+              onClick={prev}
+              aria-label="Предыдущий отзыв"
             >
-              {/* 3D-эффект как в примере с карточками */}
-              <div className={s.card3d}>
-                <div className={s.overlay}>
-                  <div className={s.name}>{item.name}</div>
-                  <div className={s.region}>{item.region}</div>
-                  <p className={s.text}>{item.text}</p>
-                </div>
-              </div>
-            </article>
-          ))}
+              ‹
+            </button>
+
+            <div className={s.paginationList}>
+              {slides.map((item, idx) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`${s.paginationDot} ${
+                    idx === active ? s.paginationDotActive : ""
+                  }`}
+                  onClick={() => {
+                    setActive(idx);
+                    scrollToIndex(idx);
+                  }}
+                  aria-label={`Перейти к отзыву ${idx + 1}`}
+                  aria-current={idx === active ? "true" : "false"}
+                >
+                  <img
+                    src={
+                      item.avatar === "girl"
+                        ? "/img/reviews/gerl.png"
+                        : "/img/reviews/men.png"
+                    }
+                    alt={item.name}
+                  />
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className={s.paginationArrow}
+              onClick={next}
+              aria-label="Следующий отзыв"
+            >
+              ›
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
   );
 }

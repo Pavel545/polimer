@@ -15,7 +15,7 @@ export default function Header(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const links: NavLink[] = [
-    { href: "/#products", text: "Продукция" },
+    { href: "/products", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
     { href: "/blog", text: "Блог" },
     { href: "/vacancies", text: "Вакансии" },

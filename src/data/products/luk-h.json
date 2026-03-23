@@ -12,6 +12,11 @@
       "priceRub": 1000,
       "colors": [
         {
+          "id": "gray",
+          "name": "Серый",
+          "hex": "#808080"
+        },
+        {
           "id": "black",
           "name": "Черный",
           "hex": "#000000"
@@ -22,7 +27,7 @@
           "id": "img1",
           "url": "/img/products/luk-h/1.jpg",
           "alt": "Описание фото",
-          "colorId": "black",
+          "colorId": "gray",
           "sort": 1
         },
         {
@@ -34,19 +39,19 @@
         {
           "id": "img3",
           "url": "/img/products/luk-h/3.jpg",
-          "colorId": "green",
-          "sort": 1
+          "colorId": "black",
+          "sort": 2
         },
         {
           "id": "img4",
           "url": "/img/products/luk-h/4.jpg",
-          "colorId": "green",
+          "colorId": "black",
           "sort": 1
         },
         {
           "id": "img5",
           "url": "/img/products/luk-h/5.jpg",
-          "colorId": "green",
+          "colorId": "black",
           "sort": 1
         }
       ]

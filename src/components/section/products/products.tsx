@@ -96,6 +96,7 @@ export default function Products(): JSX.Element {
               key={product.id}
               product={product}
               idx={idx}
+              className={ catActive == 1 ? s.contain : ''} 
               layoutMode={layoutMode}
               getMosaicPlacement={getMosaicPlacement}
               variants={itemVariants}

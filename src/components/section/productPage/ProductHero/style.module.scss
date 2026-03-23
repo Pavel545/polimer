@@ -17,7 +17,7 @@
   position: relative;
 
   /* резиново вместо min-height:550 */
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 12;
   background: var(--temnyy-2);
 }
 
@@ -25,7 +25,10 @@
   object-fit: cover;
   
 }
-
+.galleryImage {
+  position: absolute;
+  inset: 0;
+}
 .galleryList {
   display: flex;
   gap: 10px;

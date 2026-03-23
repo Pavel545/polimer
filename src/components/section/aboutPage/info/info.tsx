@@ -44,7 +44,7 @@ export default function AboutInfo() {
               <span>Поставки по всей России</span>
             </div>
 
-            <a href="/#products" className="butt">Смотреть продукцию</a>
+            <a href="/products" className="butt">Смотреть продукцию</a>
           </div>
         </div>
 

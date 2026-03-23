@@ -12,14 +12,20 @@
       "priceRub": 1000,
       "colors": [
         {
-          "id": "black",
-          "name": "Черный",
-          "hex": "#000000"
+          "id": "green-dark",
+          "name": "Тёмно зелёный",
+          "hex": "#006400"
         },
         {
-          "id": "green",
-          "name": "Зелённый",
+          "id": "green-light",
+          "name": "Светло зелёный",
           "hex": "#19b600"
+        }
+        ,
+        {
+          "id": "khaki",
+          "name": "Хаки",
+          "hex": "#323437"
         }
         ,
         {
@@ -31,44 +37,49 @@
           "id": "red",
           "name": "Красный",
           "hex": "#d80000"
+        },
+        {
+          "id": "gray",
+          "name": "Серый",
+          "hex": "#808080"
         }
       ],
       "images": [
-        {
+         {
           "id": "img1",
-          "url": "/img/products/luk-lm/1ч.png",
-          "alt": "Описание фото",
-          "colorId": "black",
+          "url": "/img/products/luk-lm/1.jpg",
+          "colorId": "brown",
           "sort": 1
         },
-        {
+         {
           "id": "img2",
-          "url": "/img/products/luk-lm/1з.png",
-          "colorId": "green",
+          "url": "/img/products/luk-lm/2.jpg",
+          "colorId": "red",
           "sort": 2
         },
+        
         {
           "id": "img3",
           "url": "/img/products/luk-lm/3.jpg",
-          "colorId": "black",
+          "colorId": "green-dark",
           "sort": 3
         },
         {
           "id": "img4",
           "url": "/img/products/luk-lm/4.jpg",
-          "colorId": "black",
+          "colorId": "khaki",
           "sort": 4
         },
         {
           "id": "img5",
           "url": "/img/products/luk-lm/5.jpg",
-          "colorId": "black",
+          "colorId": "green-light",
           "sort": 5
         },
         {
           "id": "img6",
           "url": "/img/products/luk-lm/6.jpg",
-          "colorId": "black",
+          "colorId": "gray",
           "sort": 6
         }
       ]

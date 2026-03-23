@@ -6,6 +6,7 @@
   z-index: 1;
   height: 100%;
   transform: translateZ(0);
+
 }
 
 .link {
@@ -35,11 +36,12 @@
   outline-offset: calc(var(--s)/-2);
   cursor: pointer;
   transition: .5s;
-  object-fit: contain;
+  object-fit: cover;
   background: var(--temnyy-1);
 
   background: linear-gradient(45deg, #f5f5f5, #727376);
 }
+
 
 .card:hover .image {
    outline: var(--b) solid var(--c);

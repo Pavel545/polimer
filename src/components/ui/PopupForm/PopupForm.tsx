@@ -244,7 +244,7 @@ export default function PopupForm({ onClose }: Props) {
                       Я ознакомился с{" "}
                       <a
                         className={s.popFormTextLink}
-                        href="/policy"
+                        href="/politiko"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

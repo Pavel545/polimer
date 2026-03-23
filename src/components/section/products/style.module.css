@@ -45,6 +45,9 @@
   grid-auto-flow: row dense;
 }
 
+.contain { 
+  object-fit: contain !important;
+}
 /* ===== Layout modes ===== */
 
 /* 5-ка (мозаика) */

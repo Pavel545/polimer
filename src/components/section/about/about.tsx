@@ -1,8 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import s from "./style.module.css";
+
+type AboutItem = {
+  icon: string
+  title: string
+  text: string
+  img: string
+}
+
+
 import {
   SlideInLeft,
   SlideInRight,
@@ -12,30 +21,38 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/ui/Motion";
+import { useState } from "react";
 
 export default function About() {
-  const details = [
+  const details: AboutItem[] = [
     {
       icon: "/icons/about/1.svg",
       title: "Ваш логотип на люке",
       text: "Ваш логотип на люке и Ваши контактные данные - это самое лучшее вложение в рекламу!",
+      img:"/img/about/ad1.jpg",
     },
     {
       icon: "/icons/about/4.svg",
       title: "Доставка люки до клиента",
       text: "Собственная служба логистики доставит товар заказчикам по всей территории России",
+      img:"/img/about/ad2.jpg",
     },
     {
       icon: "/icons/about/2.svg",
       title: "Люки с запорным устройством",
       text: "Постоянный неснижаемый складской запас люков обеспечит потребности большинства клиентов",
+      img:"/img/about/ad3.jpg",
     },
     {
       icon: "/icons/about/3.svg",
       title: "Неснижаемый складской запас",
       text: "Постоянный неснижаемый складской запас люков обеспечит потребности большинства клиентов",
+      img:"/img/about/ad4.jpg",
     },
   ];
+
+  const [activeAbout, setActiveAbout] = useState<AboutItem>(details[0]);
+
 
   return (
     <section className={s.about}>
@@ -137,13 +154,16 @@ export default function About() {
             <Stagger  className={s.aboutBotLeft} stagger={0.1} delay={0.4} amount={0.2}>
               {details.map((e, i) => (
                 <StaggerItem key={i}>
-                  <motion.div 
-                    className={s.aboutBotLeftItem}
-                    whileHover={{ 
-                      y: -5,
-                      transition: { duration: 0.3 }
-                    }}
-                  >
+                   <motion.div
+      className={s.aboutBotLeftItem}
+      onMouseEnter={() => setActiveAbout(e)}
+      animate={{
+        opacity: activeAbout.title === e.title ? 1 : 0.7,
+        scale: activeAbout.title === e.title ? 1.03 : 1
+      }}
+      transition={{ duration: 0.3 }}
+      whileHover={{ y: -6 }}
+    >
                     {/* Иконка */}
 
   <Image 
@@ -182,30 +202,41 @@ export default function About() {
 
           {/* Правая часть - большая карточка с фоном */}
           <BlurIn delay={0.8} amount={0.2}>
-            <motion.div 
-              className={s.aboutBotRight}
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-              >
-                Доставка люки до клиента
-              </motion.h3>
+  <div className={s.aboutBotRight}>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={activeAbout.img}
+        className={s.aboutBotRightInner}
+        style={{
+          background: `url(${activeAbout.img}) center/cover no-repeat`,
+        }}
+        initial={{ opacity: 0, y: 20, scale: 1.03 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -20, scale: 0.98 }}
+        transition={{
+          duration: 0.5,
+          ease: [0.22, 1, 0.36, 1]
+        }}
+      >
+        <motion.h3
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        >
+          {activeAbout.title}
+        </motion.h3>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.0, duration: 0.5 }}
-              >
-                Собственная служба логистики доставит товар заказчикам по всей
-                территории России. Быстрая и надежная доставка в любой регион
-                с отслеживанием груза в реальном времени.
-              </motion.p>
-            </motion.div>
-          </BlurIn>
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+        >
+          {activeAbout.text}
+        </motion.p>
+      </motion.div>
+    </AnimatePresence>
+  </div>
+</BlurIn>
         </div>
       </div>
     </section>

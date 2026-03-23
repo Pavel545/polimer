@@ -18,6 +18,7 @@ type Props = {
   product: ProductListItem;
   idx: number;
   layoutMode: LayoutMode;
+  className?:string;
   getMosaicPlacement: (idx: number) => MosaicPlacement;
   variants: Variants;
 };
@@ -26,6 +27,7 @@ export default function CardProduct({
   product,
   idx,
   layoutMode,
+  className,
   getMosaicPlacement,
   variants,
 }: Props): JSX.Element {
@@ -38,22 +40,22 @@ export default function CardProduct({
   
   return (
     <motion.article
-      className={s.card}
+      className={`${s.card} `}
       variants={variants}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -4 }}
       layout
       style={mosaicStyle}
     >
-      <Link href={`/product/${product.slug}`} className={s.link}>
-        <div className={s.media}>
+      <Link href={`/products/${product.slug}`} className={s.link}>
+        <div className={`${s.media}`}>
           <Image
             src={product.img}
             alt={product.titleShort}
             fill
             sizes="(max-width: 470px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={idx < 2}
-            className={s.image}
+            className={`${s.image} ${className}`}
           />
           <div className={s.overlay} />
         </div>
@@ -66,7 +68,6 @@ export default function CardProduct({
           </div>
           
           <div className={s.bottomContent}>
-            <h3 className={s.title}>{product.titleShort}</h3>
             
             {/* <div className={s.price}>
               {formatPrice(product.priceRub)} <span className={s.currency}>₽</span>

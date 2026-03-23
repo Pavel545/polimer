@@ -47,7 +47,7 @@
     "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Люк с логотипом» ",
     "priceRub": 2800,
     "categoryId": 2,
-    "img": "/img/products/luk-gts/1.jpg"
+    "img": "/img/products/luk-gts/prev.jpg"
   },
   {
     "id": "6",
@@ -57,7 +57,7 @@
     "description": "Полимерпесчаный люк с запорным устройством",
     "priceRub": 3000,
     "categoryId": 2,
-    "img": "/img/products/lyuk-s-zapornym-ustroistvom/1.jpg"
+    "img": "/img/products/lyuk-s-zapornym-ustroistvom/prev.jpg"
   },
   {
     "id": "7",

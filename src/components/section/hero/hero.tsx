@@ -1,3 +1,4 @@
+import { getSiteContext } from "@/lib/getSiteContext";
 import s from "./style.module.css";
 import Image from "next/image";
 import { JSX } from "react";
@@ -7,7 +8,8 @@ type Advantage = {
   text: string;
 };
 
-export default function Hero(): JSX.Element {
+export default async function Hero() {
+  const { seo } = await getSiteContext();
   const advantages: Advantage[] = [
     { icon: "/icons/about/4.svg", text: "доставка по всей россии от нас до клиента" },
     { icon: "/icons/advantages/2.svg", text: "большой складской запас продукции" },
@@ -18,24 +20,25 @@ export default function Hero(): JSX.Element {
   return (
     <section className={s.hero}>
       <div>
-        
+
       </div>
       <div className="container">
         <div className={s.heroContent}>
-          <h1 className="h1">полимерпесчанные технологии</h1>
+          <h1 className="h1">
+            <span className={s.heroContentSpan}>  производитель</span><br />
+            полимерпесчаных люков
+          </h1>
 
           <p>
-            Более 12 лет мы стабильно производим полимерпесчаные люки, тротуарную плитку,
-            бордюры и водоотводы, гарантируя высокое качество и надежность нашей продукции
-          </p>
+            Всегда в наличии широкий ассортимент: <br />  полимерпесчаные люки, тротуарная плитка, водоотводы, поребрики          </p>
 
           <div className={s.heroButBox}>
             <button className={"butt " + s.heroBtn} type="button">
-            Получить консультацию 
-          </button>
-          <a className={"butt " + s.heroBtn + " " + s.heroBtn2} href="/docs/Инструкция по монтажу.pdf" target="_blank" type="button">
-            Инструкция по монтажу
-          </a>
+              Скачать прайс-лист
+            </button>
+            <a className={"butt " + s.heroBtn + " " + s.heroBtn2} href="/docs/Инструкция по монтажу.pdf" target="_blank" type="button">
+              Инструкция по монтажу
+            </a>
           </div>
         </div>
       </div>
