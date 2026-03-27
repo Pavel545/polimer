@@ -5,9 +5,9 @@ import BreadCrumbs from "@/components/ui/BreadCrumbs/BreadCrumbs";
 export default function Product() {
   return (
     <main>
-              <BreadCrumbs items={[{title:"Продукция"}]} />
-      
-      <Products/>
+      <BreadCrumbs items={[{ title: "Продукция" }]} />
+
+      <Products />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 .products {
-  padding: 170px 0;
+  margin: clamp(30px, 10vh,   90px)  0 170px;
 }
 
 .productsTitle{
@@ -70,10 +70,7 @@
 
 /* ===== 1400 ===== */
 @media (max-width: 1400px) {
-  .products {
-    padding: 120px 0;
-  }
-
+  
   .gridMosaic5,
   .grid2,
   .grid3 {
@@ -83,9 +80,7 @@
 
 /* ===== 1024 ===== */
 @media (max-width: 1024px) {
-  .products {
-    padding: 100px 0;
-  }
+ 
 
   /* табы чуть компактнее */
   .productsTabsItem {
@@ -112,9 +107,7 @@
 
 /* ===== 740 ===== */
 @media (max-width: 740px) {
-  .products {
-    padding: 80px 0;
-  }
+
 
   /* Табы -> горизонтальный скролл (самый удобный вариант) */
   .productsTabs {

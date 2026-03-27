@@ -178,3 +178,90 @@
         white-space: nowrap;
     }
 }
+
+
+
+/* Стили для полноширинного изображения */
+.fullWidthImage {
+    width: 100%;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    background: var(--seryy-1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.productImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    max-height: 70vh;
+    margin: 0 auto;
+}
+
+.closeImageButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.closeImageButton:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Адаптив для изображения */
+@media (max-width: 768px) {
+    .productImage {
+        max-height: 60vh;
+    }
+    
+    .closeImageButton {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .productImage {
+        max-height: 50vh;
+    }
+    
+    .closeImageButton {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+        top: 8px;
+        right: 8px;
+    }
+}

@@ -4,23 +4,25 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  /* вместо жесткого 90vh — адекватно на мобилках */
   min-height: 90vh;
   min-height: 90svh;
-  /* лучше для мобильных браузеров */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   position: relative;
+
+  margin-bottom: clamp(30px, 10vw, 170px);
 }
-.heroContentSpan{
+
+.heroContentSpan {
   all: unset;
 
 
   color: var(--siniy-1);
   opacity: 0.8;
 }
+
 /* можно добавить легкое затемнение, чтобы текст читался лучше */
 .hero::before {
   content: "";
@@ -132,16 +134,29 @@
   }
 }
 
+.heroH2 {
+  font-weight: 500;
+  font-style: Medium;
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 120%;
+  letter-spacing: 0%;
+}
+
 /* мобилка */
 @media (max-width: 640px) {
   .hero {
-    min-height: 154vh;
-    min-height: 154svh;
+    min-height: 120vh;
+    min-height: 120svh;
+
+    background-position-x: 72% ;
+    background-position-y:50% ;
   }
-.heroButBox{
-  flex-direction: column;
-  gap: 0;
-}
+
+  .heroButBox {
+    flex-direction: column;
+    gap: 0;
+  }
+
   .heroContent {
     max-width: 100%;
     padding: 36px 0 14px;

@@ -29,25 +29,25 @@ export default function About() {
       icon: "/icons/about/1.svg",
       title: "Ваш логотип на люке",
       text: "Ваш логотип на люке и Ваши контактные данные - это самое лучшее вложение в рекламу!",
-      img:"/img/about/ad1.jpg",
+      img: "/img/about/ad1.jpg",
     },
     {
       icon: "/icons/about/4.svg",
       title: "Доставка люки до клиента",
       text: "Собственная служба логистики доставит товар заказчикам по всей территории России",
-      img:"/img/about/ad2.jpg",
+      img: "/img/about/ad2.jpg",
     },
     {
       icon: "/icons/about/2.svg",
       title: "Люки с запорным устройством",
       text: "Постоянный неснижаемый складской запас люков обеспечит потребности большинства клиентов",
-      img:"/img/about/ad3.jpg",
+      img: "/img/about/ad3.jpg",
     },
     {
       icon: "/icons/about/3.svg",
       title: "Неснижаемый складской запас",
       text: "Постоянный неснижаемый складской запас люков обеспечит потребности большинства клиентов",
-      img:"/img/about/ad4.jpg",
+      img: "/img/about/ad4.jpg",
     },
   ];
 
@@ -57,7 +57,7 @@ export default function About() {
   return (
     <section className={s.about}>
       {/* Декоративный блок с параллакс эффектом */}
-      <motion.div 
+      <motion.div
         className={s.aboutDecorative}
         initial={{ scale: 1.1, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
@@ -77,7 +77,7 @@ export default function About() {
         <div className={s.aboutContent}>
           {/* Левая колонка с заголовком */}
           <SlideInLeft delay={0.2} amount={0.2}>
-            <motion.h3 
+            <motion.h3
               className="h2"
               whileHover={{ x: 10 }}
               transition={{ duration: 0.3 }}
@@ -92,7 +92,7 @@ export default function About() {
               <Stagger stagger={0.15} amount={0.2}>
                 <StaggerItem>
                   <motion.p
-                    whileHover={{ 
+                    whileHover={{
                       opacity: 1,
                       transition: { duration: 0.2 }
                     }}
@@ -105,10 +105,10 @@ export default function About() {
                     объектов.
                   </motion.p>
                 </StaggerItem>
-                
+
                 <StaggerItem>
                   <motion.p
-                    whileHover={{ 
+                    whileHover={{
                       opacity: 1,
                       transition: { duration: 0.2 }
                     }}
@@ -124,8 +124,8 @@ export default function About() {
 
               {/* Ссылка "Подробнее" */}
               <ScaleIn delay={0.6} amount={0.2}>
-                <motion.a 
-                  href="/about-us" 
+                <motion.a
+                  href="/about-us"
                   className="link"
                   whileHover={{ x: 10 }}
                   whileTap={{ scale: 0.95 }}
@@ -133,8 +133,8 @@ export default function About() {
                   Подробнее
                   <motion.span
                     animate={{ x: [0, 5, 0] }}
-                    transition={{ 
-                      duration: 1.5, 
+                    transition={{
+                      duration: 1.5,
                       repeat: Infinity,
                       repeatDelay: 2
                     }}
@@ -151,92 +151,93 @@ export default function About() {
         {/* Второй блок с карточками */}
         <div className={s.aboutContent}>
           {/* Левая часть - сетка карточек */}
-            <Stagger  className={s.aboutBotLeft} stagger={0.1} delay={0.4} amount={0.2}>
-              {details.map((e, i) => (
-                <StaggerItem key={i}>
-                   <motion.div
-      className={s.aboutBotLeftItem}
-      onMouseEnter={() => setActiveAbout(e)}
-      animate={{
-        opacity: activeAbout.title === e.title ? 1 : 0.7,
-        scale: activeAbout.title === e.title ? 1.03 : 1
-      }}
-      transition={{ duration: 0.3 }}
-      whileHover={{ y: -6 }}
-    >
-                    {/* Иконка */}
+          <Stagger className={s.aboutBotLeft} stagger={0.1} delay={0.4} amount={0.2}>
+            {details.map((e, i) => (
+              <StaggerItem key={i}>
+                <motion.div
+                  className={s.aboutBotLeftItem}
+                  onMouseEnter={() => setActiveAbout(e)}
+                  animate={{
+                    opacity: activeAbout.title === e.title ? 1 : 0.7,
+                    scale: activeAbout.title === e.title ? 1.03 : 1
+                  }}
+                  style={{background: `url(${e.img}) center / cover no-repeat`, backgroundColor: 'rgb(0 0 0 / 80%)',backgroundBlendMode: 'overlay'}}
+                  transition={{ duration: 0.3 }}
+                  whileHover={{ y: -6 }}
+                >
+                  {/* Иконка */}
 
-  <Image 
-    src={e.icon} 
-    alt={e.title} 
-    width={47} 
-    height={47} 
-    style={{
-      maxWidth: '100%',
-      height: 'auto',
-      objectFit: 'contain'
-    }}
-  />
+                  <Image
+                    src={e.icon}
+                    alt={e.title}
+                    width={47}
+                    height={47}
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                      objectFit: 'contain'
+                    }}
+                  />
 
-                    {/* Заголовок */}
-                    <motion.h3
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.5 + i * 0.1 }}
-                    >
-                      {e.title}
-                    </motion.h3>
+                  {/* Заголовок */}
+                  <motion.h3
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 + i * 0.1 }}
+                  >
+                    {e.title}
+                  </motion.h3>
 
-                    {/* Текст */}
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + i * 0.1 }}
-                    >
-                      {e.text}
-                    </motion.p>
-                  </motion.div>
-                </StaggerItem>
-              ))}
-            </Stagger>
+                  {/* Текст */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + i * 0.1 }}
+                  >
+                    {e.text}
+                  </motion.p>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </Stagger>
 
           {/* Правая часть - большая карточка с фоном */}
           <BlurIn delay={0.8} amount={0.2}>
-  <div className={s.aboutBotRight}>
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={activeAbout.img}
-        className={s.aboutBotRightInner}
-        style={{
-          background: `url(${activeAbout.img}) center/cover no-repeat`,
-        }}
-        initial={{ opacity: 0, y: 20, scale: 1.03 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.98 }}
-        transition={{
-          duration: 0.5,
-          ease: [0.22, 1, 0.36, 1]
-        }}
-      >
-        <motion.h3
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-        >
-          {activeAbout.title}
-        </motion.h3>
+            <div className={s.aboutBotRight}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeAbout.img}
+                  className={s.aboutBotRightInner}
+                  style={{
+                    background: `url(${activeAbout.img}) center/cover no-repeat`,
+                  }}
+                  initial={{ opacity: 0, y: 20, scale: 1.03 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                >
+                  <motion.h3
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    {activeAbout.title}
+                  </motion.h3>
 
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-        >
-          {activeAbout.text}
-        </motion.p>
-      </motion.div>
-    </AnimatePresence>
-  </div>
-</BlurIn>
+                  <motion.p
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    {activeAbout.text}
+                  </motion.p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </BlurIn>
         </div>
       </div>
     </section>

@@ -22,12 +22,13 @@ export default async function Hero() {
       <div className="container">
         <div className={s.heroContent}>
           <h1 className="h1">
-            <span className={s.heroContentSpan}>  производитель</span><br />
-            полимерпесчаных люков
+            {/* <span className={s.heroContentSpan}>  производитель</span><br /> */}
+          Канализационные <br /> полимерпесчаные люки
           </h1>
 
-          <p>
-            Всегда в наличии широкий ассортимент: <br />  полимерпесчаные люки, тротуарная плитка, водоотводы, поребрики          </p>
+          <h2 className={s.heroH2}>
+           ООО "Полимерные Технологии" производство и оптовая продажа полимерпесчаных люков, полимерпесчаных плитки, полимерпесчаных водоотводов, поребриков.
+          </h2>
 
           <div className={s.heroButBox}>
             <button className={"butt " + s.heroBtn} type="button">

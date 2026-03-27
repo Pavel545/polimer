@@ -8,7 +8,7 @@ type NavLink = {
 };
 
 type Product = {
-  id:string;
+  id: string;
   slug: string;
   title: string;
 };
@@ -16,57 +16,92 @@ type Product = {
 export default function Footer(): JSX.Element {
   const link: NavLink[] = [
     { href: "/products", text: "Продукция" },
-    { href: "/about-us", text: "О нас" },
-    { href: "/blog", text: "Блог" },
+    { href: "/about-us", text: `О компании ООО "Полимерные Технологии"` },
+    { href: "/blog", text: `Новости ООО "Полимерные Технологии"` },
     { href: "/vacancies", text: "Вакансии" },
   ];
+  
   const lukProducts: Product[] = [
     {
-      id:"1",
-      slug:'luk-lm',
-      title:'Люки канализационный «ЛМ»',
+      id: "1",
+      slug: "luk-lm",
+      title: "Люк канализационный полимерпесчаный «ЛМ»",
     },
     {
-      id:"2",
-
-      slug:'luk-l',
-      title:'Люки канализационный «Л»',
+      id: "2",
+      slug: "luk-l",
+      title: "Люк канализационный полимерпесчаный «Л»",
     },
     {
-      id:"3",
-
-      slug:'lyuk-s-zapornym-ustroistvom',
-      title:'Люки канализационный «ЛУ»',
+      id: "3",
+      slug: "lyuk-s-zapornym-ustroistvom",
+      title: "Люк канализационный полимерпесчаный «ЛУ»",
     },
     {
-      id:"4",
-
-      slug:'luk-lm',
-      title:'Люки канализационный «С»',
+      id: "4",
+      slug: "luk-lm",
+      title: "Люк канализационный полимерпесчаный «С»",
     },
     {
-      id:"5",
-
-      slug:'luk-h',
-      title:'Люки канализационный «Т»',
+      id: "5",
+      slug: "luk-h",
+      title: "Люк канализационный полимерпесчаный «Т»",
     },
     {
-      id:"6",
-
-      slug:'konus-luk-lm',
-      title:'Конус-люк канализационный «ЛМ»',
-    }
+      id: "6",
+      slug: "konus-luk-lm",
+      title: "Конус-люк канализационный полимерпесчаный «ЛМ»",
+    },
   ];
+
+  // Company details for microdata and easy maintenance
+  const companyDetails = {
+    name: "ООО «Полимерные Технологии»",
+    legalName: "Общество с ограниченной ответственностью «Полимерные Технологии»",
+    inn: "7328059047",
+    kpp: "732101001",
+    ogrn: "1107328001109",
+    okpo: "87758168",
+    legalAddress: "432063, РФ, Ульяновская обл., г.Ульяновск, Ул. Кирова, д. 6, кв. 397",
+    postalAddress: "432063, РФ, Ульяновская обл., г.Ульяновск, Ул. Кирова, д. 6, кв. 397",
+    factoryAddress: "г. Ульяновск, проезд Максимова 33 строение 3 (бывш. 9-й проезд Инженерный 33, строение 3)",
+    phone: "+7 (927) 802 30 71",
+    phoneRaw: "+79278023071",
+    email: "73polimer@mail.ru",
+    email2: "resurs.tr@mail.ru",
+    phoneOffice: "8(8422)73-21-59",
+    director: "Адаев Игорь Николаевич",
+    bankAccount: "40702810329280003234",
+    bankName: "ФИЛИАЛ \"НИЖЕГОРОДСКИЙ\" АО \"АЛЬФА-БАНК\"",
+    bik: "042202824",
+    correspondentAccount: "30101810200000000824",
+  };
+
   return (
-    <footer className={s.footer}>
+    <footer className={s.footer} itemScope itemType="https://schema.org/Organization">
+      <meta itemProp="name" content={companyDetails.name} />
+      <meta itemProp="legalName" content={companyDetails.legalName} />
+      <meta itemProp="taxID" content={companyDetails.inn} />
+      <meta itemProp="vatID" content={companyDetails.inn} />
+      
       <div className="container">
         <div className={s.footerContent}>
-          <a href="/" className={s.footerLogo + " flex-center"}>
-            <Image src="/logo.png" alt="Logo" width={176} height={36} />
+          <a 
+            href="/" 
+            className={s.footerLogo + " flex-center"}
+            itemProp="url"
+          >
+            <Image 
+              src="/logo.png" 
+              alt={`Логотип ${companyDetails.name}`} 
+              width={176} 
+              height={36}
+              itemProp="logo"
+            />
           </a>
 
           <div className={s.siteMap}>
-            <nav className={s.col}>
+            <nav className={s.col} aria-label="Основная навигация">
               <ul className={s.list}>
                 {link.map((e, i) => (
                   <li key={i}>
@@ -77,7 +112,7 @@ export default function Footer(): JSX.Element {
                 ))}
               </ul>
             </nav>
-            <nav className={s.col}>
+            <nav className={s.col} aria-label="Навигация по продукции">
               <ul className={s.list}>
                 {lukProducts.map((product) => (
                   <li key={product.id}>
@@ -93,42 +128,160 @@ export default function Footer(): JSX.Element {
             </nav>
           </div>
 
-          <nav className={s.col}>
+          <div className={s.col}>
             <ul className={s.list}>
               <li>
-                <a className={s.footerLink + " link"} target="_blank" href="https://yandex.ru/maps/-/CPq6ZWNy">
-                  г. Ульяновск, проезд Максимова 33 <br /> строение 3 (бывш. 9-й проезд Инженерный 33, строение 3)
+                <div className={s.footerLink} itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                  <strong>Юридический адрес:</strong>
+                  <br />
+                  <span itemProp="streetAddress">{companyDetails.legalAddress.split(',')[0]}</span>
+                  <br />
+                  <span itemProp="addressLocality">г. Ульяновск</span>
+                  <br />
+                  <span itemProp="postalCode">432063</span>
+                </div>
+              </li>
+              <li>
+                <div className={s.footerLink}>
+                  <strong>Почтовый адрес:</strong>
+                  <br />
+                  {companyDetails.postalAddress}
+                </div>
+              </li>
+              <li>
+                <div className={s.footerLink}>
+                  <strong>Производство:</strong>
+                  <br />
+                  <a 
+                    href="https://yandex.ru/maps/-/CPq6ZWNy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="link"
+                  >
+                    {companyDetails.factoryAddress}
+                  </a>
+                </div>
+              </li>
+              {/* <li>
+                <div className={s.footerLink}>
+                  <strong>Директор:</strong>
+                  <br />
+                  {companyDetails.directer}
+                </div>
+              </li> */}
+              <li>
+                <a 
+                  className={s.footerLink + " link"} 
+                  href={`tel:${companyDetails.phoneRaw}`}
+                  itemProp="telephone"
+                >
+                  <strong>Телефон:</strong> {companyDetails.phone}
                 </a>
               </li>
               <li>
-                <a className={s.footerLink + " link"} href="tel:+79278023071">
-                  +7 (927) 802 30 71
+                <a 
+                  className={s.footerLink + " link"} 
+                  href="tel:88422732159"
+                >
+                  <strong>Офис:</strong> {companyDetails.phoneOffice}
                 </a>
               </li>
               <li>
-                <a className={s.footerLink + " link"} target="_blank" href="mailto:73polimer@mail.ru">
-                  73polimer@mail.ru
+                <a 
+                  className={s.footerLink + " link"} 
+                  href={`mailto:${companyDetails.email}`}
+                  itemProp="email"
+                >
+                  <strong>Email:</strong> {companyDetails.email}
+                </a>
+              </li>
+              <li>
+                <a 
+                  className={s.footerLink + " link"} 
+                  href={`mailto:${companyDetails.email2}`}
+                >
+                  {companyDetails.email2}
                 </a>
               </li>
 
               <li className={s.socRow}>
-                <a className={s.footerSoc} href="http://" target="_blank" rel="noopener noreferrer">
+                <a 
+                  className={s.footerSoc} 
+                  href="https://t.me/polymertech" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Telegram"
+                >
                   <Image src="/icons/tg.svg" alt="Telegram" width={44} height={44} />
                 </a>
-                <a className={s.footerSoc} href="http://" target="_blank" rel="noopener noreferrer">
-                  <Image src="/icons/max.svg" alt="Telegram" width={44} height={44} />
+                <a 
+                  className={s.footerSoc} 
+                  href="https://wa.me/79278023071" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                >
+                  <Image src="/icons/max.svg" alt="WhatsApp" width={44} height={44} />
                 </a>
-                <a className={s.footerSoc} href="http://" target="_blank" rel="noopener noreferrer">
+                <a 
+                  className={s.footerSoc} 
+                  href="https://vk.com/polymertech" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="VK"
+                >
                   <Image src="/icons/vk.svg" alt="VK" width={44} height={44} />
                 </a>
               </li>
             </ul>
-          </nav>
+          </div>
         </div>
 
-        {/* опционально: нижняя строка */}
+        {/* Company details row with microdata */}
+        <div className={s.companyDetails}>
+          <h3>
+            Реквизиты:
+          </h3>
+          <div className={s.detailsGrid}>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>ИНН:</span>
+              <span itemProp="taxID">{companyDetails.inn}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>КПП:</span>
+              <span>{companyDetails.kpp}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>ОГРН:</span>
+              <span>{companyDetails.ogrn}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>ОКПО:</span>
+              <span>{companyDetails.okpo}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>Р/с:</span>
+              <span>{companyDetails.bankAccount}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>Банк:</span>
+              <span>{companyDetails.bankName}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>БИК:</span>
+              <span>{companyDetails.bik}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>Корр. счет:</span>
+              <span>{companyDetails.correspondentAccount}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom row */}
         <div className={s.bottom}>
-          <span>© Полимерные технологии — 2026</span>
+          <span>© {companyDetails.name} — {new Date().getFullYear()}</span>
+          <span itemProp="copyrightYear">{new Date().getFullYear()}</span>
 
           <a className={"link " + s.policy} href="/politiko">
             Политика конфиденциальности

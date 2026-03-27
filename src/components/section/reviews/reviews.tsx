@@ -163,14 +163,14 @@ export default function Reviews(): JSX.Element {
           </div>
 
           <div className={s.pagination}>
-            <button
+            {/* <button
               type="button"
               className={s.paginationArrow}
               onClick={prev}
               aria-label="Предыдущий отзыв"
             >
               ‹
-            </button>
+            </button> */}
 
             <div className={s.paginationList}>
               {slides.map((item, idx) => (
@@ -199,14 +199,14 @@ export default function Reviews(): JSX.Element {
               ))}
             </div>
 
-            <button
+            {/* <button
               type="button"
               className={s.paginationArrow}
               onClick={next}
               aria-label="Следующий отзыв"
             >
               ›
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

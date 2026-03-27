@@ -94,13 +94,9 @@ export default function TabsList({
             transition={{ 
               duration: 0.4, 
               delay: idx * 0.1,
-              ease: [0.22, 1, 0.36, 1]
+              ease: [0.22, 1, 0.36, 1]  
             }}
-            whileHover={{ 
-              y: -2,
-              transition: { duration: 0.2 }
-            }}
-            whileTap={{ scale: 0.98 }}
+          
           >
             {el.title}
             {el.isFileLink && (

@@ -4,6 +4,7 @@
   font-weight: 400;
   src: url('../../public/fonts/Inter/Inter-Regular.otf') format('opentype');
 }
+
 /* inter-italic - latin */
 @font-face {
   font-family: 'Inter';
@@ -11,6 +12,7 @@
   font-weight: 400;
   src: url('../../public/fonts/Inter/Inter-Italic.otf') format('opentype');
 }
+
 /* inter-bold - latin */
 @font-face {
   font-family: 'Inter';
@@ -18,6 +20,7 @@
   font-weight: 700;
   src: url('../../public/fonts/Inter/Inter-Bold.otf') format('opentype');
 }
+
 /* inter-bolditalic - latin */
 @font-face {
   font-family: 'Inter';
@@ -25,6 +28,7 @@
   font-weight: 700;
   src: url('../../public/fonts/Inter/Inter-BoldItalic.otf') format('opentype');
 }
+
 /* inter-black - latin */
 @font-face {
   font-family: 'Inter';
@@ -39,6 +43,7 @@
   font-weight: 400;
   src: url('../../public/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
 }
+
 /* montserrat-italic - latin */
 @font-face {
   font-family: 'Montserrat';
@@ -46,6 +51,7 @@
   font-weight: 400;
   src: url('../../public/fonts/Montserrat/Montserrat-Italic.ttf') format('truetype');
 }
+
 /* montserrat-bold - latin */
 @font-face {
   font-family: 'Montserrat';
@@ -53,6 +59,7 @@
   font-weight: 700;
   src: url('../../public/fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
 }
+
 /* montserrat-bolditalic - latin */
 @font-face {
   font-family: 'Montserrat';
@@ -60,6 +67,7 @@
   font-weight: 700;
   src: url('../../public/fonts/Montserrat/Montserrat-BoldItalic.ttf') format('truetype');
 }
+
 /* montserrat-black - latin */
 @font-face {
   font-family: 'Montserrat';
@@ -96,12 +104,13 @@
   --font-size-inter-regular: 15px;
   --font-size-montserrat-regular: 13px;
   --font-size-montserrat-medium: 12px;
-  --font-size-inter-semibold: 1px; /* Проверьте этот размер */
+  --font-size-inter-semibold: 1px;
+  /* Проверьте этот размер */
 
   --br: 5px;
 
   --t14: 14px;
---container-w: min(1600px, calc(100vw - 20px));
+  --container-w: min(1600px, calc(100vw - 20px));
 }
 
 * {
@@ -168,6 +177,7 @@ button {
   margin: 0 auto;
   padding: 0 10px;
 }
+
 .flex {
   display: flex;
 }
@@ -269,7 +279,7 @@ button {
 
 
 .link:active {
-  
+
   opacity: 0.5;
 }
 
@@ -289,4 +299,38 @@ button {
   .link {
     font-size: 15px;
   }
+}
+
+
+.erPageContainer{
+  height: 80vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.erPage {
+  background: var(--temnyy-1);
+  position: relative;
+}
+
+.erPage::after {
+  content: '';
+  background: url(/img/404.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: block;
+
 }

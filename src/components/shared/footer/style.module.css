@@ -6,12 +6,13 @@
 /* 3 колонки -> резиновая сетка */
 .footerContent {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.2fr;
+  grid-template-columns: 0.7fr 1fr 1.2fr;
   gap: 24px;
   align-items: start;
 }
 .siteMap{
   display: grid;
+  gap: clamp(5px, 2vw,20px);
   grid-template-columns: 1fr 1.5fr;
 
 }
@@ -107,6 +108,10 @@
 
 /* мобилка: 1 колонка */
 @media (max-width: 640px) {
+  .siteMap{
+  grid-template-columns: 1fr ;
+
+}
   .footer {
     padding: 36px 0;
   }
@@ -135,5 +140,86 @@
   .bottom {
     justify-content: center;
     text-align: center;
+  }
+}
+/* Company details section */
+.companyDetails {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  gap: 16px 24px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.detailItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  min-width: 70px;
+}
+
+/* Update existing styles for better organization */
+.footerLink strong {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .companyDetails {
+    margin-top: 28px;
+    padding-top: 20px;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, auto));
+    gap: 14px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .companyDetails {
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .detailItem {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .detailLabel {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .companyDetails {
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+  
+  .detailsGrid {
+    font-size: 12px;
   }
 }
