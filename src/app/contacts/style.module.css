@@ -1,0 +1,70 @@
+.contacts {
+  padding: 60px 0;
+  color: var(--foreground);
+  font-family: var(--font-family);
+  border-bottom: 1px solid var(--seryy-3);
+}
+
+.contacts h1 {
+  margin-bottom: clamp(30px, 8vw, 60px);
+}
+
+.contactsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  margin-bottom: clamp(40px, 8vw, 80px);
+}
+
+.contactBlock {
+  flex: 1 1 250px;
+  min-width: 250px;
+}
+
+.contactBlock h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.contactBlock p {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.contactButton {
+  display: inline-block;
+  padding: 8px 12px;
+  background: var(--siniy-1);
+  color: var(--belyy);
+  border-radius: var(--br);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.contactButton:hover {
+  background: var(--temnyy-1);
+}
+
+.socRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.mapWrapper {
+  margin-top: 40px;
+  border-radius: var(--br);
+  overflow: hidden;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .contactsGrid {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .contactBlock {
+    flex: 1 1 100%;
+  }
+}

@@ -1,35 +1,48 @@
-.hero {
-  background: url(../../../../public/img/hero/fon.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  min-height: 90vh;
-  min-height: 90svh;
+/* style.module.css */
+.heroWrapper {
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
+  justify-content: center;
   position: relative;
-
-  margin-bottom: clamp(30px, 10vw, 170px);
 }
 
-.heroContentSpan {
-  all: unset;
-
-
-  color: var(--siniy-1);
-  opacity: 0.8;
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
-/* можно добавить легкое затемнение, чтобы текст читался лучше */
-.hero::before {
-  content: "";
+.heroBg :global(img) {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroOverlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
   pointer-events: none;
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  max-width: 600px;
+  padding: 56px 0 24px;
+}
+
+/* Остальные стили остаются без изменений */
+.heroContentSpan {
+  all: unset;
+  color: var(--siniy-1);
+  opacity: 0.8;
 }
 
 .heroButBox {
@@ -37,23 +50,8 @@
   gap: 20px;
 }
 
-
-
-.heroContent {
-  position: relative;
-  /* поверх overlay */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 15px;
-
-  max-width: 600px;
-  padding: 56px 0 24px;
-}
-
 .heroBtn {
   margin-top: 48px;
-  /* вместо 70px, чтобы резиново */
 }
 
 .heroBtn2 {
@@ -71,6 +69,7 @@
   background: var(--temnyy-1);
   padding: 30px 0;
   position: relative;
+  margin-bottom: clamp(30px, 10vw, 120px);
 }
 
 .advGrid {
@@ -85,11 +84,9 @@
   align-items: center;
   gap: 16px;
   position: relative;
-
   padding: 10px 0;
 }
 
-/* аккуратные разделители на десктопе */
 .heroAdvantagesItem:not(:last-child)::after {
   content: "";
   position: absolute;
@@ -102,18 +99,23 @@
 
 .heroAdvantagesItem p {
   font-weight: 500;
-  font-size: 16px;
+  font-size: clamp(14px, 1vw, 16px);
   text-transform: uppercase;
   color: var(--belyy);
-
-  /* фикс: у тебя было max-width: 250 без px */
   max-width: 250px;
   line-height: 1.25;
 }
 
+.heroH2 {
+  font-weight: 500;
+  font-style: Medium;
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 120%;
+  letter-spacing: 0%;
+}
+
 /* ================== RESPONSIVE ================== */
 
-/* ноут/планшет */
 @media (max-width: 1024px) {
   .heroContent {
     max-width: 560px;
@@ -128,30 +130,12 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* на 2 колонки лучше убирать вертикальные разделители */
   .heroAdvantagesItem::after {
     display: none;
   }
 }
 
-.heroH2 {
-  font-weight: 500;
-  font-style: Medium;
-  font-size: clamp(14px, 1.2vw, 18px);
-  line-height: 120%;
-  letter-spacing: 0%;
-}
-
-/* мобилка */
 @media (max-width: 640px) {
-  .hero {
-    min-height: 120vh;
-    min-height: 120svh;
-
-    background-position-x: 72% ;
-    background-position-y:50% ;
-  }
-
   .heroButBox {
     flex-direction: column;
     gap: 0;
@@ -161,16 +145,23 @@
     max-width: 100%;
     padding: 36px 0 14px;
     gap: 12px;
+            height: 80vh;
+  }
+
+  .heroButBox{
+    margin-top: auto;
+    width: 100%;
   }
 
   .heroBtn {
     margin-top: 18px;
     width: 100%;
+    text-align: center;
   }
 
   .advGrid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
   }
 
   .heroAdvantages {
@@ -179,10 +170,18 @@
 
   .heroAdvantagesItem {
     padding: 12px 0;
+     padding: 8px;
+  }
+.heroAdvantagesItem:nth-child(2n) {
+    border-left: 1px solid var(--belyy);
+  }
+  .heroAdvantagesItem:nth-child(3), .heroAdvantagesItem:nth-child(4) {
+    border-top: 1px solid var(--belyy);
   }
 
   .heroAdvantagesItem p {
-    font-size: 14px;
+    font-size: 10px;
     max-width: 100%;
+   
   }
 }

@@ -20,7 +20,7 @@
 
   /* вместо фикс 444px — резиново */
   aspect-ratio: 675 / 444;
-  height: auto;
+  height: 94%;
 }
 
 .infoContentImg img {

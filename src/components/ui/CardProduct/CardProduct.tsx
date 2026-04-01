@@ -47,7 +47,7 @@ export default function CardProduct({
       layout
       style={mosaicStyle}
     >
-      <Link href={`/products/${product.slug}`} className={s.link}>
+      {product.slug ? (<Link  href={`/products/${product.slug}`} className={s.link}>
         <div className={`${s.media}`}>
           <Image
             src={product.img}
@@ -74,7 +74,36 @@ export default function CardProduct({
             </div> */}
           </div>
         </div>
-      </Link>
+      </Link>) : (
+        <div  className={s.link}>
+        <div className={`${s.media}`}>
+          <Image
+            src={product.img}
+            alt={product.titleShort}
+            fill
+            sizes="(max-width: 470px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            priority={idx < 2}
+            className={`${s.image} ${className}`}
+          />
+          <div className={s.overlay} />
+        </div>
+
+        <div className={s.info}>
+          <div className={s.topContent}>
+            <h3 className={s.type}>
+              {product.titleShort}
+            </h3>
+          </div>
+          
+          <div className={s.bottomContent}>
+            
+            {/* <div className={s.price}>
+              {formatPrice(product.priceRub)} <span className={s.currency}>₽</span>
+            </div> */}
+          </div>
+        </div>
+      </div>
+      )}
     </motion.article>
   );
 }

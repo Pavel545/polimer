@@ -8,6 +8,8 @@ import { getSiteContext } from "@/lib/getSiteContext";
 import YandexMetrikaParams from "@/components/YandexMetrikaParams";
 import { CookieConsent } from "@/components/shared/CookieConsent/CookieConsent";
 
+import { inter, montserrat } from './fonts';
+
 export async function generateMetadata(): Promise<Metadata> {
   const { city, seo, baseUrl } = await getSiteContext();
 
@@ -36,7 +38,7 @@ export default async function RootLayout({
 }>) {
   const { city, metrikaId } = await getSiteContext();
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${inter.variable} ${montserrat.variable}`}>
       <body data-city={city?.subdomain ?? "root"}>
         <ModalProvider>
           <YandexMetrika metrikaId={metrikaId} />

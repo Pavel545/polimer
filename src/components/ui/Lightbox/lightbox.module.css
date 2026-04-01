@@ -1,0 +1,226 @@
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(7, 14, 28, 0.82);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 90px;
+    opacity: 0;
+    transition: opacity 0.28s ease, backdrop-filter 0.28s ease;
+}
+
+.lightboxOpen {
+    opacity: 1;
+}
+
+.lightboxClosing {
+    opacity: 0;
+}
+
+.lightboxContent {
+    position: relative;
+    width: min(560px, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.96) translateY(12px);
+    opacity: 0;
+    transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.contentOpen {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.contentClosing {
+    transform: scale(0.96) translateY(12px);
+    opacity: 0;
+}
+
+.imageFrame {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+.imageFrame:active {
+    cursor: grabbing;
+}
+
+.sliderTrack {
+    display: flex;
+    transition: transform 0.45s ease;
+    will-change: transform;
+}
+
+.sliderTrackDragging {
+    transition: none;
+}
+
+.slide {
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slideImage {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 82vh;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.closeBtn {
+    position: absolute;
+    top: -14px;
+    right: -42px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 250ms ease;
+}
+
+.closeBtn:hover {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.navBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 54px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 250ms ease;
+    z-index: 2;
+}
+
+.navBtn:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.navPrev {
+    left: 42px;
+}
+
+.navNext {
+    right: 42px;
+}
+
+.counter {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+}
+
+/* Adaptive */
+@media (max-width: 992px) {
+    .lightbox {
+        padding: 30px 70px;
+    }
+
+    .lightboxContent {
+        width: min(500px, 100%);
+    }
+
+    .navPrev {
+        left: 24px;
+    }
+
+    .navNext {
+        right: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .lightbox {
+        padding: 20px 16px 56px;
+    }
+
+    .lightboxContent {
+        width: min(100%, 420px);
+    }
+
+    .slideImage {
+        max-height: 72vh;
+    }
+
+    .navBtn {
+        font-size: 42px;
+    }
+
+    .navPrev {
+        left: 8px;
+    }
+
+    .navNext {
+        right: 8px;
+    }
+
+    .closeBtn {
+        top: -38px;
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .lightbox {
+        padding: 16px 10px 54px;
+    }
+
+    .lightboxContent {
+        width: 100%;
+    }
+
+    .slideImage {
+        max-height: 68vh;
+    }
+
+    .navBtn {
+        font-size: 36px;
+    }
+
+    .navPrev {
+        left: 4px;
+    }
+
+    .navNext {
+        right: 4px;
+    }
+
+    .counter {
+        bottom: 14px;
+        font-size: 13px;
+    }
+}

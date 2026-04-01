@@ -35,7 +35,7 @@ export default function AboutInfo() {
         <div className={s.infoContent}>
           <div className={s.infoContentImg}>
             <Image
-              src={"/img/aboutPage/info1.jpg"}
+              src={"/img/aboutPage/info3.jpg"}
               alt="Работник компании"
               width={675}
               height={444}

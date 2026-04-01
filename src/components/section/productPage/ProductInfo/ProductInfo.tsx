@@ -140,7 +140,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                           <Stagger stagger={0.1} amount={0.1}>
                             <ol className={s.list}>
                               {activeContent.advantages.map((text, i) => (
-                                <StaggerItem key={i} className={s.listItem}>
+                                <StaggerItem key={i} className={s.paragraph}>
                                   {text}
                                 </StaggerItem>
                               ))}
@@ -157,7 +157,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                             <div className={s.kv}>
                               {activeContent.characteristics.map((row, i) => (
                                 <StaggerItem key={i} className={s.kvRow}>
-                                  <span className={s.kvLabel}>{row.label}:</span>
+                                  <h4 className={s.kvLabel}>{row.label}:</h4>
                                   <ScaleIn delay={0.3 + i * 0.05}>
                                     <span className={s.kvValue}>{row.value}</span>
                                   </ScaleIn>
@@ -196,11 +196,11 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                                 <StaggerItem key={i} className={s.listItem}>
                                   {!isMobile ? (
                                     <>
-                                      <b className={s.bold}>{t.title}</b> {t.text}
+                                      <h4 className={s.bold} dangerouslySetInnerHTML={{__html:t.title}}>{}</h4>  <p>{t.text}</p>
                                     </>
                                   ) : (
                                     <>
-                                      <b className={s.bold}>{t.title}</b>
+                                      <h4 className={s.bold}>{t.title}</h4>
                                       <br />
                                       {t.text}
                                     </>

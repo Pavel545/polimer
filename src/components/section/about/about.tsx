@@ -29,25 +29,25 @@ export default function About() {
       icon: "/icons/about/1.svg",
       title: "Ваш логотип на люке",
       text: "Ваш логотип на люке и Ваши контактные данные - это самое лучшее вложение в рекламу!",
-      img: "/img/about/ad1.jpg",
+      img: "/img/about/ad1.webp",
     },
     {
       icon: "/icons/about/4.svg",
       title: "Доставка люки до клиента",
       text: "Собственная служба логистики доставит товар заказчикам по всей территории России",
-      img: "/img/about/ad2.jpg",
+      img: "/img/about/ad2.webp",
     },
     {
       icon: "/icons/about/2.svg",
       title: "Люки с запорным устройством",
       text: "Постоянный неснижаемый складской запас люков обеспечит потребности большинства клиентов",
-      img: "/img/about/ad3.jpg",
+      img: "/img/about/ad3.webp",
     },
     {
       icon: "/icons/about/3.svg",
       title: "Неснижаемый складской запас",
       text: "Постоянный неснижаемый складской запас люков обеспечит потребности большинства клиентов",
-      img: "/img/about/ad4.jpg",
+      img: "/img/about/ad4.webp",
     },
   ];
 
@@ -67,11 +67,11 @@ export default function About() {
 
       <div className="container">
         {/* Заголовок секции */}
-        <RevealDown delay={0.1} amount={0.2}>
+        {/* <RevealDown delay={0.1} amount={0.2}> */}
           <h2 className={"h2 " + s.aboutTitle}>
             О нас
           </h2>
-        </RevealDown>
+        {/* </RevealDown> */}
 
         {/* Первый блок с текстом */}
         <div className={s.aboutContent}>

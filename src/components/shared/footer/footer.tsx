@@ -15,12 +15,12 @@ type Product = {
 
 export default function Footer(): JSX.Element {
   const link: NavLink[] = [
-    { href: "/products", text: "Продукция" },
     { href: "/about-us", text: `О компании ООО "Полимерные Технологии"` },
     { href: "/blog", text: `Новости ООО "Полимерные Технологии"` },
-    { href: "/vacancies", text: "Вакансии" },
+    // { href: "/vacancies", text: "Вакансии" },
+    { href: "/contacts", text: "Контакты ООО \"Полимерные Технологии\"" },
   ];
-  
+
   const lukProducts: Product[] = [
     {
       id: "1",
@@ -34,7 +34,7 @@ export default function Footer(): JSX.Element {
     },
     {
       id: "3",
-      slug: "lyuk-s-zapornym-ustroistvom",
+      slug: "",
       title: "Люк канализационный полимерпесчаный «ЛУ»",
     },
     {
@@ -83,18 +83,18 @@ export default function Footer(): JSX.Element {
       <meta itemProp="legalName" content={companyDetails.legalName} />
       <meta itemProp="taxID" content={companyDetails.inn} />
       <meta itemProp="vatID" content={companyDetails.inn} />
-      
+
       <div className="container">
         <div className={s.footerContent}>
-          <a 
-            href="/" 
+          <a
+            href="/"
             className={s.footerLogo + " flex-center"}
             itemProp="url"
           >
-            <Image 
-              src="/logo.png" 
-              alt={`Логотип ${companyDetails.name}`} 
-              width={176} 
+            <Image
+              src="/logo.png"
+              alt={`Логотип ${companyDetails.name}`}
+              width={176}
               height={36}
               itemProp="logo"
             />
@@ -114,14 +114,25 @@ export default function Footer(): JSX.Element {
             </nav>
             <nav className={s.col} aria-label="Навигация по продукции">
               <ul className={s.list}>
+                <li>
+                  <a className={s.footerLink + " link"} href="/products">
+                    Каталог полимерпесчаных люков: 
+                  </a>
+                </li>
                 {lukProducts.map((product) => (
                   <li key={product.id}>
-                    <a
-                      className={s.footerLink + " link"}
-                      href={`/products/${product.slug}`}
-                    >
-                      {product.title}
-                    </a>
+                    {product.slug ? (
+                      <a
+                        className={s.footerLink + " link"}
+                        href={`/products/${product.slug}`}
+                      >
+                        {product.title}
+                      </a>
+                    ) : (
+                      <span className={s.footerLink}>
+                        {product.title}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -152,11 +163,11 @@ export default function Footer(): JSX.Element {
                 <div className={s.footerLink}>
                   <strong>Производство:</strong>
                   <br />
-                  <a 
-                    href="https://yandex.ru/maps/-/CPq6ZWNy" 
-                    target="_blank" 
+                  <a
+                    href="https://yandex.ru/maps/-/CPq6ZWNy"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="link"
+                    className={`${s.footerLink} link`}
                   >
                     {companyDetails.factoryAddress}
                   </a>
@@ -170,8 +181,8 @@ export default function Footer(): JSX.Element {
                 </div>
               </li> */}
               <li>
-                <a 
-                  className={s.footerLink + " link"} 
+                <a
+                  className={s.footerLink + " link"}
                   href={`tel:${companyDetails.phoneRaw}`}
                   itemProp="telephone"
                 >
@@ -179,16 +190,16 @@ export default function Footer(): JSX.Element {
                 </a>
               </li>
               <li>
-                <a 
-                  className={s.footerLink + " link"} 
+                <a
+                  className={s.footerLink + " link"}
                   href="tel:88422732159"
                 >
                   <strong>Офис:</strong> {companyDetails.phoneOffice}
                 </a>
               </li>
               <li>
-                <a 
-                  className={s.footerLink + " link"} 
+                <a
+                  className={s.footerLink + " link"}
                   href={`mailto:${companyDetails.email}`}
                   itemProp="email"
                 >
@@ -196,8 +207,8 @@ export default function Footer(): JSX.Element {
                 </a>
               </li>
               <li>
-                <a 
-                  className={s.footerLink + " link"} 
+                <a
+                  className={s.footerLink + " link"}
                   href={`mailto:${companyDetails.email2}`}
                 >
                   {companyDetails.email2}
@@ -205,28 +216,28 @@ export default function Footer(): JSX.Element {
               </li>
 
               <li className={s.socRow}>
-                <a 
-                  className={s.footerSoc} 
-                  href="https://t.me/polymertech" 
-                  target="_blank" 
+                <a
+                  className={s.footerSoc}
+                  href="https://t.me/polymertech"
+                  target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Telegram"
                 >
                   <Image src="/icons/tg.svg" alt="Telegram" width={44} height={44} />
                 </a>
-                <a 
-                  className={s.footerSoc} 
-                  href="https://wa.me/79278023071" 
-                  target="_blank" 
+                <a
+                  className={s.footerSoc}
+                  href=""
+                  target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
                 >
                   <Image src="/icons/max.svg" alt="WhatsApp" width={44} height={44} />
                 </a>
-                <a 
-                  className={s.footerSoc} 
-                  href="https://vk.com/polymertech" 
-                  target="_blank" 
+                <a
+                  className={s.footerSoc}
+                  href=""
+                  target="_blank"
                   rel="noopener noreferrer"
                   aria-label="VK"
                 >
@@ -280,8 +291,8 @@ export default function Footer(): JSX.Element {
 
         {/* Bottom row */}
         <div className={s.bottom}>
-          <span>© {companyDetails.name} — {new Date().getFullYear()}</span>
-          <span itemProp="copyrightYear">{new Date().getFullYear()}</span>
+          <span>© {companyDetails.name} — {new Date().getFullYear()}</span><br />
+          {/* <span itemProp="copyrightYear">{new Date().getFullYear()}</span> */}
 
           <a className={"link " + s.policy} href="/politiko">
             Политика конфиденциальности

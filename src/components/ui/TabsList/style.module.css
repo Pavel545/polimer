@@ -1,76 +1,214 @@
-/* ===== Tabs ===== */
+/* ===== Root wrapper ===== */
+.root {
+  width: 100%;
+  font-family: var(--font-family);
+}
+
+/* =========================
+   DESKTOP TABS
+========================= */
+
 .tabs {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--seryy-2);
 }
 
 .tabsItem {
-    width: 100%;
-    height: 60px;
-    transition: 600ms all ease;
-    cursor: pointer;
-    border-bottom: 1px solid var(--belyy);
+  position: relative;
 
-    /* чтобы длинные заголовки не рвали сетку */
-    padding: 0 12px;
-    font-weight: 500;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: var(--seryy-1);
-    background: transparent;
+  height: 60px;
+  padding: 0 16px;
 
-    
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  user-select: none;
+
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--seryy-1);
+
+  transition: 0.3s ease;
+
+  /* чтобы текст не ломал сетку */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* hover */
 .tabsItem:hover {
-    background: var(--seryy-3);
+  background: var(--seryy-3);
+  color: var(--belyy);
 }
 
+/* active */
 .active {
-    background: var(--temnyy-1);
-    border-bottom: 2px solid var(--belyy);
+  color: var(--belyy);
+  background: var(--temnyy-1);
 }
 
+/* underline (аккуратный) */
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background: var(--belyy);
+}
+
+/* optional file link */
+.fileLink {
+  gap: 6px;
+}
+
+/* =========================
+   MOBILE DROPDOWN
+========================= */
+
+.mobile {
+  display: none;
+  padding: 16px 0;
+}
+
+.mobileLabel {
+  font-size: 12px;
+  color: var(--siniy-1);
+  margin-bottom: 6px;
+}
+
+/* dropdown wrapper */
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+/* button */
+.dropdownButton {
+  width: 100%;
+
+  border: 1px solid var(--seryy-2);
+  border-radius: var(--br);
+
+  background: var(--temnyy-1);
+  color: var(--belyy);
+
+  padding: 14px 40px 14px 14px;
+
+  font-size: 14px;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  position: relative;
+}
+
+.dropdownButton:hover {
+  background: var(--seryy-3);
+}
+
+/* стрелка */
+.dropdownButton::after {
+  content: "";
+
+  position: absolute;
+  right: 14px;
+  top: 50%;
+
+  width: 8px;
+  height: 8px;
+
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+
+  transform: translateY(-50%) rotate(45deg);
+  transition: 0.2s ease;
+}
+
+/* open state */
+.open::after {
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+/* menu */
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+
+  background: var(--temnyy-1);
+  border: 1px solid var(--seryy-2);
+  border-radius: var(--br);
+
+  overflow: hidden;
+  z-index: 20;
+}
+
+/* item */
+.menuItem {
+  padding: 12px 14px;
+
+  font-size: 14px;
+  color: var(--belyy);
+
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* hover */
+.menuItem:hover {
+  background: var(--seryy-3);
+}
+
+/* active */
+.menuItemActive {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 1024px) {
-
-    /* табы чуть компактнее */
-    .tabsItem {
-        height: 54px;
-        font-size: 13px;
-    }
+  .tabsItem {
+    height: 54px;
+    font-size: 13px;
+  }
 }
 
-
 @media (max-width: 740px) {
+  .tabs {
+    display: none;
+  }
 
-    /* Табы -> горизонтальный скролл (самый удобный вариант) */
-    .tabs {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-bottom: 10px;
-    }
+  .mobile {
+    display: block;
+  }
+}
 
-    .tabs::-webkit-scrollbar {
-        display: none;
-    }
+/* =========================
+   REDUCED MOTION
+========================= */
 
-    .tabsItem {
-        width: fit-content;
-        flex: 0 0 auto;
-        height: 44px;
-        padding: 0 14px;
-        white-space: nowrap;
-        opacity: 0.75;
-        background: transparent;
-    }
-
-    .active {
-        background: var(--temnyy-1);
-        opacity: 1;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .tabsItem,
+  .dropdownButton,
+  .menuItem {
+    transition: none;
+  }
 }

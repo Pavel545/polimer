@@ -18,7 +18,7 @@ export default function AboutPage() {
 ООО "Полимерные Технологии" имеет собственную службу логистики и доставляет полимерпесчаные люки до клиента в любой регион и город России. '
       />
       <AboutInfo />
-      <Story />
+      {/* <Story /> */}
       <AboutAdvantages />
       <Contact />
     </main>

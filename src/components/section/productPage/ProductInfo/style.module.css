@@ -24,13 +24,22 @@
     line-height: 1.5;
 }
 
-.list {
-    padding-left: 18px;
-}
 
 .listItem {
     margin-bottom: 10px;
     line-height: 1.5;
+
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.listItem:not(:last-child),
+.paragraph:not(:last-child) {
+    border-bottom: 1px solid #ffffff57;
+    padding-bottom: 15px;
+    gap: 15px;
 }
 
 .kv {
@@ -63,7 +72,7 @@
     .ProductInfo {
         padding: 80px 0;
     }
-    
+
     .twoCols {
         gap: 40px;
     }
@@ -74,25 +83,25 @@
     .ProductInfo {
         padding: 60px 0;
     }
-    
+
     .ProductInfoContent {
         margin-top: 30px;
     }
-    
+
     .twoCols {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .col:first-child {
         margin-top: 0;
     }
-    
+
     .colTitle {
         font-size: 18px;
         margin-bottom: 15px;
     }
-    
+
     .kvRow {
         padding: 15px 5px 8px 5px;
         gap: 12px;
@@ -104,45 +113,50 @@
     .ProductInfo {
         padding: 40px 0;
     }
-    
+
     .ProductInfoContent {
         margin-top: 20px;
     }
-    
+
     .twoCols {
         gap: 30px;
     }
-    
+
     .colTitle {
         font-size: 16px;
         margin-bottom: 12px;
     }
-    
-    .list {
-        padding-left: 15px;
-    }
-    
+
+
+
     .listItem {
         margin-bottom: 8px;
         font-size: 14px;
+
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
-    
+    .listItem br{
+        display: none;
+
+    }
+
     .paragraph {
         font-size: 14px;
         margin-bottom: 10px;
     }
-    
+
     .kvRow {
         padding: 12px 0 6px 0;
         font-size: 14px;
         flex-wrap: wrap;
     }
-    
+
     .kvLabel {
         width: 100%;
         margin-bottom: 4px;
     }
-    
+
     .kvValue {
         width: 100%;
         font-weight: 500;
@@ -159,20 +173,20 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
     }
-    
+
     .ProductInfoTabs::-webkit-scrollbar {
         height: 3px;
     }
-    
+
     .ProductInfoTabs::-webkit-scrollbar-track {
         background: var(--seryy-2);
     }
-    
+
     .ProductInfoTabs::-webkit-scrollbar-thumb {
         background: var(--seryy-4);
         border-radius: 3px;
     }
-    
+
     .ProductInfoTabsItem {
         display: inline-block;
         white-space: nowrap;
@@ -232,6 +246,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -242,7 +257,7 @@
     .productImage {
         max-height: 60vh;
     }
-    
+
     .closeImageButton {
         width: 36px;
         height: 36px;
@@ -256,7 +271,7 @@
     .productImage {
         max-height: 50vh;
     }
-    
+
     .closeImageButton {
         width: 32px;
         height: 32px;

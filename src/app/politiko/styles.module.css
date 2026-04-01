@@ -114,7 +114,7 @@
 .sectionTitle {
   margin-bottom: 18px;
   font-family: var(--third-family);
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(20px, 2vw, 30px);
   line-height: 1.2;
   color: var(--belyy);

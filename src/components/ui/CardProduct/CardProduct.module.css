@@ -208,12 +208,42 @@
     -webkit-line-clamp: 2;
     margin-bottom: 4px;
   }
-  
+
   .price {
     font-size: 16px;
+
+    /* 👇 ВСЕГДА ВИДЕН */
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+
+  /* 👇 верхний контент всегда показан */
+  .topContent {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 👇 убираем “подъезд” */
+  .bottomContent {
+    transform: translateY(0);
+  }
+
+  /* 👇 overlay делаем сразу активным */
+  .overlay {
+    opacity: 0.75;
+  }
+
+  /* 👇 отключаем hover-эффекты вообще */
+  .card:hover .topContent,
+  .card:hover .price,
   .card:hover .bottomContent {
-    transform: translateY(-15px);
+    transform: none;
+    opacity: 1;
+  }
+
+  /* 👇 border-анимацию тоже лучше упростить */
+  .image {
+    outline: 2px solid var(--temnyy-1);
+    outline-offset: 4px;
   }
 }

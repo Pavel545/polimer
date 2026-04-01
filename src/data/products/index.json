@@ -118,5 +118,15 @@
     "priceRub": 2100,
     "categoryId": 4,
     "img": "/img/products/dno-smotrovogo-kolodca/3.jpg"
+  },
+   {
+    "id": "13",
+    "slug": "",
+    "titleShort": "Люк \"ЛУ\"",
+    "titleFull": "Люк \"Лёгкий Укреплённый\"",
+    "description": "",
+    "priceRub": 2100,
+    "categoryId": 1,
+    "img": "/logo.png"
   }
 ]

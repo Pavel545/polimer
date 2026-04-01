@@ -20,7 +20,7 @@ export default function Reviews(): JSX.Element {
         name: "ИВАН ИВАНОВ",
         region: "Самарская область",
         text: "Заказывал люк что бы гармонично сочетался с ландшафтным дизайном заднего двора.\nПодошло отлично, спасибо!",
-        img: "/img/reviews/1.jpg",
+        img: "/img/reviews/1.webp",
         avatar: "men",
       },
       {
@@ -28,7 +28,7 @@ export default function Reviews(): JSX.Element {
         name: "АННА ПЕТРОВА",
         region: "Москва",
         text: "Качественно, быстро и аккуратно.\nОтдельно спасибо за консультацию!",
-        img: "/img/reviews/1.jpg",
+        img: "/img/reviews/1.webp",
         avatar: "girl",
       },
       {
@@ -36,7 +36,7 @@ export default function Reviews(): JSX.Element {
         name: "СЕРГЕЙ СИДОРОВ",
         region: "Казань",
         text: "Все подошло по размерам, монтаж без проблем.\nРекомендую!",
-        img: "/img/reviews/1.jpg",
+        img: "/img/reviews/1.webp",
         avatar: "men",
       },
       {
@@ -44,7 +44,7 @@ export default function Reviews(): JSX.Element {
         name: "ОЛЬГА СМИРНОВА",
         region: "Краснодар",
         text: "Отличный сервис, оперативная доставка.\nБуду обращаться еще.",
-        img: "/img/reviews/1.jpg",
+        img: "/img/reviews/1.webp",
         avatar: "girl",
       },
     ],

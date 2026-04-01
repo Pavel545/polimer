@@ -1,0 +1,181 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import s from "./lightbox.module.css";
+
+interface LightboxProps {
+  isOpen: boolean;
+  images: string[];
+  title?: string;
+  onClose: () => void;
+}
+
+export default function Lightbox({ isOpen, images, title, onClose }: LightboxProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isClosing, setIsClosing] = useState(false);
+  const [dragX, setDragX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const startXRef = useRef(0);
+  const currentXRef = useRef(0);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, currentSlide]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setCurrentSlide(0);
+      setIsClosing(false);
+      setDragX(0);
+      setIsDragging(false);
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+      setCurrentSlide(0);
+      setDragX(0);
+      setIsDragging(false);
+    }, 280);
+  };
+
+  const nextSlide = () => {
+    if (!images.length) return;
+    setCurrentSlide((prev) => (prev + 1) % images.length);
+    setDragX(0);
+  };
+
+  const prevSlide = () => {
+    if (!images.length) return;
+    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setDragX(0);
+  };
+
+  const handleDragStart = (clientX: number) => {
+    startXRef.current = clientX;
+    currentXRef.current = clientX;
+    setIsDragging(true);
+  };
+
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging) return;
+    currentXRef.current = clientX;
+    setDragX(clientX - startXRef.current);
+  };
+
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+
+    const delta = currentXRef.current - startXRef.current;
+    const threshold = 70;
+
+    if (delta > threshold) {
+      prevSlide();
+    } else if (delta < -threshold) {
+      nextSlide();
+    }
+
+    setIsDragging(false);
+    setDragX(0);
+  };
+
+  if (!isOpen && !isClosing) return null;
+
+  return (
+    <div
+      className={`${s.lightbox} ${isClosing ? s.lightboxClosing : s.lightboxOpen}`}
+      onClick={handleClose}
+    >
+      <button
+        type="button"
+        className={`${s.navBtn} ${s.navPrev}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          prevSlide();
+        }}
+        aria-label="Предыдущий слайд"
+      >
+        ‹
+      </button>
+
+      <div
+        className={`${s.lightboxContent} ${isClosing ? s.contentClosing : s.contentOpen}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className={s.closeBtn}
+          onClick={handleClose}
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+
+        <div
+          className={s.imageFrame}
+          onMouseDown={(e) => handleDragStart(e.clientX)}
+          onMouseMove={(e) => handleDragMove(e.clientX)}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+          onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+          onTouchEnd={handleDragEnd}
+        >
+          <div
+            className={`${s.sliderTrack} ${isDragging ? s.sliderTrackDragging : ""}`}
+            style={{
+              transform: `translateX(calc(-${currentSlide * 100}% + ${dragX}px))`,
+            }}
+          >
+            {images.map((image, index) => (
+              <div className={s.slide} key={`slide-${index}`}>
+                <img
+                  src={image}
+                  alt={`${title || "Изображение"} ${index + 1}`}
+                  className={s.slideImage}
+                  draggable={false}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        className={`${s.navBtn} ${s.navNext}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          nextSlide();
+        }}
+        aria-label="Следующий слайд"
+      >
+        ›
+      </button>
+
+      {images.length > 1 && (
+        <div className={s.counter}>
+          {currentSlide + 1} / {images.length}
+        </div>
+      )}
+    </div>
+  );
+}
