@@ -4,6 +4,7 @@ import Image from "next/image";
 import s from "./style.module.scss";
 import { useModal } from "@/components/providers/ModalProvider";
 import { JSX, useEffect, useState } from "react";
+import ChatPopup from "@/components/ui/ChatPopup/ChatPopup";
 
 type NavLink = {
   href: string;
@@ -64,6 +65,8 @@ export default function Header(): JSX.Element {
           </nav>
         </div>
 
+        <ChatPopup />
+
         {/* right */}
         <div className={s.right}>
           {/* desktop actions */}
@@ -83,6 +86,7 @@ export default function Header(): JSX.Element {
             <button className={s.headerButtChat + " flex-center"} aria-label="Открыть чат">
               <Image src="/icons/chat.svg" alt="" width={20} height={20} />
             </button>
+            
           </div>
 
           {/* burger (mobile) */}
