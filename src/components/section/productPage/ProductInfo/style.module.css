@@ -1,9 +1,23 @@
 .ProductInfo {
     padding: 60px 0;
+
+    
+
+
 }
 
+.ProductInfo *{
+color: var(--temnyy-2);
+}
+
+.ProductInfo :global(.active):after {
+    background: var(--temnyy-2) !important;
+}
 .ProductInfoContent {
     margin-top: 40px;
+
+    min-height: clamp(200px, 70vh,640px);
+
 }
 
 .twoCols {
@@ -37,7 +51,7 @@
 
 .listItem:not(:last-child),
 .paragraph:not(:last-child) {
-    border-bottom: 1px solid #ffffff57;
+    border-bottom: 1px solid #0e0d0dad;
     padding-bottom: 15px;
     gap: 15px;
 }
@@ -204,7 +218,7 @@
 .imageContainer {
     position: relative;
     width: 100%;
-    background: var(--seryy-1);
+    /* background: var(--seryy-1); */
     border-radius: 12px;
     overflow: hidden;
 }

@@ -11,7 +11,6 @@ export default function Contacts() {
         phoneRaw: "+79278023071",
         phoneOffice: "8(8422)73-21-59",
         email: "73polimer@mail.ru",
-        email2: "resurs.tr@mail.ru",
         telegram: "https://t.me/polymertech",
         max: "",
         vk: "",
@@ -64,11 +63,7 @@ export default function Contacts() {
                                 {companyDetails.email}
                             </a>
                         </p>
-                        <p>
-                            <a href={`mailto:${companyDetails.email2}`} className="link">
-                                {companyDetails.email2}
-                            </a>
-                        </p>
+                        
                     </div>
 
                     {/* Соцсети */}

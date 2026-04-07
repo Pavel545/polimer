@@ -8,16 +8,17 @@ export type Crumb = {
 
 type Props = {
   items: Crumb[];
+  theme?:"dark";
 };
 
-export default function BreadCrumbs({ items }: Props) {
+export default function BreadCrumbs({ items, theme }: Props) {
   return (
     <nav className={s.BreadCrumbs} aria-label="Хлебные крошки">
       <div className="container">
         <ul className={s.list}>
           {/* Главная всегда первая */}
           <li className={s.item}>
-            <Link href="/" className={s.link}>
+            <Link href="/" className={`${s.link} ${theme ? s.dark:''}` }>
               Главная
             </Link>
           </li>
@@ -27,14 +28,14 @@ export default function BreadCrumbs({ items }: Props) {
 
             return (
               <li key={idx} className={s.item}>
-                <span className={s.separator}>•</span>
+                <span className={`${s.separator} ${theme ? s.dark:''}`}>•</span>
 
                 {crumb.href && !isLast ? (
-                  <Link href={crumb.href} className={s.link}>
+                  <Link href={crumb.href} className={`${s.link} ${theme ? s.dark:''}` }>
                     {crumb.title}
                   </Link>
                 ) : (
-                  <span className={s.current} aria-current="page">
+                  <span  className={`${s.current} ${theme ? s.dark:''}`} aria-current="page">
                     {crumb.title}
                   </span>
                 )}

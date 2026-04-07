@@ -51,6 +51,14 @@ export default function Footer(): JSX.Element {
       id: "6",
       slug: "konus-luk-lm",
       title: "Конус-люк канализационный полимерпесчаный «ЛМ»",
+    },{
+      id: "7",
+      slug: "luk-gts",
+      title: "Люк полимерпесчаный ГТС",
+    },{
+      id: "8",
+      slug: "lyuk-s-zapornym-ustroistvom",
+      title: "Люк с запорным устройством",
     },
   ];
 
@@ -68,7 +76,6 @@ export default function Footer(): JSX.Element {
     phone: "+7 (927) 802 30 71",
     phoneRaw: "+79278023071",
     email: "73polimer@mail.ru",
-    email2: "resurs.tr@mail.ru",
     phoneOffice: "8(8422)73-21-59",
     director: "Адаев Игорь Николаевич",
     bankAccount: "40702810329280003234",
@@ -123,6 +130,7 @@ export default function Footer(): JSX.Element {
                   <li key={product.id}>
                     {product.slug ? (
                       <a
+                      title={product.title}
                         className={s.footerLink + " link"}
                         href={`/products/${product.slug}`}
                       >
@@ -145,11 +153,8 @@ export default function Footer(): JSX.Element {
                 <div className={s.footerLink} itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
                   <strong>Юридический адрес:</strong>
                   <br />
-                  <span itemProp="streetAddress">{companyDetails.legalAddress.split(',')[0]}</span>
-                  <br />
-                  <span itemProp="addressLocality">г. Ульяновск</span>
-                  <br />
-                  <span itemProp="postalCode">432063</span>
+                  <span itemProp="streetAddress">{companyDetails.legalAddress}</span>
+                 
                 </div>
               </li>
               <li>
@@ -206,14 +211,7 @@ export default function Footer(): JSX.Element {
                   <strong>Email:</strong> {companyDetails.email}
                 </a>
               </li>
-              <li>
-                <a
-                  className={s.footerLink + " link"}
-                  href={`mailto:${companyDetails.email2}`}
-                >
-                  {companyDetails.email2}
-                </a>
-              </li>
+             
 
               <li className={s.socRow}>
                 <a
@@ -223,7 +221,7 @@ export default function Footer(): JSX.Element {
                   rel="noopener noreferrer"
                   aria-label="Telegram"
                 >
-                  <Image src="/icons/tg.svg" alt="Telegram" width={44} height={44} />
+                  <Image src="/icons/tg.svg" alt="Связаться по Telegram" width={44} height={44} />
                 </a>
                 <a
                   className={s.footerSoc}
@@ -232,7 +230,7 @@ export default function Footer(): JSX.Element {
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
                 >
-                  <Image src="/icons/max.svg" alt="WhatsApp" width={44} height={44} />
+                  <Image src="/icons/max.svg" alt="Связаться по WhatsApp" width={44} height={44} />
                 </a>
                 <a
                   className={s.footerSoc}
@@ -241,7 +239,7 @@ export default function Footer(): JSX.Element {
                   rel="noopener noreferrer"
                   aria-label="VK"
                 >
-                  <Image src="/icons/vk.svg" alt="VK" width={44} height={44} />
+                  <Image src="/icons/vk.svg" alt="Связаться по VK" width={44} height={44} />
                 </a>
               </li>
             </ul>

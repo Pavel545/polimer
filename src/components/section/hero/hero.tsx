@@ -1,23 +1,24 @@
 "use client";
 
-import Lightbox from "@/components/ui/Lightbox/lightbox";
+import Lightbox, { SlideItem } from "@/components/ui/Lightbox/lightbox";
 import s from "./style.module.css";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 type Advantage = {
   icon: string;
   text: string;
 };
 
-type Instruct = {
-    title: string;
-    gallery: string[];
+export type Instruct = {
+  title: string;
+  gallery: SlideItem[];
 };
 export default function Hero() {
-      const [activeItem, setActiveItem] = useState<Instruct | null>(null);
-    const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  
+  const [activeItem, setActiveItem] = useState<Instruct | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
   const advantages: Advantage[] = [
     { icon: "/icons/about/4.svg", text: "доставка по всей россии от нас до клиента" },
     { icon: "/icons/advantages/2.svg", text: "большой складской запас продукции" },
@@ -25,15 +26,15 @@ export default function Hero() {
     { icon: "/icons/about/1.svg", text: "логотип вашей компании на люках" },
   ];
 
-     const openModal = (item: Instruct) => {
-        setActiveItem(item);
-        setIsLightboxOpen(true);
-    };
+  const openModal = (item: Instruct) => {
+    setActiveItem(item);
+    setIsLightboxOpen(true);
+  };
 
-    const closeModal = () => {
-        setIsLightboxOpen(false);
-        setActiveItem(null);
-    };
+  const closeModal = () => {
+    setIsLightboxOpen(false);
+    setActiveItem(null);
+  };
 
   return (
     <>
@@ -41,14 +42,14 @@ export default function Hero() {
         {/* Фоновое изображение через компонент Image для лучшей оптимизации */}
         <div className={s.heroBg}>
           <picture>
-            <source 
-              media="(max-width: 640px)" 
+            <source
+              media="(max-width: 640px)"
               srcSet="/img/hero/fonMob.webp"
               type="image/webp"
             />
             <Image
-              src="/img/hero/fon.webp"
-              alt=""
+              src="/img/hero/fon.jpg"
+              alt='ООО "Полимерные Технологии" производство и оптовая продажа полимерпесчаных люков, полимерпесчаных плитки, полимерпесчаных водоотводов, поребриков.'
               fill
               priority
               fetchPriority="high"
@@ -59,7 +60,7 @@ export default function Hero() {
           </picture>
           <div className={s.heroOverlay}></div>
         </div>
-        
+
         <div className="container">
           <div className={s.heroContent}>
             <h1 className="h1">
@@ -71,26 +72,27 @@ export default function Hero() {
             </h2>
 
             <div className={s.heroButBox}>
-              {/* <button className={"butt " + s.heroBtn} type="button">
-                Скачать прайс-лист
-              </button> */}
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={()=>openModal({title:"Инструкция по монтажу", gallery:["/img/instruct/1.jpg", "/img/instruct/2.jpg"]})} >
+             
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{image:"/img/instruct/1.jpg", pdf:"/docs/instruct/1.pdf"}, {image:"/img/instruct/2.jpg", pdf:"/docs/instruct/2.pdf"}] })} >
                 Инструкция по монтажу
               </button>
+               <Link href={"/products"} className={"butt " + s.heroBtn} type="button">
+                Выбор полимерпесчаного люка
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      
+
       <div className={s.heroAdvantages}>
         <div className="container">
           <div className={s.advGrid}>
             {advantages.map((e, i) => (
               <div key={i} className={s.heroAdvantagesItem}>
-                <Image 
-                  src={e.icon} 
-                  alt={e.text} 
-                  width={47} 
+                <Image
+                  src={e.icon}
+                  alt={e.text}
+                  width={47}
                   height={47}
                   loading="eager"
                 />
@@ -101,11 +103,11 @@ export default function Hero() {
         </div>
       </div>
       <Lightbox
-                      isOpen={isLightboxOpen}
-                      images={activeItem?.gallery || []}
-                      title={activeItem?.title}
-                      onClose={closeModal}
-                  />
+        isOpen={isLightboxOpen}
+        images={activeItem?.gallery || []}
+        title={activeItem?.title}
+        onClose={closeModal}
+      />
     </>
   );
 }

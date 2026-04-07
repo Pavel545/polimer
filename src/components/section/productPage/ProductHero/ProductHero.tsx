@@ -72,7 +72,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
 
   return (
     <section  className={s.pHero}>
-      <BreadCrumbs items={[{ title: "Продукция", href: "/products" }, { title: product.titleShort }]} />
+      <BreadCrumbs theme="dark" items={[{ title: "Продукция", href: "/products" }, { title: product.titleShort }]} />
 
       <div className="container">
         <div className={s.pHeroContent}>
@@ -289,7 +289,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
 
               <motion.button
                 onClick={openRequest}
-                className={"butt " + s.infoCta}
+                className={"butt2 " + s.infoCta}
                 type="button"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}

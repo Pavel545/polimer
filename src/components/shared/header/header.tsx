@@ -48,7 +48,7 @@ export default function Header(): JSX.Element {
         {/* left */}
         <div className={s.left}>
           <a href="/" className={s.headerLogo + " flex-center"}>
-            <Image src="/logo.png" alt="Logo" width={176} height={36} />
+            <Image src="/logo.png" alt='Логотип ООО "Полимерные Технологии"' width={176} height={36} />
           </a>
 
           {/* desktop nav */}
@@ -75,7 +75,7 @@ export default function Header(): JSX.Element {
               className={s.headerLink + " flex-center " + s.headerTel}
               href="tel:+79278023071"
             >
-              <Image src="/icons/tel.svg" alt="" width={12} height={12} />
+              <Image src="/icons/tel.svg" alt='Номер телефона для связи ООО "Полимерные Технологии"' width={12} height={12} />
               +7 927 802 30 71
             </a>
 
@@ -83,9 +83,7 @@ export default function Header(): JSX.Element {
               Оставить заявку
             </button>
 
-            <button className={s.headerButtChat + " flex-center"} aria-label="Открыть чат">
-              <Image src="/icons/chat.svg" alt="" width={20} height={20} />
-            </button>
+         
             
           </div>
 
@@ -131,7 +129,7 @@ export default function Header(): JSX.Element {
 
         <div className={s.mobileActions}>
           <a className={s.mobileTel} href="tel:+79278023071" onClick={closeMenu}>
-            <Image src="/icons/tel.svg" alt="" width={14} height={14} />
+            <Image src="/icons/tel.svg" alt='Номер телефона для связи ООО "Полимерные Технологии"' width={14} height={14} />
             +7 927 802 30 71
           </a>
 
@@ -146,9 +144,7 @@ export default function Header(): JSX.Element {
             Оставить заявку
           </button>
 
-          <button type="button" className={s.mobileChat} aria-label="Открыть чат">
-            <Image src="/icons/chat.svg" alt="" width={22} height={22} />
-          </button>
+        
         </div>
       </aside>
     </header>

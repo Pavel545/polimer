@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from "react";
 import s from "./certificates.module.css";
-import Lightbox from "@/components/ui/Lightbox/lightbox";
+import Lightbox, { SlideItem } from "@/components/ui/Lightbox/lightbox";
 
 type CertificateItem = {
     id: number;
     title: string;
     text: string;
-    gallery: string[];
+    gallery: SlideItem[];
     file: string;
 };
 
@@ -23,8 +23,11 @@ export default function Certificates() {
                 title: "Сертификат соответствия",
                 text: "Регистрационный номер РОСС RU.32001.04ИБФ1.ОСП32.92223",
                 gallery: [
-                    "/img/certificates/Сертификат_1.webp",
-                    "/img/certificates/Сертификат_2.webp",
+                    {
+                        image:"/img/certificates/Сертификат_1.webp",
+
+                    },
+                    {image:"/img/certificates/Сертификат_2.webp"},
                 ],
                 file: "/docs/certificates/Сертификат соответствия.pdf",
             },
@@ -33,9 +36,9 @@ export default function Certificates() {
                 title: "Протокол испытаний",
                 text: "№85783-ТЕХП/25 от 29.12.2025",
                 gallery: [
-                    "/img/certificates/ПРОТОКОЛ_1.jpg",
-                    "/img/certificates/ПРОТОКОЛ_2.jpg",
-                    "/img/certificates/ПРОТОКОЛ_3.jpg",
+                    {image:"/img/certificates/ПРОТОКОЛ_1.jpg"},
+                    {image:"/img/certificates/ПРОТОКОЛ_2.jpg"},
+                    {image:"/img/certificates/ПРОТОКОЛ_3.jpg"},
                 ],
                 file: "/docs/certificates/Протокол испытаний.pdf",
             },
@@ -58,7 +61,7 @@ export default function Certificates() {
             <section className={s.Certificates}>
                 <div className="container">
                     <div className={s.CertificatesContent}>
-                        <h2 className="h2">Сертификаты и протокол</h2>
+                        <h2 className={`h2 ${s.CertificatesH2}`}>Сертификаты и протокол</h2>
 
                         <div className={s.certificatesGrid}>
                             {items.map((item) => (
@@ -85,7 +88,7 @@ export default function Certificates() {
                                         aria-label={`Открыть ${item.title}`}
                                     >
                                         <img
-                                            src={item.gallery[0]}
+                                            src={item.gallery[0].image}
                                             alt={item.title}
                                             className={s.certificatesPreviewImage}
                                             draggable={false}

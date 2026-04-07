@@ -333,7 +333,7 @@ export default function ChatPopup() {
         onClick={toggleChat}
         aria-label="Открыть чат"
       >
-        ИИ помощник
+        Спросить у ИИ-ассистента
         {unreadCount > 0 && (
           <span className={s.chatButtonBadge}>
             {unreadCount > 9 ? "9+" : unreadCount}
@@ -353,7 +353,7 @@ export default function ChatPopup() {
             <div className={s.chatHeader}>
               <div className={s.chatHeaderInfo}>
                 <div className={s.chatHeaderIcon}>
-                  <Image src="/icons/chat.svg" alt="" width={20} height={20} />
+                  <Image src="/icons/chat.svg" alt="Чат ИИ асистента" width={20} height={20} />
                 </div>
                 <div>
                   <h3 className={s.chatTitle}>Поддержка 73Полимер</h3>

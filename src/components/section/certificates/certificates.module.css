@@ -1,8 +1,11 @@
 .CertificatesContent {
     padding: 70px 0;
     border-top: 1px solid var(--seryy-2);
-}
 
+}
+.CertificatesH2{
+    color: var(--temnyy-2);
+}
 .certificatesGrid {
     margin: 40px 0 0;
     display: grid;

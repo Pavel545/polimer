@@ -224,3 +224,27 @@
         font-size: 13px;
     }
 }
+
+
+.downloadBtn {
+    margin: 14px;
+    display: inline-block;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.25s ease;
+    backdrop-filter: blur(6px);
+    /* position: absolute; */
+    top: 20%;
+    right: 20%;
+}
+
+.downloadBtn:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-1px);
+}

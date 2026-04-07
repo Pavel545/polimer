@@ -123,6 +123,7 @@
   line-height: 130%;
   color: var(--belyy);
 }
+
 .aboutBotRight {
   position: relative;
   border-radius: var(--br);
@@ -139,6 +140,7 @@
   justify-content: flex-end;
   gap: 10px;
 }
+
 /* ================== АДАПТИВ ================== */
 
 /* 1400px */
@@ -227,13 +229,15 @@
     height: 28vh;
     height: 28svh;
   }
-      .aboutBotLeft {
-        grid-template-columns: 1fr;
-    }
+
+  .aboutBotLeft {
+    grid-template-columns: 1fr;
+  }
 
   .aboutBotRight {
     display: none;
   }
+
   .aboutContent {
     gap: 14px;
     padding: 40px 0;
@@ -258,3 +262,23 @@
 }
 
 
+/* Контейнер для текста с анимацией */
+.aboutBotLeftItemText {
+  overflow: hidden;
+}
+
+.sf {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 20px;
+  min-height: 130px; /* вместо height */
+}
+
+/* На мобильных устройствах текст виден всегда */
+@media (max-width: 740px) {
+  .aboutBotLeftItemText {
+    max-height: 200px;
+    opacity: 1;
+  }
+}

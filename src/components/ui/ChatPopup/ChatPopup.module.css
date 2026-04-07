@@ -6,15 +6,16 @@
   width: auto;
   height: auto;
   color: var(--belyy);
-  padding: 5px 20px;
-  /* border-radius: 50%; */
-  background: var(--siniy-1);
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: var(--temnyy-2);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+
   z-index: 1000;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -503,3 +504,5 @@
     /* right: 16px; */
   }
 }
+
+

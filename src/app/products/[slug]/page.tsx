@@ -42,7 +42,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   }
   
   return (
-    <main style={{ background: "var(--temnyy-1)" }}>
+    <main style={{ background: "var(--belyy)" }}>
       {/* Используем slug как key для принудительного перемонтирования */}
       <ProductHero key={`hero-${slug}`} product={product} />
       {productInfo && <ProductInfo key={`info-${slug}`} data={productInfo} />}

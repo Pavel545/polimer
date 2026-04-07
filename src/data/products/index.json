@@ -19,6 +19,16 @@
     "categoryId": 1,
     "img": "/img/products/luk-l/1з.png"
   },
+   {
+    "id": "13",
+    "slug": "",
+    "titleShort": "Люк \"ЛУ\"",
+    "titleFull": "Люк \"Лёгкий Укреплённый\"",
+    "description": "",
+    "priceRub": 2100,
+    "categoryId": 1,
+    "img": "/logo.png"
+  },
   {
     "id": "3",
     "slug": "luk-m",
@@ -40,13 +50,23 @@
     "img": "/img/products/luk-h/1ч.png"
   },
   {
+    "id": "10",
+    "slug": "konus-luk-lm",
+    "titleShort": "Конус-люк ЛМ",
+    "titleFull": "Конус-люк ЛМ",
+    "description": "",
+    "priceRub": 2100,
+    "categoryId": 1,
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1з.png"
+  },
+  {
     "id": "5",
     "slug": "luk-gts",
     "titleShort": "Люк  ГТС",
     "titleFull": "Люк полимерпесчаный ГТС",
     "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Люк с логотипом» ",
     "priceRub": 2800,
-    "categoryId": 2,
+    "categoryId": 1,
     "img": "/img/products/luk-gts/prev.jpg"
   },
   {
@@ -56,7 +76,7 @@
     "titleFull": "Люк с запорным устройством",
     "description": "Полимерпесчаный люк с запорным устройством",
     "priceRub": 3000,
-    "categoryId": 2,
+    "categoryId": 1,
     "img": "/img/products/lyuk-s-zapornym-ustroistvom/prev.jpg"
   },
   {
@@ -90,16 +110,6 @@
     "img": "/img/products/polimerpeschaniy-livneviy-lotok/1.jpg"
   },
   {
-    "id": "10",
-    "slug": "konus-luk-lm",
-    "titleShort": "Конус-люк ЛМ",
-    "titleFull": "Конус-люк ЛМ",
-    "description": "",
-    "priceRub": 2100,
-    "categoryId": 1,
-    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1з.png"
-  },
-  {
     "id": "11",
     "slug": "kolco-smotrovogo-kolodca",
     "titleShort": "Кольцо смотрового колодца",
@@ -118,15 +128,5 @@
     "priceRub": 2100,
     "categoryId": 4,
     "img": "/img/products/dno-smotrovogo-kolodca/3.jpg"
-  },
-   {
-    "id": "13",
-    "slug": "",
-    "titleShort": "Люк \"ЛУ\"",
-    "titleFull": "Люк \"Лёгкий Укреплённый\"",
-    "description": "",
-    "priceRub": 2100,
-    "categoryId": 1,
-    "img": "/logo.png"
   }
 ]

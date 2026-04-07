@@ -19,6 +19,7 @@ type Props = {
   idx: number;
   layoutMode: LayoutMode;
   className?:string;
+  style?: React.CSSProperties;
   getMosaicPlacement: (idx: number) => MosaicPlacement;
   variants: Variants;
 };
@@ -30,9 +31,12 @@ export default function CardProduct({
   className,
   getMosaicPlacement,
   variants,
+  style,
 }: Props): JSX.Element {
-  const mosaicStyle =
-    layoutMode === "mosaic5" ? getMosaicPlacement(idx) : undefined;
+const combinedStyle =
+  layoutMode === "mosaic5"
+    ? { ...getMosaicPlacement(idx), ...style }
+    : style;
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("ru-RU").format(price);
@@ -45,7 +49,7 @@ export default function CardProduct({
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -4 }}
       layout
-      style={mosaicStyle}
+      style={combinedStyle}
     >
       {product.slug ? (<Link  href={`/products/${product.slug}`} className={s.link}>
         <div className={`${s.media}`}>

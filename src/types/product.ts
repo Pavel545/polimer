@@ -108,4 +108,5 @@ export type CardProductData = {
 export type ProductCategory = {
   id: number;
   title: string;
+  titleW?: string;
 };

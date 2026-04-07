@@ -18,28 +18,12 @@
   --containerW: var(--container-w, 1200px);
 }
 
-.viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scroll-padding-left: calc((100vw - var(--containerW)) / 2 + var(--peek));
-  scroll-padding-right: calc((100vw - var(--containerW)) / 2 + var(--peek));
-  padding-left: calc((100vw - var(--containerW)) / 2 + var(--peek));
-  padding-right: calc((100vw - var(--containerW)) / 2 + var(--peek));
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
 
-.track {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
+/* Контейнер карусели — задаём 3D-сцену */
+.carousel_container {
+  perspective: 1200px;
+  perspective-origin: 50% 30%; /* Точка обзора сверху — усиливает объём */
+  margin-top: 40px;
 }
 
 .slide {
@@ -49,72 +33,129 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
   cursor: pointer;
+  will-change: transform;
   
-  // Базовое 3D-состояние для всех слайдов
-  transform: rotateX(75deg) translateY(-100px) translateZ(-50px);
-  transition: transform 0.8s ease, box-shadow 0.6s ease, opacity 0.35s ease, filter 0.35s ease;
-  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.3);
-  
-  // 3D-контейнер для контента
+  /* Базовое состояние: карточка «лежит» плашмя с наклоном */
+  transform: 
+    rotateX(65deg)      /* Сильный наклон назад */
+    rotateY(0deg)       
+    rotateZ(0deg)
+    translateY(120px)   /* Смещена вниз */
+    translateZ(-80px);  /* Утоплена вглубь */
+    
+  transition:
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.5s ease,
+    opacity 0.4s ease,
+    filter 0.4s ease;
+    
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+
   .card3d {
     width: 100%;
     height: 100%;
     position: relative;
     border-radius: 6px;
     overflow: hidden;
-    
+    transform-style: preserve-3d;
+
     &::before {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 6px;
-      background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.58) 0%,
-        rgba(0, 0, 0, 0.22) 55%,
-        rgba(0, 0, 0, 0) 100%
-      );
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0.3) 50%,
+          rgba(0, 0, 0, 0) 100%);
       z-index: 1;
     }
   }
-  
-  // Активный слайд (в центре)
+
+  /* Активный слайд — «встаёт» вертикально и выдвигается вперёд */
   &.slideActive {
-    transform: rotateX(0deg) translateY(0) translateZ(0);
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    transform: 
+      rotateX(5deg)      /* Почти вертикально, лёгкий наклон для реализма */
+      rotateY(0deg)
+      rotateZ(0deg)
+      translateY(-20px)  /* Поднимается вверх */
+      translateZ(120px); /* Выпрыгивает из экрана */
+      
+    box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.4),
+                0px 0px 0px 2px rgba(255,255,255,0.1) inset; /* блик по краю */
     opacity: 1;
-    filter: none;
-    
+    filter: brightness(1.05) saturate(1.05);
+
     .overlay {
       transform: translateY(0);
       opacity: 1;
     }
   }
-  
-  // Неактивные слайды
+
+  /* Неактивные слайды — остаются «лежать» */
   &.slideInactive {
-    opacity: 0.35;
-    filter: saturate(0.9);
-    transform: rotateX(75deg) translateY(-100px) translateZ(-50px);
+    transform: 
+      rotateX(65deg)
+      rotateY(0deg)
+      translateY(120px)
+      translateZ(-80px);
+      
+    opacity: 0.55;
+    filter: saturate(0.7) brightness(0.75) blur(0.3px);
     
     .overlay {
-      transform: translateY(20px);
-      opacity: 0.8;
+      transform: translateY(25px);
+      opacity: 0.6;
     }
   }
-  
-  // Hover эффект для всех слайдов
+
+  /* Hover — дополнительный объёмный эффект */
   &:hover {
-    // transform: rotateX(45deg) translateY(-50px) translateZ(-25px);
-    box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     
     &.slideActive {
-      // transform: rotateX(10deg) translateY(-20px) translateZ(20px);
+      transform: 
+        rotateX(0deg)      /* Полностью вертикально при наведении */
+        translateY(-30px)
+        translateZ(140px);
+        
+    }
+    
+    &.slideInactive {
+      transform: 
+        rotateX(55deg)     /* Слегка приподнимается, но не встаёт */
+        translateY(100px)
+        translateZ(-60px);
+        
+      filter: saturate(0.8) brightness(0.85);
     }
   }
+}
+
+/* Дополнительно: эффект "ребра" карточки при подъёме */
+.slide.slideActive .card3d::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 5%;
+  width: 90%;
+  height: 12px;
+  background: rgba(0,0,0,0.3);
+  filter: blur(6px);
+  border-radius: 50%;
+  z-index: -1;
+  transition: all 0.4s ease;
+  transform: rotateX(90deg) translateZ(-10px);
+}
+
+.slide.slideActive:hover .card3d::after {
+  width: 95%;
+  height: 18px;
+  filter: blur(10px);
+  background: rgba(0,0,0,0.4);
 }
 
 .overlay {
@@ -159,11 +200,11 @@
 
   .slide {
     height: 380px;
-    
+
     &.slideInactive {
       transform: rotateX(75deg) translateY(-80px) translateZ(-40px);
     }
-    
+
     &:hover {
       transform: rotateX(45deg) translateY(-40px) translateZ(-20px);
     }
@@ -178,11 +219,11 @@
 
   .slide {
     height: 340px;
-    
+
     &.slideInactive {
       transform: rotateX(75deg) translateY(-60px) translateZ(-30px);
     }
-    
+
     &:hover {
       transform: rotateX(45deg) translateY(-30px) translateZ(-15px);
     }
@@ -214,11 +255,11 @@
   .slide {
     flex-basis: calc(100vw - 28px);
     height: 300px;
-    
+
     &.slideInactive {
       transform: rotateX(75deg) translateY(-40px) translateZ(-20px);
     }
-    
+
     &:hover {
       transform: rotateX(45deg) translateY(-20px) translateZ(-10px);
     }
@@ -244,11 +285,11 @@
   .slide {
     flex-basis: calc(100vw - 20px);
     height: 270px;
-    
+
     &.slideInactive {
       transform: rotateX(75deg) translateY(-30px) translateZ(-15px);
     }
-    
+
     &:hover {
       transform: rotateX(45deg) translateY(-15px) translateZ(-8px);
     }
@@ -362,4 +403,3 @@
     font-size: 18px;
   }
 }
-

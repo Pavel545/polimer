@@ -31,7 +31,7 @@ export default function YandexMetrika({ metrikaId }: { metrikaId: number }) {
           <img
             src={`https://mc.yandex.ru/watch/${metrikaId}`}
             style={{ position: "absolute", left: "-9999px" }}
-            alt=""
+            alt="Яндекс метрика"
           />
         </div>
       </noscript>

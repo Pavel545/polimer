@@ -17,7 +17,7 @@
   /* Шрифты */
   --font-family: "Inter", sans-serif;
   --third-family: "Montserrat", sans-serif;
-
+  --russo-family: "RussoOne", sans-serif;
   /* Размеры шрифтов (в пикселях из макета) */
   --font-size-inter-medium: 377px;
   --font-size-inter-bold: 80px;
@@ -121,7 +121,7 @@ button {
   align-items: center;
 }
 
-.butt {
+.butt, .butt2 {
   padding: 16px 18px;
   border-radius: var(--br);
   background: var(--belyy);
@@ -132,13 +132,20 @@ button {
 
   transition: 300ms all ease;
 }
-
+.butt2{
+   background: var(--siniy-1);
+   color: var(--belyy);
+}
 @media (max-width: 470px) {
-  .butt {
+  .butt, .butt2 {
     width: 100%;
     padding: 14px 16px;
     font-size: 15px;
   }
+}
+.butt2:hover {
+  color: var(--belyy);
+  background: var(--seryy-3);
 }
 
 .butt:hover {
@@ -154,8 +161,9 @@ button {
 }
 
 .h1 {
+  font-family: var(--russo-family);
   font-weight: 600;
-  font-size: clamp(28px, 4.2vw, 50px);
+  font-size: clamp(28px, 4.5vw, 60px);
   line-height: 100%;
   text-transform: uppercase;
   color: var(--belyy);

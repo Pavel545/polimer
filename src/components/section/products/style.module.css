@@ -32,7 +32,7 @@
 
 /* 3 колонки */
 .grid3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(6, 1fr); /* вместо 3 */
   grid-auto-rows: 400px;
 }
 

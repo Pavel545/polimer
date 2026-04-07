@@ -32,3 +32,18 @@ export const montserrat = localFont({
   variable: '--third-family',
   display: 'swap',
 });
+
+
+// --- Montserrat ---
+export const russoOne = localFont({
+  src: [
+    {
+      path: '../../public/fonts/RussoOne-Regular.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  // preload: false,
+  variable: '--russo-family',
+  display: 'swap',
+});

@@ -221,14 +221,14 @@ export default function Contact() {
                     />
                     <span className={s.checkboxCustom}></span>
                     <span className={s.checkboxText}>
-                      Я ознакомился с{" "}
+                      Я даю согласие на обработку персональных данных в соответствии с 
                       <a
                         className={s.contactsFormTextLink}
                         href="/politiko"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Правилами обработки персональных данных
+                        Политикой конфиденциальности
                       </a>
                     </span>
                   </label>
