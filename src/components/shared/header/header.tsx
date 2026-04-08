@@ -73,10 +73,10 @@ export default function Header(): JSX.Element {
           <div className={s.actionsDesktop + " flex-center"}>
             <a
               className={s.headerLink + " flex-center " + s.headerTel}
-              href="tel:+79278023071"
+              href="tel:+78002224309"
             >
               <Image src="/icons/tel.svg" alt='Номер телефона для связи ООО "Полимерные Технологии"' width={12} height={12} />
-              +7 927 802 30 71
+              +7 (800) 222 43 09
             </a>
 
             <button onClick={openRequest} className={"butt " + s.headerButt}>
@@ -128,9 +128,9 @@ export default function Header(): JSX.Element {
         </nav>
 
         <div className={s.mobileActions}>
-          <a className={s.mobileTel} href="tel:+79278023071" onClick={closeMenu}>
+          <a className={s.mobileTel} href="tel:+78002224309" onClick={closeMenu}>
             <Image src="/icons/tel.svg" alt='Номер телефона для связи ООО "Полимерные Технологии"' width={14} height={14} />
-            +7 927 802 30 71
+            +7 (800) 222 43 09
           </a>
 
           <button

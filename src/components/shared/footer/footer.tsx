@@ -62,6 +62,25 @@ export default function Footer(): JSX.Element {
     },
   ];
 
+
+ const terProd: Product[] = [
+    {
+      id: "1",
+      slug: "333-polimerpeschanaya-plitka-na-8-kirpichey",
+      title: "Полимерпесчаная плитка 333 ",
+    },
+    {
+      id: "2",
+      slug: "polimerpeschaniy-bordyur-porebrik",
+      title: "Полимерпесчаный поребрик, бордюр",
+    },
+    {
+      id: "3",
+      slug: "polimerpeschaniy-livneviy-lotok",
+      title: "Полимерпесчаный ливневый лоток",
+    }
+  ];
+
   // Company details for microdata and easy maintenance
   const companyDetails = {
     name: "ООО «Полимерные Технологии»",
@@ -73,8 +92,8 @@ export default function Footer(): JSX.Element {
     legalAddress: "432063, РФ, Ульяновская обл., г.Ульяновск, Ул. Кирова, д. 6, кв. 397",
     postalAddress: "432063, РФ, Ульяновская обл., г.Ульяновск, Ул. Кирова, д. 6, кв. 397",
     factoryAddress: "г. Ульяновск, проезд Максимова 33 строение 3 (бывш. 9-й проезд Инженерный 33, строение 3)",
-    phone: "+7 (927) 802 30 71",
-    phoneRaw: "+79278023071",
+    phone: "+7 (800) 222 43 09",
+    phoneRaw: "+78002224309",
     email: "73polimer@mail.ru",
     phoneOffice: "8(8422)73-21-59",
     director: "Адаев Игорь Николаевич",
@@ -127,6 +146,30 @@ export default function Footer(): JSX.Element {
                   </a>
                 </li>
                 {lukProducts.map((product) => (
+                  <li key={product.id}>
+                    {product.slug ? (
+                      <a
+                      title={product.title}
+                        className={s.footerLink + " link"}
+                        href={`/products/${product.slug}`}
+                      >
+                        {product.title}
+                      </a>
+                    ) : (
+                      <span className={s.footerLink}>
+                        {product.title}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <ul className={s.list}>
+                <li>
+                  <a className={s.footerLink + " link"} href="/products">
+                    Каталог благоустройства территории: 
+                  </a>
+                </li>
+                {terProd.map((product) => (
                   <li key={product.id}>
                     {product.slug ? (
                       <a

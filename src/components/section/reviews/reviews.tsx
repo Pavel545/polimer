@@ -30,7 +30,7 @@ export default function Reviews() {
         <Swiper
           slidesPerView={"auto"}
           centeredSlides
-          speed={1500}
+          speed={2500}
           spaceBetween={10}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setActive(swiper.realIndex)}

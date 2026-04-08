@@ -86,7 +86,7 @@
     "titleFull": "Полимерпесчаная плитка 333 (8 кирпичей)",
     "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
     "priceRub": 180,
-    "categoryId": 3,
+    "categoryId": 2,
     "img": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/1.jpg"
   },
   {
@@ -96,7 +96,7 @@
     "titleFull": "Полимерпесчаный поребрик, бордюр",
     "description": "Полимерпесчаный бордюр — это изделие предназначенное для ограничения или фиксации полимернопесчаной тротуарной плитки. ",
     "priceRub": 260,
-    "categoryId": 3,
+    "categoryId": 2,
     "img": "/img/products/polimerpeschaniy-bordyur-porebrik/1.jpg"
   },
   {
@@ -106,7 +106,7 @@
     "titleFull": "Полимерпесчаный ливневый лоток",
     "description": "Полимерпесчаный водоотвод или дождеприемник — это изделие, предназначенное для организации водоотведения в тех местах, где есть необходимость отвода воды. ",
     "priceRub": 210,
-    "categoryId": 3,
+    "categoryId": 2,
     "img": "/img/products/polimerpeschaniy-livneviy-lotok/1.jpg"
   },
   {
@@ -116,7 +116,7 @@
     "titleFull": "Кольцо смотрового колодца",
     "description": "",
     "priceRub": 1800 ,
-    "categoryId": 4,
+    "categoryId": 3,
     "img": "/img/products/kolco-smotrovogo-kolodca/1.jpg"
   },
   {
@@ -126,7 +126,7 @@
     "titleFull": "Дно смотрового колодца",
     "description": "",
     "priceRub": 2100,
-    "categoryId": 4,
+    "categoryId": 3,
     "img": "/img/products/dno-smotrovogo-kolodca/3.jpg"
   }
 ]

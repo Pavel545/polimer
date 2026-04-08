@@ -26,16 +26,20 @@
   /* filter: grayscale(100%); */
   /* transition: filter 0.5s ease; */
 
-    --s: 550px;   /* the size of the image */
-  --b: 8px;     /* the border thickness*/
-  --g: 14px;    /* the gap */
-  --c: var(--temnyy-1); /* the color */
-  
+  --s: 550px;
+  /* the size of the image */
+  --b: 8px;
+  /* the border thickness*/
+  --g: 14px;
+  /* the gap */
+  --c: var(--temnyy-1);
+  /* the color */
+
   aspect-ratio: 1;
   outline: calc(var(--s)/2) solid rgba(0, 0, 0, 0.329);
   outline-offset: calc(var(--s)/-2);
   cursor: pointer;
-  transition: .5s;
+  transition: .8s;
   object-fit: cover;
   background: var(--temnyy-1);
 
@@ -44,7 +48,7 @@
 
 
 .card:hover .image {
-   outline: var(--b) solid var(--c);
+  outline: var(--b) solid var(--c);
   outline-offset: var(--g);
   /* filter: grayscale(0%); */
 }
@@ -149,6 +153,7 @@
   .card {
     grid-area: auto !important;
   }
+
   .type {
     font-size: 13px;
     padding: 8px 10px;
@@ -159,7 +164,7 @@
     font-size: clamp(16px, 3.2vw, 26px);
     -webkit-line-clamp: 3;
   }
-  
+
   .price {
     font-size: clamp(14px, 2.5vw, 20px);
   }
@@ -185,7 +190,7 @@
     font-size: clamp(16px, 4.6vw, 22px);
     -webkit-line-clamp: 2;
   }
-  
+
   .card:hover .bottomContent {
     transform: translateY(-20px);
   }

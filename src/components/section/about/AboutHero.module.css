@@ -1,0 +1,99 @@
+.hero {
+  background: var(--fon-chernyy-3);
+}
+
+.heroTitle {
+  margin: clamp(25px, 6vh, 60px) 0;
+}
+
+.heroDecorative {
+  width: 100%;
+  height: 50vh;
+  height: 50svh;
+  background: url(../../../../public/img/about/fon.webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 100px 0;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heroText p {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 130%;
+  color: var(--tekst-svetlo-seryy);
+  opacity: 0.6;
+}
+
+@media (max-width: 1400px) {
+  .heroDecorative {
+    height: 45vh;
+    height: 45svh;
+  }
+
+  .heroContent {
+    gap: 16px;
+    padding: 80px 0;
+  }
+
+  .heroText p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroContent {
+    padding: 64px 0;
+  }
+}
+
+@media (max-width: 740px) {
+  .heroDecorative {
+    height: 34vh;
+    height: 34svh;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 56px 0;
+  }
+
+  .heroText p {
+    font-size: 14px;
+    line-height: 140%;
+  }
+}
+
+@media (max-width: 470px) {
+  .heroDecorative {
+    height: 28vh;
+    height: 28svh;
+  }
+
+  .heroContent {
+    gap: 14px;
+    padding: 40px 0;
+  }
+
+  .heroText {
+    gap: 14px;
+  }
+
+  .heroText p {
+    font-size: 13px;
+  }
+}

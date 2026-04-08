@@ -109,7 +109,7 @@
 .heroH2 {
   font-weight: 500;
   font-style: Medium;
-  font-size: clamp(14px, 1.2vw, 18px);
+  font-size: clamp(14px, 1.3vw, 28px);
   line-height: 120%;
   letter-spacing: 0%;
 }

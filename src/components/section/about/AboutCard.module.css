@@ -1,0 +1,111 @@
+.card {
+    padding: 20px;
+    border-radius: var(--br);
+    background: var(--temnyy-1);
+    cursor: pointer;
+    transition: 300ms all ease;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+
+    min-height: 280px;
+}
+
+.card:hover {
+    background: var(--seryy-3);
+}
+
+.card img {
+    width: 47px;
+    height: 47px;
+    margin-bottom: 34px;
+    transition: 300ms all ease;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7491%) hue-rotate(229deg) brightness(100%) contrast(103%);
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card h3 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 110%;
+    color: var(--belyy);
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 20px;
+    min-height: 130px;
+}
+
+.cardTextWrapper {
+    overflow: hidden;
+}
+
+@media (max-width: 1400px) {
+    .card {
+        min-height: 260px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .card img {
+        margin-bottom: 26px;
+    }
+}
+
+@media (max-width: 740px) {
+    .card {
+        min-height: 220px;
+    }
+
+    .cardTextWrapper {
+        max-height: 200px;
+        opacity: 1;
+    }
+}
+
+
+.goCircle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  color: var(--belyy);
+  font-weight: 600;
+  font-size: 13px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.goRipple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 30px;
+  pointer-events: none;
+}
+
+.goText {
+  position: relative;
+  z-index: 1;
+}
+
+.goArrowWrapper {
+  position: relative;
+  z-index: 1;
+}

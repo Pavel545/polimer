@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react";
 import Hero from "@/components/section/hero/hero";
 import { getLatestArticles } from "@/lib/blog";
+import Profitable from "@/components/section/Profitable/Profitable";
 
 // Компоненты для ленивой загрузки
 const Products = lazy(() => import("@/components/section/products/products"));
-const About = lazy(() => import("@/components/section/about/about"));
+const About = lazy(() => import("@/components/section/about"));
 const Geography = lazy(() => import("@/components/section/geography/geography"));
 const Reviews = lazy(() => import("@/components/section/reviews/reviews"));
 const Interesting = lazy(() => import("@/components/section/Interesting/Interesting"));
@@ -43,7 +44,9 @@ export default function Home() {
       <Suspense fallback={<SectionFallback />}>
         <Products />
       </Suspense>
-      
+      <Suspense fallback={<SectionFallback />}>
+        <Profitable />
+      </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <About />
       </Suspense>

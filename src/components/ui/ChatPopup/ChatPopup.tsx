@@ -1,6 +1,6 @@
 "use client";
 
-import {type JSX, useState, useEffect, useRef } from "react";
+import { type JSX, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import s from "./ChatPopup.module.css";
 
@@ -23,12 +23,12 @@ const FormattedMessage = ({ text }: { text: string }) => {
   const formatText = (content: string) => {
     // Разделяем на строки
     const lines = content.split('\n');
-    
+
     return lines.map((line, lineIndex) => {
       // Проверяем на маркированный список (строки начинающиеся с -, *, • или цифр с точкой)
       const bulletMatch = line.match(/^[\s]*[-*•]\s+(.+)/);
       const numberMatch = line.match(/^[\s]*(\d+)\.\s+(.+)/);
-      
+
       if (bulletMatch) {
         return (
           <div key={lineIndex} className={s.listItem}>
@@ -37,7 +37,7 @@ const FormattedMessage = ({ text }: { text: string }) => {
           </div>
         );
       }
-      
+
       if (numberMatch) {
         return (
           <div key={lineIndex} className={s.listItem}>
@@ -46,7 +46,7 @@ const FormattedMessage = ({ text }: { text: string }) => {
           </div>
         );
       }
-      
+
       // Проверка на жирный текст (между **)
       if (line.includes('**')) {
         return (
@@ -55,7 +55,7 @@ const FormattedMessage = ({ text }: { text: string }) => {
           </div>
         );
       }
-      
+
       // Обычный текст
       if (line.trim()) {
         return (
@@ -64,20 +64,20 @@ const FormattedMessage = ({ text }: { text: string }) => {
           </div>
         );
       }
-      
+
       // Пустая строка - добавляем отступ
       return <div key={lineIndex} className={s.messageLineBreak} />;
     });
   };
-  
+
   const formatInline = (text: string) => {
     const parts: (string | JSX.Element)[] = [];
     let lastIndex = 0;
-    
+
     // Регулярное выражение для поиска **жирного текста**
     const boldRegex = /\*\*(.*?)\*\*/g;
     let match;
-    
+
     while ((match = boldRegex.exec(text)) !== null) {
       // Добавляем текст до жирного
       if (match.index > lastIndex) {
@@ -87,15 +87,15 @@ const FormattedMessage = ({ text }: { text: string }) => {
       parts.push(<strong key={match.index} className={s.boldText}>{match[1]}</strong>);
       lastIndex = match.index + match[0].length;
     }
-    
+
     // Добавляем оставшийся текст
     if (lastIndex < text.length) {
       parts.push(text.substring(lastIndex));
     }
-    
+
     return parts.length > 0 ? parts : text;
   };
-  
+
   return <div className={s.formattedMessage}>{formatText(text)}</div>;
 };
 
@@ -106,7 +106,7 @@ export default function ChatPopup() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [sessionId, setSessionId] = useState<string>("");
   const [unreadCount, setUnreadCount] = useState<number>(0);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatWindowRef = useRef<HTMLDivElement>(null);
@@ -116,7 +116,7 @@ export default function ChatPopup() {
     const initSession = () => {
       const storedSessionId = localStorage.getItem("chat_session_id");
       const storedMessages = localStorage.getItem("chat_messages");
-      
+
       if (storedSessionId && storedMessages) {
         setSessionId(storedSessionId);
         const parsedMessages = JSON.parse(storedMessages);
@@ -128,18 +128,18 @@ export default function ChatPopup() {
         const newSessionId = generateSessionId();
         setSessionId(newSessionId);
         localStorage.setItem("chat_session_id", newSessionId);
-        
-        const welcomeMessage: Message = {
-          id: Date.now().toString(),
-          text: "Здравствуйте! Я виртуальный помощник компании 73Полимер. Чем могу помочь?\n\nВы можете спросить меня о:\n• типах люков\n• характеристиках продукции\n• условиях доставки\n• ценах и наличии",
-          isUser: false,
-          timestamp: new Date(),
-        };
-        setMessages([welcomeMessage]);
-        localStorage.setItem("chat_messages", JSON.stringify([welcomeMessage]));
+
+        // const welcomeMessage: Message = {
+        //   id: Date.now().toString(),
+        //   text: "Здравствуйте! Я виртуальный помощник компании 73Полимер. Чем могу помочь?\n\nВы можете спросить меня о:\n• типах люков\n• характеристиках продукции\n• условиях доставки\n• ценах и наличии",
+        //   isUser: false,
+        //   timestamp: new Date(),
+        // };
+        // setMessages([welcomeMessage]);
+        // localStorage.setItem("chat_messages", JSON.stringify([welcomeMessage]));
       }
     };
-    
+
     initSession();
   }, []);
 
@@ -198,11 +198,11 @@ export default function ChatPopup() {
         closeChat();
       }
     };
-    
+
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-    
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -237,6 +237,8 @@ export default function ChatPopup() {
       }
 
       const data = await response.json();
+      console.log(data.answer);
+
       return data.response || data.answer || "Извините, произошла ошибка. Пожалуйста, попробуйте позже.";
     } catch (error) {
       console.error("Chat API error:", error);
@@ -264,14 +266,14 @@ export default function ChatPopup() {
 
     try {
       const botResponse = await sendMessageToAPI(userMessageText);
-      
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: botResponse,
         isUser: false,
         timestamp: new Date(),
       };
-      
+
       const finalMessages = [...updatedMessages, botMessage];
       setMessages(finalMessages);
       saveMessages(finalMessages);
@@ -283,7 +285,7 @@ export default function ChatPopup() {
         timestamp: new Date(),
         isError: true,
       };
-      
+
       const errorMessages = [...updatedMessages, errorMessage];
       setMessages(errorMessages);
       saveMessages(errorMessages);
@@ -311,7 +313,7 @@ export default function ChatPopup() {
       const newSessionId = generateSessionId();
       setSessionId(newSessionId);
       localStorage.setItem("chat_session_id", newSessionId);
-      
+
       const welcomeMessage: Message = {
         id: Date.now().toString(),
         text: "Здравствуйте! Я виртуальный помощник компании 73Полимер. Чем могу помочь?\n\nВы можете спросить меня о:\n• типах люков\n• характеристиках продукции\n• условиях доставки\n• ценах и наличии",
@@ -349,42 +351,8 @@ export default function ChatPopup() {
 
           {/* Chat Window */}
           <div ref={chatWindowRef} className={s.chatWindow}>
-            {/* Header */}
-            <div className={s.chatHeader}>
-              <div className={s.chatHeaderInfo}>
-                <div className={s.chatHeaderIcon}>
-                  <Image src="/icons/chat.svg" alt="Чат ИИ асистента" width={20} height={20} />
-                </div>
-                <div>
-                  <h3 className={s.chatTitle}>Поддержка 73Полимер</h3>
-                  <p className={s.chatStatus}>
-                    <span className={s.statusDot}></span>
-                    Онлайн
-                  </p>
-                </div>
-              </div>
-              <div className={s.chatHeaderActions}>
-                <button
-                  type="button"
-                  className={s.chatClear}
-                  onClick={clearHistory}
-                  aria-label="Очистить историю"
-                  title="Очистить историю"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 6H21M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M10 11V17M14 11V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  className={s.chatClose}
-                  onClick={closeChat}
-                  aria-label="Закрыть чат"
-                >
-                  ✕
-                </button>
-              </div>
+            <div className={s.faq}>
+
             </div>
 
             {/* Messages Area */}
@@ -397,9 +365,8 @@ export default function ChatPopup() {
                 messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`${s.message} ${
-                      message.isUser ? s.messageUser : s.messageBot
-                    } ${message.isError ? s.messageError : ""}`}
+                    className={`${s.message} ${message.isUser ? s.messageUser : s.messageBot
+                      } ${message.isError ? s.messageError : ""}`}
                   >
                     <div className={s.messageContent}>
                       {message.isUser ? (
@@ -463,6 +430,18 @@ export default function ChatPopup() {
                   />
                 </svg>
               </button>
+             <button
+                  type="button"
+                  className={s.chatClear}
+                  onClick={clearHistory}
+                  aria-label="Очистить историю"
+                  title="Очистить историю"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6H21M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M10 11V17M14 11V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </button>
             </div>
           </div>
         </>

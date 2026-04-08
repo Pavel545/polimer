@@ -1,6 +1,6 @@
 "use client";
 
-import About from "@/components/section/about/about";
+import About from "@/components/section/about";
 import Contact from "@/components/section/contact/contact";
 import Hero from "@/components/section/hero/hero";
 import Products from "@/components/section/products/products";
