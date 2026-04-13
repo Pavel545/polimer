@@ -71,8 +71,8 @@ export default function ProductHero({ product }: Props): JSX.Element {
   };
 
   return (
-    <section  className={s.pHero}>
-      <BreadCrumbs theme="dark" items={[{ title: "Продукция", href: "/products" }, { title: product.titleShort }]} />
+    <section className={s.pHero}>
+      <BreadCrumbs items={[{ title: "Продукция", href: "/products" }, { title: product.titleShort }]} />
 
       <div className="container">
         <div className={s.pHeroContent}>
@@ -194,11 +194,11 @@ export default function ProductHero({ product }: Props): JSX.Element {
 
               {/* Описание с анимацией */}
               <Lift delay={0.6} amount={0.2}>
-                <p className={s.infoText}>{product.description}</p>
+                <p className={s.infoText} dangerouslySetInnerHTML={{__html:product.description}} ></p>
               </Lift>
 
               {/* Ссылка на инструкцию с анимацией */}
-              {product.instructionUrl && (
+              {/* {product.instructionUrl && (
                 <ScaleIn delay={0.7} amount={0.2}>
                   <motion.a
                     className={"link " + s.infoLink}
@@ -220,7 +220,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
                     </motion.span>
                   </motion.a>
                 </ScaleIn>
-              )}
+              )} */}
 
               {/* COLORS - блок выбора цвета */}
               <Fade delay={0.8} amount={0.2}>
@@ -289,7 +289,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
 
               <motion.button
                 onClick={openRequest}
-                className={"butt2 " + s.infoCta}
+                className={"butt " + s.infoCta}
                 type="button"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}

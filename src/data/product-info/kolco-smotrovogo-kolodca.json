@@ -1,0 +1,40 @@
+{
+  "tabs": [
+    {
+      "id": 1,
+      "title": "Преимущества и характеристика",
+      "content": {
+        "kind": "advantages_characteristics",
+        "leftTitle": "ПРЕИМУЩЕСТВА:",
+        "advantages": [
+          ""
+        ],
+        "rightTitle": "ХАРАКТЕРИСТИКА:",
+        "characteristics": [
+          {
+            "label": "Диаметр наружний",
+            "value": "1000мм"
+          },
+          {
+            "label": "Диаметр наружний",
+            "value": "140мм"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "title": "Описание и виды",
+      "content": {
+        "kind": "description_types",
+        "leftTitle": "ОПИСАНИЕ:",
+        "description": [
+          "",
+          ""
+        ],
+        "rightTitle": "ВИДЫ:",
+        "types": []
+      }
+    }
+  ]
+}

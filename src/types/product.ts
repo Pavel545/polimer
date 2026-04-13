@@ -23,13 +23,15 @@ export type ProductVariant = {
 
 export type ProductEntity = {
   id: string;
-  slug: string; // добавляем slug для URL
+  slug: string; 
   titleShort: string;
   titleFull: string;
   description: string;
+  warning?: string;
+  remember?: string;
   categoryId: number;
   priceRub: number;
-  img:string;
+  img: string;
   instructionUrl?: string;
   variants: ProductVariant[];
 };
@@ -51,24 +53,38 @@ export type Column = {
 };
 
 export type TabContent =
+| {
+    kind: "instruct_characteristics";
+    leftTitle: string;
+    instructSrc: string;
+    instructPdf: string;
+    rightTitle: string;
+    characteristics: Characteristic[];
+  }
   | {
-      kind: "advantages_characteristics";
-      leftTitle: string;
-      advantages: string[];
-      rightTitle: string;
-      characteristics: Characteristic[];
-    }
+    kind: "advantages_characteristics";
+    leftTitle: string;
+    advantages: string[];
+    rightTitle: string;
+    characteristics: Characteristic[];
+  }| {
+    kind: "advantages";
+    leftTitle: string;
+    advantages: string[];
+    rightTitle: string;
+    advantages2: string[];
+  }
   | {
-      kind: "description_types";
-      leftTitle: string;
-      description: string[];
-      rightTitle: string;
-      types: ProductType[];
-    }
+    kind: "description_types";
+    leftTitle: string;
+    description: string[];
+    rightTitle: string;
+    types: ProductType[];
+  }
   | {
-      kind: "instruction_columns";
-      columns: Column[];
-    };
+    kind: "instruction_columns";
+    columns: Column[];
+  };
 
 export type ProductTab = {
   id: number;

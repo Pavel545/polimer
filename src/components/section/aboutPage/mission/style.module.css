@@ -1,0 +1,51 @@
+.Mission {
+    margin: clamp(30px, 10vh, 120px);
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 60px 0;
+    border-radius: var(--br);
+}
+
+
+.imgBox {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+}
+
+.imgBox img {
+    width: 102%;
+    height: 102%;
+    object-fit: cover;
+    object-position: -20px -5px;
+
+
+}
+
+.boxText{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.boxText h3{
+    font-size: 30px;
+
+}
+
+.boxText p{
+    font-size: clamp(16px, 2rem, 28px);
+
+}
+
+@media (max-width: 500px) {
+ .content {
+    grid-template-columns: 1fr ;
+}
+}

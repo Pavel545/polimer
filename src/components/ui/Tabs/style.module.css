@@ -1,0 +1,214 @@
+.item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.head {
+  width: 100%;
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--belyy);
+  text-align: left;
+}
+
+.left {
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--belyy);
+}
+
+.sep {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.sub {
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.salary {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--belyy);
+  white-space: nowrap;
+}
+
+.chev {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--br);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.65);
+  transition: 200ms transform ease, 200ms background ease, 200ms color ease;
+}
+
+.chevOpen {
+  transform: rotate(180deg);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* Анимация раскрытия */
+.anim {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height 320ms ease, opacity 240ms ease, transform 240ms ease;
+  will-change: max-height, opacity, transform;
+}
+
+.animOpen {
+  max-height: var(--h);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* внутренний отступ как раньше был у .body */
+.animInner {
+  padding: 0 0 24px;
+}
+
+
+.panel {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: calc(var(--br) + 1px);
+  padding: 26px 28px;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.col {
+  min-width: 0;
+}
+
+.kicker {
+font-weight: 500;
+font-style: Medium;
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 0%;
+text-transform: uppercase;
+color: var(--seryy-2);
+margin-bottom: 10px;
+
+
+}
+
+.kickerGap {
+  margin-top: 18px;
+}
+
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 14px;
+  color: var(--belyy);
+
+
+
+font-weight: 500;
+font-size: 16px;
+line-height: 130%;
+letter-spacing: 0%;
+
+}
+
+.li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: 14px 18px;
+}
+
+/* disabled row (как “в архиве”) */
+.disabled .head {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.disabled .chev {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+  .panel {
+    padding: 20px 18px;
+  }
+}
+
+@media (max-width: 470px) {
+  .head {
+    padding: 18px 0;
+  }
+  .salary {
+    font-size: 16px;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .sub {
+    font-size: 14px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actionBtn {
+    width: 100%;
+    justify-content: center;
+    display: inline-flex;
+  }
+}

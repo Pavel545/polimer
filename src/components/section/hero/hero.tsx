@@ -72,14 +72,14 @@ export default function Hero() {
             </h2>
 
             <div className={s.heroButBox}>
-             
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{image:"/img/instruct/2.jpg", pdf:"/docs/instruct/2.pdf"}] })} >
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.jpg", pdf: "/docs/instruct/1.pdf" }] })} >
+                Выбор полимерпесчаного люка
+              </button>
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/2.pdf" }] })} >
                 Инструкция по монтажу
               </button>
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{image:"/img/instruct/1.jpg", pdf:"/docs/instruct/1.pdf"}] })} >
-                 Выбор полимерпесчаного люка
-              </button>
-               
+
+
             </div>
           </div>
         </div>

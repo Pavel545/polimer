@@ -1,0 +1,15 @@
+.VacanciesContent {
+  padding: 90px 0 60px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+
+.list p {
+  margin: 20px 10px;
+ 
+}

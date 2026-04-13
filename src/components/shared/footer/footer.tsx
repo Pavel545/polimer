@@ -39,23 +39,23 @@ export default function Footer(): JSX.Element {
     },
     {
       id: "4",
-      slug: "luk-lm",
+      slug: "luk-c",
       title: "Люк канализационный полимерпесчаный «С»",
     },
     {
       id: "5",
-      slug: "luk-h",
+      slug: "luk-t",
       title: "Люк канализационный полимерпесчаный «Т»",
     },
     {
       id: "6",
       slug: "konus-luk-lm",
       title: "Конус-люк канализационный полимерпесчаный «ЛМ»",
-    },{
+    }, {
       id: "7",
       slug: "luk-gts",
       title: "Люк полимерпесчаный ГТС",
-    },{
+    }, {
       id: "8",
       slug: "lyuk-s-zapornym-ustroistvom",
       title: "Люк с запорным устройством",
@@ -63,7 +63,7 @@ export default function Footer(): JSX.Element {
   ];
 
 
- const terProd: Product[] = [
+  const terProd: Product[] = [
     {
       id: "1",
       slug: "333-polimerpeschanaya-plitka-na-8-kirpichey",
@@ -80,7 +80,17 @@ export default function Footer(): JSX.Element {
       title: "Полимерпесчаный ливневый лоток",
     }
   ];
-
+const colodecProd: Product[] =[
+   {
+      id: "1",
+      slug: "kolco-smotrovogo-kolodca",
+      title: "Кольцо смотрового колодца",
+    },{
+      id: "2",
+      slug: "dno-smotrovogo-kolodca",
+      title: "Дно смотрового колодца",
+    },
+]
   // Company details for microdata and easy maintenance
   const companyDetails = {
     name: "ООО «Полимерные Технологии»",
@@ -95,7 +105,6 @@ export default function Footer(): JSX.Element {
     phone: "+7 (800) 222 43 09",
     phoneRaw: "+78002224309",
     email: "73polimer@mail.ru",
-    phoneOffice: "8(8422)73-21-59",
     director: "Адаев Игорь Николаевич",
     bankAccount: "40702810329280003234",
     bankName: "ФИЛИАЛ \"НИЖЕГОРОДСКИЙ\" АО \"АЛЬФА-БАНК\"",
@@ -112,122 +121,22 @@ export default function Footer(): JSX.Element {
 
       <div className="container">
         <div className={s.footerContent}>
-          <a
-            href="/"
-            className={s.footerLogo + " flex-center"}
-            itemProp="url"
-          >
-            <Image
-              src="/logo.png"
-              alt={`Логотип ${companyDetails.name}`}
-              width={176}
-              height={36}
-              itemProp="logo"
-            />
-          </a>
+          <div>
+            <a
+              href="/"
+              className={s.footerLogo + " flex-center"}
+              itemProp="url"
+            >
+              <Image
+                src="/logo.png"
+                alt={`Логотип ${companyDetails.name}`}
+                width={176}
+                height={36}
+                itemProp="logo"
+              />
+            </a>
 
-          <div className={s.siteMap}>
-            <nav className={s.col} aria-label="Основная навигация">
-              <ul className={s.list}>
-                {link.map((e, i) => (
-                  <li key={i}>
-                    <a className={s.footerLink + " link"} href={e.href}>
-                      {e.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <nav className={s.col} aria-label="Навигация по продукции">
-              <ul className={s.list}>
-                <li>
-                  <a className={s.footerLink + " link"} href="/products">
-                    Каталог полимерпесчаных люков: 
-                  </a>
-                </li>
-                {lukProducts.map((product) => (
-                  <li key={product.id}>
-                    {product.slug ? (
-                      <a
-                      title={product.title}
-                        className={s.footerLink + " link"}
-                        href={`/products/${product.slug}`}
-                      >
-                        {product.title}
-                      </a>
-                    ) : (
-                      <span className={s.footerLink}>
-                        {product.title}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-              <ul className={s.list}>
-                <li>
-                  <a className={s.footerLink + " link"} href="/products">
-                    Каталог благоустройства территории: 
-                  </a>
-                </li>
-                {terProd.map((product) => (
-                  <li key={product.id}>
-                    {product.slug ? (
-                      <a
-                      title={product.title}
-                        className={s.footerLink + " link"}
-                        href={`/products/${product.slug}`}
-                      >
-                        {product.title}
-                      </a>
-                    ) : (
-                      <span className={s.footerLink}>
-                        {product.title}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-
-          <div className={s.col}>
-            <ul className={s.list}>
-              <li>
-                <div className={s.footerLink} itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                  <strong>Юридический адрес:</strong>
-                  <br />
-                  <span itemProp="streetAddress">{companyDetails.legalAddress}</span>
-                 
-                </div>
-              </li>
-              <li>
-                <div className={s.footerLink}>
-                  <strong>Почтовый адрес:</strong>
-                  <br />
-                  {companyDetails.postalAddress}
-                </div>
-              </li>
-              <li>
-                <div className={s.footerLink}>
-                  <strong>Производство:</strong>
-                  <br />
-                  <a
-                    href="https://yandex.ru/maps/-/CPq6ZWNy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${s.footerLink} link`}
-                  >
-                    {companyDetails.factoryAddress}
-                  </a>
-                </div>
-              </li>
-              {/* <li>
-                <div className={s.footerLink}>
-                  <strong>Директор:</strong>
-                  <br />
-                  {companyDetails.directer}
-                </div>
-              </li> */}
+            <ul>
               <li>
                 <a
                   className={s.footerLink + " link"}
@@ -240,21 +149,13 @@ export default function Footer(): JSX.Element {
               <li>
                 <a
                   className={s.footerLink + " link"}
-                  href="tel:88422732159"
-                >
-                  <strong>Офис:</strong> {companyDetails.phoneOffice}
-                </a>
-              </li>
-              <li>
-                <a
-                  className={s.footerLink + " link"}
                   href={`mailto:${companyDetails.email}`}
                   itemProp="email"
                 >
                   <strong>Email:</strong> {companyDetails.email}
                 </a>
               </li>
-             
+
 
               <li className={s.socRow}>
                 <a
@@ -286,7 +187,98 @@ export default function Footer(): JSX.Element {
                 </a>
               </li>
             </ul>
+
           </div>
+
+          <div className={s.siteMap}>
+            <nav className={s.col} aria-label="Основная навигация">
+              <ul className={s.list}>
+                {link.map((e, i) => (
+                  <li key={i}>
+                    <a className={s.footerLink + " link"} href={e.href}>
+                      {e.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <nav className={s.col} aria-label="Навигация по продукции">
+              <ul className={s.list}>
+                <li>
+                  <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
+                    Каталог полимерпесчаных люков:
+                  </a>
+                </li>
+                {lukProducts.map((product) => (
+                  <li key={product.id}>
+                    {product.slug ? (
+                      <a
+                        title={product.title}
+                        className={s.footerLink + " link"}
+                        href={`/products/${product.slug}`}
+                      >
+                        {product.title}
+                      </a>
+                    ) : (
+                      <span className={s.footerLink}>
+                        {product.title}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <ul className={s.list}>
+                <li>
+                  <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
+                    Каталог благоустройства территории:
+                  </a>
+                </li>
+                {terProd.map((product) => (
+                  <li key={product.id}>
+                    {product.slug ? (
+                      <a
+                        title={product.title}
+                        className={s.footerLink + " link"}
+                        href={`/products/${product.slug}`}
+                      >
+                        {product.title}
+                      </a>
+                    ) : (
+                      <span className={s.footerLink}>
+                        {product.title}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <ul className={s.list}>
+                <li>
+                  <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
+                    Каталог смотрового колодца:
+                  </a>
+                </li>
+                {colodecProd.map((product) => (
+                  <li key={product.id}>
+                    {product.slug ? (
+                      <a
+                        title={product.title}
+                        className={s.footerLink + " link"}
+                        href={`/products/${product.slug}`}
+                      >
+                        {product.title}
+                      </a>
+                    ) : (
+                      <span className={s.footerLink}>
+                        {product.title}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+
         </div>
 
         {/* Company details row with microdata */}
@@ -295,6 +287,18 @@ export default function Footer(): JSX.Element {
             Реквизиты:
           </h3>
           <div className={s.detailsGrid}>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>Юридический адрес:</span>
+              <span itemProp="taxID">{companyDetails.legalAddress}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>Почтовый адрес:</span>
+              <span itemProp="taxID">{companyDetails.postalAddress}</span>
+            </div>
+            <div className={s.detailItem}>
+              <span className={s.detailLabel}>Производство:</span>
+              <span itemProp="taxID">{companyDetails.factoryAddress}</span>
+            </div>
             <div className={s.detailItem}>
               <span className={s.detailLabel}>ИНН:</span>
               <span itemProp="taxID">{companyDetails.inn}</span>

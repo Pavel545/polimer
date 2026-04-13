@@ -14,6 +14,7 @@ import {
   BlurIn,
   SlideInLeft,
 } from "@/components/ui/Motion";
+import Image from "next/image";
 
 type ProductInfoTabId = number;
 
@@ -27,16 +28,16 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const tabs: TabItem[] = useMemo(
-    () => data.tabs.map((t) => ({ 
-      id: t.id, 
+    () => data.tabs.map((t) => ({
+      id: t.id,
       title: t.title,
       isFileLink: !!t.fileUrl
     })),
@@ -55,14 +56,14 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
 
   const handleTabChange = (id: ProductInfoTabId) => {
     const tab = data.tabs.find(t => t.id === id);
-    
+
     // Если у таба есть fileUrl, показываем изображение вместо открытия ссылки
     if (tab?.fileUrl) {
       setImageTabId(id);
       setCatActive(id);
       return;
     }
-    
+
     setImageTabId(null);
     setCatActive(id);
   };
@@ -105,13 +106,13 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                 className={s.fullWidthImage}
               >
                 <div className={s.imageContainer}>
-                  <img 
-                    src={activeTab.fileUrl} 
+                  <img
+                    src={activeTab.fileUrl}
                     alt={activeTab.title}
                     className={s.productImage}
                   />
                   {isMobile && (
-                    <button 
+                    <button
                       onClick={handleCloseImage}
                       className={s.closeImageButton}
                       aria-label="Закрыть изображение"
@@ -131,7 +132,52 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  {activeContent.kind === "advantages_characteristics" && (
+                  {activeContent.kind === "instruct_characteristics" && (
+                    <div className={s.twoCols}>
+                      {/* Левая колонка с преимуществами */}
+                      <SlideInLeft delay={0.1} amount={0.2} className={s.col}>
+                        <>
+                          <h3 className={s.colTitle}>{activeContent.leftTitle}</h3>
+                          {activeContent?.instructSrc &&
+                            <div className={s.imageContainer}>
+                              <Image className={s.productImage} src={activeContent?.instructSrc} alt={activeContent.leftTitle} width={500} height={600} />
+
+
+                            </div>
+
+                          }
+                          {activeContent?.instructPdf &&
+                            <div className={s.imageContainer}>
+                              <a className={s.fileDown}  href={activeContent?.instructPdf} title={activeContent.leftTitle} download="" target="_blank" rel="noopener noreferrer">Скачать инструкицю</a>
+
+
+                            </div>
+
+                          }
+                        </>
+                      </SlideInLeft>
+
+                      {/* Правая колонка с характеристиками */}
+                      <SlideInRight delay={0.2} amount={0.2} className={s.col}>
+                        <>
+                          <h3 className={s.colTitle}>{activeContent.rightTitle}</h3>
+                          <Stagger stagger={0.08} amount={0.1}>
+                            <div className={s.kv}>
+                              {activeContent.characteristics.map((row, i) => (
+                                <StaggerItem key={i} className={s.kvRow}>
+                                  <h4 className={s.kvLabel}>{row.label}:</h4>
+                                  <ScaleIn delay={0.3 + i * 0.05}>
+                                    <span className={s.kvValue}>{row.value}</span>
+                                  </ScaleIn>
+                                </StaggerItem>
+                              ))}
+                            </div>
+                          </Stagger>
+                        </>
+                      </SlideInRight>
+                    </div>
+                  )}
+                  {activeContent.kind === "advantages" && (
                     <div className={s.twoCols}>
                       {/* Левая колонка с преимуществами */}
                       <SlideInLeft delay={0.1} amount={0.2} className={s.col}>
@@ -141,7 +187,42 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                             <ol className={s.list}>
                               {activeContent.advantages.map((text, i) => (
                                 <StaggerItem key={i} className={s.paragraph}>
-                                  {text}
+                                  <span dangerouslySetInnerHTML={{ __html: text }}></span>
+                                </StaggerItem>
+                              ))}
+                            </ol>
+                          </Stagger>
+                        </>
+                      </SlideInLeft>
+
+                      {/* Правая колонка с характеристиками */}
+                      <SlideInRight delay={0.2} amount={0.2} className={s.col}>
+                        <>
+                          <h3 className={s.colTitle}>{activeContent.rightTitle}</h3>
+                          <Stagger stagger={0.08} amount={0.1}>
+                            <div className={s.kv}>
+                              {activeContent.advantages2.map((text, i) => (
+                                <StaggerItem key={i} className={s.paragraph}>
+                                  <span dangerouslySetInnerHTML={{ __html: text }}></span>
+                                </StaggerItem>
+                              ))}
+                            </div>
+                          </Stagger>
+                        </>
+                      </SlideInRight>
+                    </div>
+                  )}
+                  {activeContent.kind === "advantages_characteristics" && (
+                    <div className={s.twoCols}>
+                      {/* Левая колонка с преимуществами */}
+                      <SlideInLeft delay={0.1} amount={0.2} className={s.col}>
+                        <>
+                          <h3 className={s.colTitle}>{activeContent.leftTitle}</h3>
+                          <Stagger stagger={0.1} amount={0.1}>
+                            <ol className={s.list}>
+                              {activeContent.advantages.map((text, i) => (
+                                <StaggerItem key={i}  className={s.paragraph}>
+                                    <span dangerouslySetInnerHTML={{__html:text}}></span>
                                 </StaggerItem>
                               ))}
                             </ol>
@@ -196,7 +277,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                                 <StaggerItem key={i} className={s.listItem}>
                                   {!isMobile ? (
                                     <>
-                                      <h4 className={s.bold} dangerouslySetInnerHTML={{__html:t.title}}>{}</h4>  <p>{t.text}</p>
+                                      <h4 className={s.bold} dangerouslySetInnerHTML={{ __html: t.title }}>{ }</h4>  <p>{t.text}</p>
                                     </>
                                   ) : (
                                     <>
@@ -217,9 +298,9 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                   {activeContent.kind === "instruction_columns" && (
                     <div className={s.twoCols}>
                       {activeContent.columns.map((c, idx) => (
-                        <BlurIn 
-                          key={idx} 
-                          delay={idx * 0.15} 
+                        <BlurIn
+                          key={idx}
+                          delay={idx * 0.15}
                           amount={0.2}
                           className={s.col}
                         >

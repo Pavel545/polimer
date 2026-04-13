@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import s from './style.module.css';
 import BreadCrumbs from '@/components/ui/BreadCrumbs/BreadCrumbs';
+import { ReactNode } from "react";
 
 
 type HeroPages = {
     title: string;
     h1: string;
-    text?: string;
+    text?: string | ReactNode;
     fon: string;
 }
 
@@ -34,7 +35,7 @@ export default function HeroPages({ title, h1, text, fon }: HeroPages) {
 
             <div className={"container " + s.HeroPagesText}>
                 <motion.div 
-                    className={s.HeroPagesContent}
+                    className={`${s.HeroPagesContent} ${!text && s.van}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ 
@@ -59,7 +60,7 @@ export default function HeroPages({ title, h1, text, fon }: HeroPages) {
 
                     {/* Текст (если есть) */}
                     {text && (
-                        <motion.p 
+                        <motion.div 
                             className={s.HeroPagesContentText}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +71,7 @@ export default function HeroPages({ title, h1, text, fon }: HeroPages) {
                             }}
                         >
                             {text}
-                        </motion.p>
+                        </motion.div>
                     )}
                 </motion.div>
             </div>

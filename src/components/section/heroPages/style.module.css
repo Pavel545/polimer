@@ -32,6 +32,12 @@
   padding: 70px 0 120px;
 }
 
+
+.van{
+  grid-template-columns:1fr;
+
+}
+
 .HeroPagesContentText {
   font-weight: 500;
   font-size: 18px;
@@ -39,7 +45,9 @@
   color: var(--belyy);
   max-width: 675px;
 }
-
+.HeroPagesContentText h3{
+  margin: 30px 0 20px;
+}
 /* ====== 1200 ====== */
 @media (max-width: 1200px) {
   .HeroPagesContent {

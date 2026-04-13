@@ -1,15 +1,17 @@
 {
   "id": "konus-luk-lm",
   "slug": "konus-luk-lm",
-  "titleShort": "Конус-люк ЛМ",
-  "titleFull": "Конус-люк ЛМ",
-  "description": "",
+  "titleShort": "КОНУС-ЛЮК ЛМ ( садовый / легкий малогабаритный)",
+  "titleFull": "ПОЛИМЕРНО-ПЕСЧАНЫЙ КОНУС-ЛЮК ",
+  "description": "Полимерно-песчаный конус-люк  ЛМ производственной компании Полимерные Технологии — это изделие предназначенное для защиты колодцев системы канализации, водоснабжения и других инженерных сетей. <br/><br/>Конус-люк тип ЛМ устанавливается на бетонные кольца без использования бетонной переходной плиты на септиках, выгребных ямах в частном секторе, газонах, а так же приусадебных участках.",
+  "warning": "Рекомендуется выбрать полимерно-песчаный люк с запасом по прочности, ведь незначительная разница в стоимости порядка 100-300р может значительно улучшить ваш комфорт и безопасность его эксплуатации.",
+  "remember": "Правильно подобранный по нагрузке люк будет служить вам верой и правдой. Вы просто устанавливаете люк и забываете о нем на долгие годы. ",
   "instructionUrl": "/# ",
   "variants": [
     {
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
-      "priceRub": 180 ,
+      "priceRub": 180,
       "colors": [
         {
           "id": "black",
@@ -29,22 +31,26 @@
           "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/2.jpg",
           "colorId": "black",
           "sort": 2
-        }, {
+        },
+        {
           "id": "img3",
           "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/3.jpg",
           "colorId": "black",
           "sort": 2
-        }, {
+        },
+        {
           "id": "img4",
           "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/4.jpg",
           "colorId": "black",
           "sort": 2
-        }, {
+        },
+        {
           "id": "img5",
           "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg",
           "colorId": "black",
           "sort": 2
-        }, {
+        },
+        {
           "id": "img6",
           "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/6.jpg",
           "colorId": "black",

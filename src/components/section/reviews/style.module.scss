@@ -1,268 +1,348 @@
 .reviews {
   padding: 100px 0;
-  // Добавляем перспективу для всей секции
-  perspective: 900px;
-  transform-style: preserve-3d;
+  overflow: hidden;
 }
 
-.reviewsHeader {
-  align-items: flex-end;
-}
-
-/* ===== SLIDER ===== */
-.reviewsSlider {
-  margin-top: 30px;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  --peek: 220px;
-  --containerW: var(--container-w, 1200px);
-}
-
-
-/* Контейнер карусели — задаём 3D-сцену */
-.carousel_container {
-  perspective: 1200px;
-  perspective-origin: 50% 30%; /* Точка обзора сверху — усиливает объём */
-  margin-top: 40px;
-}
-
-.slide {
-  flex: 0 0 min(var(--containerW), calc(100vw - 40px));
-  height: 420px;
-  border-radius: 6px;
-  background-size: cover;
-  background-position: center;
+.sliderArea {
   position: relative;
-  cursor: pointer;
-  will-change: transform;
-  
-  /* Базовое состояние: карточка «лежит» плашмя с наклоном */
-  transform: 
-    rotateX(65deg)      /* Сильный наклон назад */
-    rotateY(0deg)       
-    rotateZ(0deg)
-    translateY(120px)   /* Смещена вниз */
-    translateZ(-80px);  /* Утоплена вглубь */
-    
-  transition:
-    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    box-shadow 0.5s ease,
-    opacity 0.4s ease,
-    filter 0.4s ease;
-    
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-  transform-style: preserve-3d;
-  backface-visibility: visible;
-
-  .card3d {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    border-radius: 6px;
-    overflow: hidden;
-    transform-style: preserve-3d;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 6px;
-      background: linear-gradient(90deg,
-          rgba(0, 0, 0, 0.7) 0%,
-          rgba(0, 0, 0, 0.3) 50%,
-          rgba(0, 0, 0, 0) 100%);
-      z-index: 1;
-    }
-  }
-
-  /* Активный слайд — «встаёт» вертикально и выдвигается вперёд */
-  &.slideActive {
-    transform: 
-      rotateX(5deg)      /* Почти вертикально, лёгкий наклон для реализма */
-      rotateY(0deg)
-      rotateZ(0deg)
-      translateY(-20px)  /* Поднимается вверх */
-      translateZ(120px); /* Выпрыгивает из экрана */
-      
-    box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.4),
-                0px 0px 0px 2px rgba(255,255,255,0.1) inset; /* блик по краю */
-    opacity: 1;
-    filter: brightness(1.05) saturate(1.05);
-
-    .overlay {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  /* Неактивные слайды — остаются «лежать» */
-  &.slideInactive {
-    transform: 
-      rotateX(65deg)
-      rotateY(0deg)
-      translateY(120px)
-      translateZ(-80px);
-      
-    opacity: 0.55;
-    filter: saturate(0.7) brightness(0.75) blur(0.3px);
-    
-    .overlay {
-      transform: translateY(25px);
-      opacity: 0.6;
-    }
-  }
-
-  /* Hover — дополнительный объёмный эффект */
-  &:hover {
-    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    
-    &.slideActive {
-      transform: 
-        rotateX(0deg)      /* Полностью вертикально при наведении */
-        translateY(-30px)
-        translateZ(140px);
-        
-    }
-    
-    &.slideInactive {
-      transform: 
-        rotateX(55deg)     /* Слегка приподнимается, но не встаёт */
-        translateY(100px)
-        translateZ(-60px);
-        
-      filter: saturate(0.8) brightness(0.85);
-    }
-  }
+  margin-top: 42px;
+  padding-right: 88px;
 }
 
-/* Дополнительно: эффект "ребра" карточки при подъёме */
-.slide.slideActive .card3d::after {
+.slider {
+  overflow: visible;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  align-items: center;
+  gap: 34px;
+
+  min-height: 420px;
+  padding: 34px 38px 34px 34px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+}
+
+.imageCol {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.imageBox {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: 340px;
+  margin-top: -52px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+  background: #e5e7eb;
+}
+
+.imageBox::after {
   content: "";
   position: absolute;
-  bottom: -8px;
-  left: 5%;
-  width: 90%;
-  height: 12px;
-  background: rgba(0,0,0,0.3);
-  filter: blur(6px);
-  border-radius: 50%;
-  z-index: -1;
-  transition: all 0.4s ease;
-  transform: rotateX(90deg) translateZ(-10px);
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.16) 100%
+  );
+  pointer-events: none;
 }
 
-.slide.slideActive:hover .card3d::after {
-  width: 95%;
-  height: 18px;
-  filter: blur(10px);
-  background: rgba(0,0,0,0.4);
+.image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
-.overlay {
-  position: absolute;
-  left: 30px;
-  bottom: 26px;
-  max-width: 520px;
-  color: var(--belyy);
-  z-index: 2;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.name {
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1.1;
+.content {
+  min-width: 0;
+  padding: 6px 0;
 }
 
 .region {
-  margin-top: 6px;
-  font-size: 14px;
-  opacity: 0.75;
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 7px 12px;
+  margin-bottom: 14px;
+  background: rgba(22, 101, 52, 0.08);
+  border: 1px solid rgba(22, 101, 52, 0.12);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 600;
+  color: #166534;
+}
+
+.name {
+  margin: 0 0 16px;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 700;
+  color: #111827;
 }
 
 .text {
-  margin-top: 14px;
-  font-size: 14px;
-  line-height: 1.35;
+  margin: 0;
+  max-width: 760px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4b5563;
   white-space: pre-line;
-  opacity: 0.95;
 }
 
-/* ====== 1200 ====== */
-@media (max-width: 1200px) {
+/* правая пагинация */
+.sidePagination {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sideDot {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.42;
+  transition:
+    transform 0.28s ease,
+    opacity 0.28s ease,
+    filter 0.28s ease;
+}
+
+.sideDotInner {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.sideDotInner img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(1);
+  transition: transform 0.28s ease, filter 0.28s ease, opacity 0.28s ease;
+}
+
+.sideDot:hover {
+  opacity: 0.72;
+  transform: translateX(-2px);
+}
+
+.sideDot:hover .sideDotInner img {
+  filter: grayscale(0.35);
+  transform: scale(1.04);
+}
+
+.sideDotActive {
+  opacity: 1;
+  transform: translateX(-6px);
+}
+
+.sideDotActive .sideDotInner {
+  background: #ffffff;
+  border-color: rgba(22, 101, 52, 0.24);
+  box-shadow:
+    0 14px 28px rgba(15, 23, 42, 0.12),
+    inset 3px 0 0 #166534;
+}
+
+.sideDotActive .sideDotInner img {
+  filter: grayscale(0);
+  transform: scale(1.08);
+}
+
+/* плавное появление */
+.slider :global(.swiper-slide-active) .imageBox {
+  animation: imageLift 0.7s ease both;
+}
+
+.slider :global(.swiper-slide-active) .region,
+.slider :global(.swiper-slide-active) .name,
+.slider :global(.swiper-slide-active) .text {
+  animation: contentFade 0.7s ease both;
+}
+
+.slider :global(.swiper-slide-active) .region {
+  animation-delay: 0.08s;
+}
+
+.slider :global(.swiper-slide-active) .name {
+  animation-delay: 0.16s;
+}
+
+.slider :global(.swiper-slide-active) .text {
+  animation-delay: 0.24s;
+}
+
+@keyframes imageLift {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes contentFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1100px) {
+  .sliderArea {
+    padding-right: 74px;
+  }
+
+  .card {
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    min-height: 390px;
+    padding: 28px;
+  }
+
+  .imageBox {
+    max-width: 290px;
+    height: 290px;
+    margin-top: -42px;
+  }
+
+  .name {
+    font-size: 26px;
+  }
+
+  .text {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .sideDot,
+  .sideDotInner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sideDotInner img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
   .reviews {
-    padding: 80px 0;
+    padding: 72px 0;
   }
 
-  .reviewsSlider {
-    --peek: 120px;
+  .sliderArea {
+    padding-right: 0;
+    padding-bottom: 64px;
   }
 
-  .slide {
-    height: 380px;
+  .card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    min-height: auto;
+    padding: 18px;
+    border-radius: 12px;
+  }
 
-    &.slideInactive {
-      transform: rotateX(75deg) translateY(-80px) translateZ(-40px);
-    }
+  .imageBox {
+    max-width: 100%;
+    height: 250px;
+    margin-top: -40px;
+    border-radius: 10px;
+  }
 
-    &:hover {
-      transform: rotateX(45deg) translateY(-40px) translateZ(-20px);
-    }
+  .name {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .sidePagination {
+    top: auto;
+    bottom: 0;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 8px;
+    width: max-content;
+  }
+
+  .sideDot {
+    width: 36px;
+    height: 36px;
+    transform: none !important;
+  }
+
+  .sideDotInner {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .sideDotInner img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sideDotActive .sideDotInner {
+    box-shadow:
+      0 10px 20px rgba(15, 23, 42, 0.12),
+      inset 0 -3px 0 #166534;
   }
 }
 
-/* ====== 900 ====== */
-@media (max-width: 900px) {
-  .reviewsSlider {
-    --peek: 40px;
+@media (max-width: 480px) {
+  .imageBox {
+    height: 220px;
+    margin-top: -32px;
   }
 
-  .slide {
-    height: 340px;
-
-    &.slideInactive {
-      transform: rotateX(75deg) translateY(-60px) translateZ(-30px);
-    }
-
-    &:hover {
-      transform: rotateX(45deg) translateY(-30px) translateZ(-15px);
-    }
-  }
-
-  .overlay {
-    left: 18px;
-    bottom: 18px;
-    max-width: 85%;
-  }
-}
-
-/* ====== 740 ====== */
-@media (max-width: 740px) {
-  .reviews {
-    padding: 64px 0;
-  }
-
-  .reviewsHeader {
-    gap: 14px;
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .reviewsSlider {
-    --peek: 14px;
-  }
-
-  .slide {
-    flex-basis: calc(100vw - 28px);
-    height: 300px;
-
-    &.slideInactive {
-      transform: rotateX(75deg) translateY(-40px) translateZ(-20px);
-    }
-
-    &:hover {
-      transform: rotateX(45deg) translateY(-20px) translateZ(-10px);
-    }
+  .region {
+    margin-bottom: 12px;
+    font-size: 12px;
   }
 
   .name {
@@ -270,136 +350,6 @@
   }
 
   .text {
-    margin-top: 10px;
     font-size: 13px;
-    line-height: 1.4;
-  }
-}
-
-/* ====== 470 ====== */
-@media (max-width: 470px) {
-  .reviewsSlider {
-    --peek: 10px;
-  }
-
-  .slide {
-    flex-basis: calc(100vw - 20px);
-    height: 270px;
-
-    &.slideInactive {
-      transform: rotateX(75deg) translateY(-30px) translateZ(-15px);
-    }
-
-    &:hover {
-      transform: rotateX(45deg) translateY(-15px) translateZ(-8px);
-    }
-  }
-
-  .overlay {
-    left: 14px;
-    bottom: 14px;
-    max-width: 92%;
-  }
-
-  .name {
-    font-size: 18px;
-  }
-
-  .region {
-    font-size: 13px;
-  }
-}
-
-
-.pagination {
-  margin-top: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.paginationArrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-
-  &:hover {
-    opacity: 0.75;
-    transform: scale(1.08);
-  }
-}
-
-.paginationList {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.paginationDot {
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  border-radius: 50%;
-  cursor: pointer;
-  opacity: 0.35;
-  filter: grayscale(1);
-  transform: scale(0.9);
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease,
-    filter 0.25s ease;
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    border-radius: 50%;
-  }
-
-  &:hover {
-    opacity: 0.7;
-    transform: scale(0.96);
-    filter: grayscale(0.3);
-  }
-}
-
-.paginationDotActive {
-  opacity: 1;
-  filter: grayscale(0);
-  transform: scale(1.15);
-}
-
-@media (max-width: 740px) {
-  .pagination {
-    gap: 10px;
-  }
-
-  .paginationList {
-    gap: 4px;
-  }
-
-  .paginationDot {
-    width: 28px;
-    height: 28px;
-  }
-
-  .paginationArrow {
-    width: 18px;
-    height: 18px;
-    font-size: 18px;
   }
 }

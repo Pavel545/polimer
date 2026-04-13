@@ -9,7 +9,6 @@ export default function Contacts() {
         factoryAddress: "г. Ульяновск, проезд Максимова 33 строение 3",
         phone: "+7 (800) 222 43 09",
         phoneRaw: "+78002224309",
-        phoneOffice: "8(8422)73-21-59",
         email: "73polimer@mail.ru",
         telegram: "https://t.me/polymertech",
         max: "",
@@ -51,11 +50,7 @@ export default function Contacts() {
                                 Мобильный: {companyDetails.phone}
                             </a>
                         </p>
-                        <p>
-                            <a href={`tel:88422732159`} className="link">
-                                Офис: {companyDetails.phoneOffice}
-                            </a>
-                        </p>
+                       
 
                         <h2>Email</h2>
                         <p>
