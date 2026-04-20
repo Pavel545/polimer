@@ -6,7 +6,6 @@
 .sliderArea {
   position: relative;
   margin-top: 42px;
-  padding-right: 88px;
 }
 
 .slider {
@@ -16,46 +15,60 @@
 .card {
   position: relative;
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 390px 1fr 76px;
   align-items: center;
-  gap: 34px;
+  gap: 24px;
 
-  min-height: 420px;
-  padding: 34px 38px 34px 34px;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+  min-height: 440px;
+  padding: 34px 28px 34px 34px;
+  background: var(--temnyy-1);
+  border-radius: var(--br);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.08),
+    0 2px 10px rgba(15, 23, 42, 0.04);
 }
 
 .imageCol {
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  min-height: 360px;
 }
 
-.imageBox {
-  position: relative;
-  width: 100%;
-  max-width: 340px;
-  height: 340px;
-  margin-top: -52px;
-  border-radius: 12px;
+.imageFloat {
+  background: #dfe4ea;
+  border-radius: var(--br);
+  width: 450px;
+  height: 372px;
+  position: absolute;
+  top: -14px;
+  left: -58px;
   overflow: hidden;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
-  background: #e5e7eb;
+  box-shadow: -6px 9px 50px #80899f36, 0 10px 20px #000000bd;
 }
 
-.imageBox::after {
+.imageFloat::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.04) 0%,
-    rgba(0, 0, 0, 0.16) 100%
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(0, 0, 0, 0.12) 100%
   );
-  pointer-events: none;
+}
+
+.imageFloat::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: -16px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.18);
+  filter: blur(14px);
+  z-index: 0;
 }
 
 .image {
@@ -67,7 +80,8 @@
 
 .content {
   min-width: 0;
-  padding: 6px 0;
+  padding-left: 10px;
+  padding-right: 12px;
 }
 
 .region {
@@ -76,13 +90,13 @@
   min-height: 30px;
   padding: 7px 12px;
   margin-bottom: 14px;
-  background: rgba(22, 101, 52, 0.08);
+  border-radius: var(--br);
+  background: rgba(59, 67, 62, 0.107);
   border: 1px solid rgba(22, 101, 52, 0.12);
-  border-radius: 8px;
+  color: var(--siniy-1);
   font-size: 13px;
-  line-height: 1;
   font-weight: 600;
-  color: #166534;
+  line-height: 1;
 }
 
 .name {
@@ -90,99 +104,199 @@
   font-size: 30px;
   line-height: 1.08;
   font-weight: 700;
-  color: #111827;
+  color: var(--belyy);
 }
 
 .text {
   margin: 0;
   max-width: 760px;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.7;
-  color: #4b5563;
+  color: var(--belyy);
   white-space: pre-line;
 }
 
-/* правая пагинация */
-.sidePagination {
+/* встроенная навигация */
+.cardNav {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.arrow {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  padding: 0;
+  border-radius: var(--br);
+  background: #6f798d59;
+  color: var(--belyy);
+  border: 1px solid var(--belyy);
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.arrow:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.12);
+}
+
+.railViewport {
+  position: relative;
+  width: 56px;
+  height: 158px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--br);
+  background: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.88) 0%,
+    rgba(255, 255, 255, 0.96) 100%
+  );
+  box-shadow: inset 0 0 0 1px #94a3b824, 0 14px 30px #7878788f;
+}
+
+.railViewport::before,
+.railViewport::after {
+  content: "";
   position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  z-index: 5;
+  left: 0;
+  right: 0;
+  height: 36px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.railViewport::before {
+  top: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.railViewport::after {
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.railTrack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
+
+  padding: 0;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
-.sideDot {
-  width: 44px;
+.railFocus {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 50%;
+  height: 48px;
+  transform: translateY(-50%);
+  border-radius: var(--br);
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.railItem {
+  position: relative;
+  z-index: 3;
+  width: 48px;
   height: 44px;
-  padding: 0;
   border: 0;
+  padding: 0;
   background: transparent;
   cursor: pointer;
-  opacity: 0.42;
-  transition:
-    transform 0.28s ease,
-    opacity 0.28s ease,
-    filter 0.28s ease;
-}
-
-.sideDotInner {
-  width: 44px;
-  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 12px;
-  background: #f8fafc;
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-  overflow: hidden;
 }
 
-.sideDotInner img {
-  width: 22px;
-  height: 22px;
+.railItemInner {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--br);
+  background: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.45s ease,
+    width 0.45s ease,
+    height 0.45s ease,
+    border-radius 0.45s ease,
+    background 0.45s ease,
+    box-shadow 0.45s ease,
+    opacity 0.45s ease;
+}
+
+.railItemInner img {
+  width: 17px;
+  height: 17px;
   object-fit: contain;
   display: block;
   filter: grayscale(1);
-  transition: transform 0.28s ease, filter 0.28s ease, opacity 0.28s ease;
-}
-
-.sideDot:hover {
   opacity: 0.72;
-  transform: translateX(-2px);
+  transition:
+    transform 0.45s ease,
+    width 0.45s ease,
+    height 0.45s ease,
+    filter 0.45s ease,
+    opacity 0.45s ease;
 }
 
-.sideDot:hover .sideDotInner img {
-  filter: grayscale(0.35);
+.railItemActive .railItemInner {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--br);
+  background: #1b1d28e6;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+}
+
+.railItemActive .railItemInner img {
+  width: 23px;
+  height: 23px;
+  filter: grayscale(0);
+  opacity: 1;
   transform: scale(1.04);
 }
 
-.sideDotActive {
-  opacity: 1;
-  transform: translateX(-6px);
+.counter {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
 }
 
-.sideDotActive .sideDotInner {
-  background: #ffffff;
-  border-color: rgba(22, 101, 52, 0.24);
-  box-shadow:
-    0 14px 28px rgba(15, 23, 42, 0.12),
-    inset 3px 0 0 #166534;
-}
-
-.sideDotActive .sideDotInner img {
-  filter: grayscale(0);
-  transform: scale(1.08);
-}
-
-/* плавное появление */
-.slider :global(.swiper-slide-active) .imageBox {
-  animation: imageLift 0.7s ease both;
+/* анимация слайда */
+.slider :global(.swiper-slide-active) .imageFloat {
+  animation: floatCardIn 0.75s ease both;
 }
 
 .slider :global(.swiper-slide-active) .region,
@@ -203,11 +317,12 @@
   animation-delay: 0.24s;
 }
 
-@keyframes imageLift {
+@keyframes floatCardIn {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.98);
+    transform: translateY(18px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -219,6 +334,7 @@
     opacity: 0;
     transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -226,21 +342,21 @@
 }
 
 @media (max-width: 1100px) {
-  .sliderArea {
-    padding-right: 74px;
-  }
-
   .card {
-    grid-template-columns: 300px 1fr;
-    gap: 24px;
-    min-height: 390px;
+    grid-template-columns: 320px 1fr 68px;
+    min-height: 396px;
     padding: 28px;
   }
 
-  .imageBox {
-    max-width: 290px;
-    height: 290px;
-    margin-top: -42px;
+  .imageCol {
+    min-height: 300px;
+  }
+
+  .imageFloat {
+    width: 310px;
+    height: 310px;
+    top: -26px;
+    left: -10px;
   }
 
   .name {
@@ -251,105 +367,243 @@
     font-size: 15px;
     line-height: 1.65;
   }
-
-  .sideDot,
-  .sideDotInner {
-    width: 40px;
-    height: 40px;
-  }
-
-  .sideDotInner img {
-    width: 20px;
-    height: 20px;
-  }
 }
 
 @media (max-width: 768px) {
   .reviews {
-    padding: 72px 0;
+    padding: 64px 0;
   }
 
   .sliderArea {
-    padding-right: 0;
-    padding-bottom: 64px;
+    margin-top: 26px;
   }
 
   .card {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 14px;
     min-height: auto;
-    padding: 18px;
-    border-radius: 12px;
+    padding: 16px 16px 18px;
+    border-radius: 18px;
   }
 
-  .imageBox {
-    max-width: 100%;
-    height: 250px;
-    margin-top: -40px;
-    border-radius: 10px;
+  .imageCol {
+    min-height: auto;
   }
 
-  .name {
-    font-size: 22px;
-    margin-bottom: 12px;
-  }
-
-  .text {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .sidePagination {
-    top: auto;
-    bottom: 0;
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    flex-direction: row;
-    gap: 8px;
-    width: max-content;
-  }
-
-  .sideDot {
-    width: 36px;
-    height: 36px;
-    transform: none !important;
-  }
-
-  .sideDotInner {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-  }
-
-  .sideDotInner img {
-    width: 18px;
-    height: 18px;
-  }
-
-  .sideDotActive .sideDotInner {
+  .imageFloat {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(210px, 52vw, 280px);
+    border-radius: 16px;
     box-shadow:
-      0 10px 20px rgba(15, 23, 42, 0.12),
-      inset 0 -3px 0 #166534;
+      0 10px 28px rgba(0, 0, 0, 0.22),
+      0 4px 14px rgba(15, 23, 42, 0.12);
   }
-}
 
-@media (max-width: 480px) {
-  .imageBox {
-    height: 220px;
-    margin-top: -32px;
+  .imageFloat::after {
+    left: 16px;
+    right: 16px;
+    bottom: -12px;
+    height: 22px;
+    filter: blur(12px);
+  }
+
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 2px;
   }
 
   .region {
-    margin-bottom: 12px;
+    min-height: 28px;
+    padding: 6px 10px;
+    margin-bottom: 10px;
     font-size: 12px;
   }
 
   .name {
+    margin-bottom: 10px;
     font-size: 20px;
+    line-height: 1.15;
   }
 
   .text {
-    font-size: 13px;
+    font-size: 14px;
+    line-height: 1.58;
+  }
+
+  .cardNav {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 42px 1fr 42px;
+    grid-template-areas:
+      "prev rail next"
+      "count count count";
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 16px;
+    touch-action: manipulation;
+  }
+
+  .arrow:first-child {
+    grid-area: prev;
+  }
+
+  .arrow:nth-of-type(2) {
+    grid-area: next;
+  }
+
+  .railViewport {
+    grid-area: rail;
+    width: 100%;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .railViewport::before,
+  .railViewport::after {
+    width: 28px;
+    height: auto;
+    top: 0;
+    bottom: 0;
+  }
+
+  .railViewport::before {
+    left: 0;
+    right: auto;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .railViewport::after {
+    right: 0;
+    left: auto;
+    background: linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .railTrack {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .railFocus {
+    top: 4px;
+    bottom: 4px;
+    left: 50%;
+    right: auto;
+    width: 48px;
+    height: auto;
+    transform: translateX(-50%);
+  }
+
+  .railItem {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+  .railItemInner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .railItemInner img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .railItemActive .railItemInner {
+    width: 42px;
+    height: 42px;
+  }
+
+  .railItemActive .railItemInner img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .counter {
+    grid-area: count;
+    margin-top: 2px;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews {
+    padding: 56px 0;
+  }
+
+  .card {
+    padding: 14px 14px 16px;
+    gap: 12px;
+  }
+
+  .imageFloat {
+    height: 210px;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+
+  .text {
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .cardNav {
+    gap: 8px;
+    grid-template-columns: 40px 1fr 40px;
+  }
+
+  .arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .railViewport {
+    height: 52px;
+  }
+
+  .railItem {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .railItemInner {
+    width: 28px;
+    height: 28px;
+  }
+
+  .railItemActive .railItemInner {
+    width: 40px;
+    height: 40px;
   }
 }

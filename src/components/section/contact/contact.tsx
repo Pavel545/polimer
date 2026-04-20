@@ -1,7 +1,9 @@
-'use client';
+"use client";
+
 import { Fade } from "@/components/ui/Motion";
 import s from "./style.module.css";
-import { useState, useMemo, FormEvent, ChangeEvent } from "react";
+import { useState, useMemo, FormEvent, ChangeEvent, useEffect, useRef } from "react";
+import Image from "next/image";
 
 type FormState = {
   name: string;
@@ -12,14 +14,13 @@ type FormState = {
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
-const initial: FormState = { 
-  name: "", 
-  phone: "", 
+const initial: FormState = {
+  name: "",
+  phone: "",
   message: "",
-  agreement: false 
+  agreement: false,
 };
 
-// Вспомогательные функции для телефона
 function digitsOnly(v: string) {
   return v.replace(/\D/g, "");
 }
@@ -73,18 +74,16 @@ function validate(values: FormState): FormErrors {
     errors.message = "Сообщение не должно превышать 500 символов";
   }
 
-  // ⚠️ Убираем проверку agreement из валидации для canSubmit,
-  // но оставляем её для финальной отправки
   return errors;
 }
 
 function validateForSubmit(values: FormState): FormErrors {
   const errors = validate(values);
-  
+
   if (!values.agreement) {
     errors.agreement = "Необходимо согласие на обработку данных";
   }
-  
+
   return errors;
 }
 
@@ -93,21 +92,25 @@ export default function Contact() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const timerRef = useRef<number | null>(null);
 
   const canSubmit = useMemo(() => {
-    // Проверяем только поля, без agreement
     const e = validate(values);
     return Object.keys(e).length === 0;
   }, [values]);
 
-  const handleChange = (
-    key: keyof FormState,
-    value: string | boolean
-  ) => {
-    setValues(prev => ({ ...prev, [key]: value }));
-    
-    // Убираем ошибку при вводе
-    setErrors(prev => {
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  const handleChange = (key: keyof FormState, value: string | boolean) => {
+    setValues((prev) => ({ ...prev, [key]: value }));
+
+    setErrors((prev) => {
       if (!prev[key]) return prev;
       const copy = { ...prev };
       delete copy[key];
@@ -123,10 +126,9 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Для отправки проверяем всё, включая agreement
     const nextErrors = validateForSubmit(values);
     setErrors(nextErrors);
-    
+
     if (Object.keys(nextErrors).length > 0) return;
 
     setIsSubmitting(true);
@@ -134,26 +136,43 @@ export default function Contact() {
     try {
       const payload = {
         name: values.name.trim(),
-        phone: digitsOnly(values.phone),
+        phone: values.phone.trim(),
         message: values.message.trim(),
+        topic: "Форма обратной связи",
       };
 
-      console.log("Отправка данных:", payload); // для отладки
+      const response = await fetch("/api/send-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-      // Здесь будет реальная отправка
-      await new Promise(resolve => setTimeout(resolve, 650));
-      
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (result?.fields && typeof result.fields === "object") {
+          setErrors(result.fields);
+        } else {
+          setErrors({
+            message: result?.error || "Не удалось отправить. Попробуйте ещё раз.",
+          });
+        }
+        return;
+      }
+
       setIsSuccess(true);
       setValues(initial);
-      setErrors({}); // очищаем ошибки
-      
-      // Автоматически скрываем успех через 3 секунды
-      setTimeout(() => {
+      setErrors({});
+
+      timerRef.current = window.setTimeout(() => {
         setIsSuccess(false);
-      }, 3000);
-      
+      }, 2500);
     } catch {
-      setErrors({ message: "Не удалось отправить. Попробуйте ещё раз." });
+      setErrors({
+        message: "Не удалось отправить. Проверьте соединение и попробуйте ещё раз.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -161,92 +180,117 @@ export default function Contact() {
 
   return (
     <section className={s.contact}>
-      <div className="container flex-center">
+      <div className={`container ${s.contactContent}`}>
         <Fade className={s.contactsFormBox}>
           <>
             <h2>Остались вопросы?</h2>
 
             <p className={s.contactsFormText}>
-              Заполните форму, и мы свяжемся с вами для обсуждения деталей и индивидуального подхода к заказу
+              Заполните форму, и мы свяжемся с вами для обсуждения деталей и
+              индивидуального подхода к заказу
             </p>
 
-            <form className={s.contactsForm} onSubmit={handleSubmit} noValidate>
-              <div className={s.field}>
-                <input
-                  className={`${s.contactsFormInput} ${errors.name ? s.inputError : ""}`}
-                  value={values.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                  type="text"
-                  placeholder="Ваше имя"
-                  autoComplete="name"
-                  disabled={isSubmitting || isSuccess}
-                />
-                {errors.name && <div className={s.errorText}>{errors.name}</div>}
-              </div>
-
-              <div className={s.field}>
-                <input
-                  className={`${s.contactsFormInput} ${errors.phone ? s.inputError : ""}`}
-                  value={values.phone}
-                  onChange={handlePhoneChange}
-                  type="tel"
-                  placeholder="+7 (___) ___-__-__"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  disabled={isSubmitting || isSuccess}
-                />
-                {errors.phone && <div className={s.errorText}>{errors.phone}</div>}
-              </div>
-
-              <div className={s.field}>
-                <textarea
-                  className={`${s.contactsFormTextarea} ${errors.message ? s.inputError : ""}`}
-                  value={values.message}
-                  onChange={(e) => handleChange("message", e.target.value)}
-                  placeholder="Ваше сообщение"
-                  disabled={isSubmitting || isSuccess}
-                />
-                {errors.message && <div className={s.errorText}>{errors.message}</div>}
-              </div>
-
-              <div className={s.field}>
-                <div className={s.checkboxWrapper}>
-                  <label className={s.checkboxLabel}>
-                    <input 
-                      type="checkbox" 
-                      className={s.checkboxInput}
-                      checked={values.agreement}
-                      onChange={(e) => handleChange("agreement", e.target.checked)}
-                      disabled={isSubmitting || isSuccess}
-                    />
-                    <span className={s.checkboxCustom}></span>
-                    <span className={s.checkboxText}>
-                      Я даю согласие на обработку персональных данных в соответствии с 
-                      <a
-                        className={s.contactsFormTextLink}
-                        href="/politiko"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Политикой конфиденциальности
-                      </a>
-                    </span>
-                  </label>
+            {isSuccess ? (
+              <div className={s.successBox} aria-live="polite">
+                <div className={s.successIcon}>✓</div>
+                <div className={s.successTitle}>Спасибо!</div>
+                <div className={s.successDescription}>
+                  Ваша заявка отправлена. Мы скоро свяжемся с вами.
                 </div>
-                {errors.agreement && <div className={s.errorText}>{errors.agreement}</div>}
               </div>
+            ) : (
+              <form className={s.contactsForm} onSubmit={handleSubmit} noValidate>
+                <div className={s.field}>
+                  <input
+                    className={`${s.contactsFormInput} ${errors.name ? s.inputError : ""}`}
+                    value={values.name}
+                    onChange={(e) => handleChange("name", e.target.value)}
+                    type="text"
+                    placeholder="Ваше имя"
+                    autoComplete="name"
+                    disabled={isSubmitting}
+                  />
+                  {errors.name && <div className={s.errorText}>{errors.name}</div>}
+                </div>
 
-              <button 
-                className={`butt ${s.submit} ${isSuccess ? s.success : ""}`} 
-                type="submit" 
-                disabled={isSubmitting || isSuccess}
-              >
-                {isSuccess ? "✓ Отправлено" : isSubmitting ? "Отправляем..." : "Отправить"}
-              </button>
-            </form>
+                <div className={s.field}>
+                  <input
+                    className={`${s.contactsFormInput} ${errors.phone ? s.inputError : ""}`}
+                    value={values.phone}
+                    onChange={handlePhoneChange}
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    disabled={isSubmitting}
+                  />
+                  {errors.phone && <div className={s.errorText}>{errors.phone}</div>}
+                </div>
+
+                <div className={s.field}>
+                  <textarea
+                    className={`${s.contactsFormTextarea} ${errors.message ? s.inputError : ""}`}
+                    value={values.message}
+                    onChange={(e) => handleChange("message", e.target.value)}
+                    placeholder="Ваше сообщение"
+                    disabled={isSubmitting}
+                  />
+                  {errors.message && <div className={s.errorText}>{errors.message}</div>}
+                </div>
+
+                <div className={s.field}>
+                  <div className={s.checkboxWrapper}>
+                    <label className={s.checkboxLabel}>
+                      <input
+                        type="checkbox"
+                        className={s.checkboxInput}
+                        checked={values.agreement}
+                        onChange={(e) => handleChange("agreement", e.target.checked)}
+                        disabled={isSubmitting}
+                      />
+                      <span className={s.checkboxCustom}></span>
+                      <span className={s.checkboxText}>
+                        Я даю согласие на обработку персональных данных в
+                        соответствии с{" "}
+                        <a
+                          className={s.contactsFormTextLink}
+                          href="/politiko"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Политикой конфиденциальности
+                        </a>
+                      </span>
+                    </label>
+                  </div>
+                  {errors.agreement && (
+                    <div className={s.errorText}>{errors.agreement}</div>
+                  )}
+                </div>
+
+                <button
+                  className={`butt ${s.submit}`}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Отправляем..." : "Отправить"}
+                </button>
+              </form>
+            )}
           </>
         </Fade>
+
+        <div className={s.contactDecor}>
+          <Image
+            className={s.contactDecorImg}
+            src={"/img/contact/decor.png"}
+            alt="Схематичное изображение люка"
+            width={900}
+            height={600}
+            priority={false}
+          />
+        </div>
       </div>
     </section>
-  )
+  );
 }

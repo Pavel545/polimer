@@ -2,115 +2,115 @@
   {
     "id": "luk-lm",
     "slug": "luk-lm",
-    "titleShort": "Люк \"ЛМ\"",
-    "titleFull": "Люк полимерпесчаный \"ЛМ\" (Легкий малый)",
-    "description": "Полимерпесчаный канализационный люк нагрузкой до 1,5 тонн",
+    "titleShort": "Люк - ЛМ",
+    "titleFull": "Для газона, сада, септика </br> ",
+    "description": "( легкий малогабаритный / садовый )",
     "priceRub": 1040,
     "categoryId": 1,
-    "img": "/img/products/luk-lm/1з.png"
+    "img": "/img/products/luk-lm/1.jpg"
   },
   {
-    "id": "2",
+    "id": "luk-l",
     "slug": "luk-l",
-    "titleShort": "Люк \"Л\"",
-    "titleFull": "Люк полимерпесчаный \"Л\" (Легкий)",
-    "description": "Полимерпесчаный люк нагрузкой до 3 тонн. «Легкий люк»",
+    "titleShort": "Люк - Л",
+    "titleFull": "Для тратуара, пешеходной зоны",
+    "description": "( легкий )",
     "priceRub": 1470,
     "categoryId": 1,
-    "img": "/img/products/luk-l/1з.png"
+    "img": "/img/products/luk-l/2.jpg"
   },
    {
     "id": "13",
     "slug": "",
-    "titleShort": "Люк \"ЛУ\"",
-    "titleFull": "Люк \"Лёгкий Укреплённый\"",
-    "description": "",
+    "titleShort": "Люк - ЛУ",
+    "titleFull": "Для нагруженных пешиходных зон",
+    "description": "( легкий усиленный )",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/logo.png"
+    "img": "/img/products/luk-lm/3.jpg"
   },
   {
-    "id": "3",
+    "id": "luk-c",
     "slug": "luk-c",
-    "titleShort": "Люк \"С\"",
-    "titleFull": "Люк полимерпесчаный \"С\" (Средний)",
-    "description": "Полимерпесчаный люк нагрузкой до 15 тонн. «Тяжелый люк»",
+    "titleShort": "Люк - С ",
+    "titleFull": "Для парковок, дворовых проездов, легкого транспорта",
+    "description": "( средний )",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/luk-m/1с.png"
+    "img": "/img/products/luk-m/1.webp"
   },
   {
-    "id": "4",
+    "id": "luk-t",
     "slug": "luk-t",
-    "titleShort": "Люк \"Т\"",
-    "titleFull": "Люк полимерпесчаный \"Т\" (Тяжелый)",
-    "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Магистральный люк»",
+    "titleShort": "Люк - Т ",
+    "titleFull": "Для дорог, промышленных зон, тяжелого транспорта",
+    "description": "( тяжелый )",
     "priceRub": 2400,
     "categoryId": 1,
-    "img": "/img/products/luk-h/1ч.png"
+    "img": "/img/products/luk-h/1.webp"
   },
   {
-    "id": "10",
+    "id": "konus-luk-lm",
     "slug": "konus-luk-lm",
-    "titleShort": "Конус-люк ЛМ",
-    "titleFull": "Конус-люк ЛМ",
-    "description": "",
+    "titleShort": " КОНУС-ЛЮК",
+    "titleFull": "для установки на бетонные кольца ",
+    "description": " (ПОЛИМЕРНО-ПЕСЧАНЫЙ КОНУС-ЛЮК)",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1з.png"
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg"
   },
   {
-    "id": "5",
+    "id": "luk-gts",
     "slug": "luk-gts",
-    "titleShort": "Люк  ГТС",
-    "titleFull": "Люк полимерпесчаный ГТС",
-    "description": "Полимерпесчаный люк нагрузкой до 25 тонн. «Люк с логотипом» ",
+    "titleShort": "Люк с логотипом",
+    "titleFull": "Для вашей рекламы на люке ",
+    "description": "ПОЛИМЕРНО-ПЕСЧАНЫЙ с логотипом",
     "priceRub": 2800,
     "categoryId": 1,
     "img": "/img/products/luk-gts/prev.jpg"
   },
   {
-    "id": "6",
+    "id": "lyuk-s-zapornym-ustroistvom",
     "slug": "lyuk-s-zapornym-ustroistvom",
     "titleShort": "Люк с запорным устройством",
-    "titleFull": "Люк с запорным устройством",
+    "titleFull": "для защиты колодцев, инженерных сетей ",
     "description": "Полимерпесчаный люк с запорным устройством",
     "priceRub": 3000,
     "categoryId": 1,
-    "img": "/img/products/lyuk-s-zapornym-ustroistvom/prev.jpg"
+    "img": "/img/products/lyuk-s-zapornym-ustroistvom/2.webp"
   },
   {
-    "id": "7",
+    "id": "333-polimerpeschanaya-plitka-na-8-kirpichey",
     "slug": "333-polimerpeschanaya-plitka-na-8-kirpichey",
-    "titleShort": "Полимерпесчаная плитка",
-    "titleFull": "Полимерпесчаная плитка 333 (8 кирпичей)",
+    "titleShort": "Полимер&shy;песчаная плитка",
+    "titleFull": "Полимерпесчаная плитка (8 кирпичей)",
     "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
     "priceRub": 180,
     "categoryId": 2,
     "img": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/1.jpg"
   },
   {
-    "id": "8",
+    "id": "polimerpeschaniy-bordyur-porebrik",
     "slug": "polimerpeschaniy-bordyur-porebrik",
-    "titleShort": "Полимерпесчаный поребрик, бордюр",
+    "titleShort": "Полимер&shy;песчаный поребрик, бордюр",
     "titleFull": "Полимерпесчаный поребрик, бордюр",
     "description": "Полимерпесчаный бордюр — это изделие предназначенное для ограничения или фиксации полимернопесчаной тротуарной плитки. ",
     "priceRub": 260,
     "categoryId": 2,
-    "img": "/img/products/polimerpeschaniy-bordyur-porebrik/1.jpg"
+    "img": "/img/products/parebrik/1.webp"
   },
   {
-    "id": "9",
+    "id": "polimerpeschaniy-livneviy-lotok",
     "slug": "polimerpeschaniy-livneviy-lotok",
-    "titleShort": "Полимерпесчаный ливневый лоток",
-    "titleFull": "Полимерпесчаный ливневый лоток",
+    "titleShort": "Полимер&shy;песчаный ливневый водоотвод",
+    "titleFull": "Полимерпесчаный ливневый водоотвод",
     "description": "Полимерпесчаный водоотвод или дождеприемник — это изделие, предназначенное для организации водоотведения в тех местах, где есть необходимость отвода воды. ",
     "priceRub": 210,
     "categoryId": 2,
     "img": "/img/products/polimerpeschaniy-livneviy-lotok/1.jpg"
   },
   {
-    "id": "11",
+    "id": "kolco-smotrovogo-kolodca",
     "slug": "kolco-smotrovogo-kolodca",
     "titleShort": "Кольцо смотрового колодца",
     "titleFull": "Кольцо смотрового колодца",
@@ -120,7 +120,7 @@
     "img": "/img/products/kolco-smotrovogo-kolodca/1.jpg"
   },
   {
-    "id": "12",
+    "id": "dno-smotrovogo-kolodca",
     "slug": "dno-smotrovogo-kolodca",
     "titleShort": "Дно смотрового колодца",
     "titleFull": "Дно смотрового колодца",

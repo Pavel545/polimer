@@ -22,6 +22,11 @@ export default function Footer(): JSX.Element {
   ];
 
   const lukProducts: Product[] = [
+     {
+      id: "6",
+      slug: "konus-luk-lm",
+      title: "Конус-люк канализационный полимерпесчаный «ЛМ»",
+    },
     {
       id: "1",
       slug: "luk-lm",
@@ -48,13 +53,9 @@ export default function Footer(): JSX.Element {
       title: "Люк канализационный полимерпесчаный «Т»",
     },
     {
-      id: "6",
-      slug: "konus-luk-lm",
-      title: "Конус-люк канализационный полимерпесчаный «ЛМ»",
-    }, {
       id: "7",
       slug: "luk-gts",
-      title: "Люк полимерпесчаный ГТС",
+      title: "Люк полимерпесчаный c логотипом",
     }, {
       id: "8",
       slug: "lyuk-s-zapornym-ustroistvom",
@@ -67,7 +68,7 @@ export default function Footer(): JSX.Element {
     {
       id: "1",
       slug: "333-polimerpeschanaya-plitka-na-8-kirpichey",
-      title: "Полимерпесчаная плитка 333 ",
+      title: "Полимерно-песчаная тротуарная плитка (8 кирпичей)",
     },
     {
       id: "2",
@@ -137,7 +138,7 @@ const colodecProd: Product[] =[
             </a>
 
             <ul>
-              <li>
+              <li className={s.linkSoc}>
                 <a
                   className={s.footerLink + " link"}
                   href={`tel:${companyDetails.phoneRaw}`}
@@ -230,7 +231,7 @@ const colodecProd: Product[] =[
               <ul className={s.list}>
                 <li>
                   <a className={s.footerLink + " link " + s.siteMapTitle} href="/products">
-                    Каталог благоустройства территории:
+                    Каталог полимерпесчанной плитки, поребриков, водоотводов:
                   </a>
                 </li>
                 {terProd.map((product) => (

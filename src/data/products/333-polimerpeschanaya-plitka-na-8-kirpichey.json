@@ -1,29 +1,26 @@
 {
   "id": "333-polimerpeschanaya-plitka-na-8-kirpichey",
   "slug": "333-polimerpeschanaya-plitka-na-8-kirpichey",
-  "titleShort": "Полимерпесчаная плитка",
-  "titleFull": "Полимерпесчаная плитка 333 (8 кирпичей)",
-  "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
+  "titleShort": "Тротуарная плитка полимерпесчаная.",
+  "titleFull": "Полимерно-песчаная тротуарная плитка (8 кирпичей)",
+  "description": "<h3>Сфера применения:</h3>  <ul><li>устройство дорожек в саду и теплицах;</li><li>укладка в качестве ступеней, входных групп</li><li>благоустройство тротуаров и пешеходных зон;</li><li>мощение территорий возле домов и коммерческих объектов;</li><li>создание парковок, автостоянок, автомоек самообслуживания; </li><li>обустройство детских площадок; </li><li>формирование отмостков зданий и сооружений</li><li>обустройство проездов, площадей, в том числе промышленного назначения;</li><li>обустройство мини-причалов, пристаней, понтонов.</li> </ul> <h3>Цвета полимерпесчаной плитки:</h3><ul><li>Коричневый (шоколад)</li><li>Зеленый</li><li>Красный (кирпичный)</li><li>Серый</li><li>Черный</li></ul>        ",
   "instructionUrl": "/# ",
   "variants": [
     {
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
-      "priceRub": 180 ,
+      "priceRub": 180,
       "colors": [
-       
         {
           "id": "green-light",
           "name": "Светло зелёный",
           "hex": "#19b600"
-        }
-        ,
+        },
         {
           "id": "black",
           "name": "Чёрный",
           "hex": "#000000"
-        }
-        ,
+        },
         {
           "id": "brown",
           "name": "Коричневый",
@@ -74,5 +71,21 @@
         }
       ]
     }
+  ],
+
+  "application" :[
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/1.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/2.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/3.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/4.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/5.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/6.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/7.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/8.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/9.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/10.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/11.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/12.webp"},
+    {"image":"/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/13.webp"}
   ]
 }

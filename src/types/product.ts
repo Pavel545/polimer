@@ -20,7 +20,9 @@ export type ProductVariant = {
   colors: ProductColor[];
   images: ProductImage[];
 };
-
+export type GalImg ={
+  image:string
+}
 export type ProductEntity = {
   id: string;
   slug: string; 
@@ -34,6 +36,7 @@ export type ProductEntity = {
   img: string;
   instructionUrl?: string;
   variants: ProductVariant[];
+  application: GalImg[];
 };
 
 // Типы из второго компонента
@@ -60,6 +63,13 @@ export type TabContent =
     instructPdf: string;
     rightTitle: string;
     characteristics: Characteristic[];
+  }| {
+    kind: "installation";
+    leftTitle: string;
+    instructSrc: string;
+    instructPdf: string;
+    rightTitle: string;
+    advantages: string[];
   }
   | {
     kind: "advantages_characteristics";

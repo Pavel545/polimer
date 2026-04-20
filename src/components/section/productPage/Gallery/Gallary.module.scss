@@ -1,0 +1,124 @@
+.gall {
+  background: var(--temnyy-1);
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.content {
+  margin: 30px 0;
+  overflow: hidden;
+}
+
+.swiper {
+  width: 100%;
+  overflow: visible;
+  // Отступ снизу для пагинации
+  padding-bottom: 40px !important;
+}
+
+.slide {
+  height: auto;
+}
+
+.imageBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--br);
+  overflow: hidden;
+  background: var(--temnyy-1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.slide:hover .image {
+  transform: scale(1.04);
+}
+
+// ----------------------------
+// СТИЛИ НАВИГАЦИИ (СТРЕЛКИ)
+// ----------------------------
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  color: var(--belyy) !important;
+  background: var(--temnyy-2);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--br);
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &::after {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &:hover {
+    background: var(--seryy-3);
+  }
+
+  // Скрываем на мобилках по желанию, или оставляем
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+:global(.swiper-button-prev) {
+  left: -20px;
+  @media (min-width: 1700px) {
+    left: -50px;
+  }
+}
+
+:global(.swiper-button-next) {
+  right: -20px;
+  @media (min-width: 1700px) {
+    right: -50px;
+  }
+}
+
+// ----------------------------
+// СТИЛИ ПАГИНАЦИИ (БУЛЛИТЫ)
+// ----------------------------
+:global(.swiper-pagination) {
+  bottom: 0px !important;
+}
+
+:global(.swiper-pagination-bullet) {
+  background: var(--seryy-2) !important;
+  opacity: 1 !important;
+  width: 8px;
+  height: 8px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background: var(--belyy) !important;
+  transform: scale(1.2);
+}
+
+// ----------------------------
+// АДАПТИВ
+// ----------------------------
+@media (max-width: 767px) {
+  .gall {
+    padding: 56px 0;
+  }
+
+  .content {
+    margin-top: 28px;
+    gap: 32px;
+  }
+
+  .imageBox {
+    border-radius: var(--br);
+    aspect-ratio: 1 / 1;
+  }
+}

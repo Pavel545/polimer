@@ -3,7 +3,7 @@
 import Image from "next/image";
 import s from "./style.module.scss";
 import { useModal } from "@/components/providers/ModalProvider";
-import { JSX, useEffect, useState } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 import ChatPopup from "@/components/ui/ChatPopup/ChatPopup";
 
 type NavLink = {
@@ -14,27 +14,27 @@ type NavLink = {
 export default function Header(): JSX.Element {
   const { openRequest } = useModal();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [isHidden, setIsHidden] = useState<boolean>(false);
+  const lastScrollY = useRef(0);
   const links: NavLink[] = [
     { href: "/products", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
     { href: "/blog", text: "Блог" },
-    { href: "/vacancies", text: "Вакансии" },
+    // { href: "/vacancies", text: "Вакансии" },
   ];
 
   const closeMenu = (): void => setIsOpen(false);
   const toggleMenu = (): void => setIsOpen((v) => !v);
 
-  // ESC закрывает меню
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeMenu();
     };
+
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Блокируем скролл страницы, когда меню открыто
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -42,16 +42,52 @@ export default function Header(): JSX.Element {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+
+
+      const currentScrollY = window.scrollY;
+
+      if (isOpen) {
+        setIsHidden(false);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY <= 20) {
+        setIsHidden(false);
+      } else if (
+        currentScrollY > lastScrollY.current &&
+        currentScrollY > 120
+      ) {
+        setIsHidden(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        setIsHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHidden]);
+
   return (
-    <header className={s.header}>
+    <header
+      className={`${s.header} ${isHidden ? s.headerHidden : ""} ${isOpen ? s.headerMenuOpen : ""}`}
+    >
       <div className={"container " + s.headerContent}>
-        {/* left */}
         <div className={s.left}>
           <a href="/" className={s.headerLogo + " flex-center"}>
-            <Image src="/logo.png" alt='Логотип ООО "Полимерные Технологии"' width={176} height={36} />
+            <Image
+              src="/logo.png"
+              alt='Логотип ООО "Полимерные Технологии"'
+              width={176}
+              height={36}
+            />
           </a>
 
-          {/* desktop nav */}
           <nav className={s.navDesktop}>
             <ul className={s.headerLinkBox}>
               {links.map((e, i) => (
@@ -67,27 +103,26 @@ export default function Header(): JSX.Element {
 
         <ChatPopup />
 
-        {/* right */}
         <div className={s.right}>
-          {/* desktop actions */}
           <div className={s.actionsDesktop + " flex-center"}>
             <a
               className={s.headerLink + " flex-center " + s.headerTel}
               href="tel:+78002224309"
             >
-              <Image src="/icons/tel.svg" alt='Номер телефона для связи ООО "Полимерные Технологии"' width={12} height={12} />
+              <Image
+                src="/icons/tel.svg"
+                alt='Номер телефона для связи ООО "Полимерные Технологии"'
+                width={12}
+                height={12}
+              />
               +7 (800) 222 43 09
             </a>
 
             <button onClick={openRequest} className={"butt " + s.headerButt}>
               Оставить заявку
             </button>
-
-         
-            
           </div>
 
-          {/* burger (mobile) */}
           <button
             type="button"
             className={s.burger}
@@ -103,13 +138,11 @@ export default function Header(): JSX.Element {
         </div>
       </div>
 
-      {/* overlay */}
       <div
         className={s.overlay + " " + (isOpen ? s.overlayOpen : "")}
         onClick={closeMenu}
       />
 
-      {/* mobile panel */}
       <aside
         id="mobile-menu"
         className={s.mobilePanel + " " + (isOpen ? s.mobilePanelOpen : "")}
@@ -129,7 +162,12 @@ export default function Header(): JSX.Element {
 
         <div className={s.mobileActions}>
           <a className={s.mobileTel} href="tel:+78002224309" onClick={closeMenu}>
-            <Image src="/icons/tel.svg" alt='Номер телефона для связи ООО "Полимерные Технологии"' width={14} height={14} />
+            <Image
+              src="/icons/tel.svg"
+              alt='Номер телефона для связи ООО "Полимерные Технологии"'
+              width={14}
+              height={14}
+            />
             +7 (800) 222 43 09
           </a>
 
@@ -143,8 +181,6 @@ export default function Header(): JSX.Element {
           >
             Оставить заявку
           </button>
-
-        
         </div>
       </aside>
     </header>

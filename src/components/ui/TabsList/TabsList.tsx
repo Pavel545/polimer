@@ -20,7 +20,13 @@ type TabsListProps = {
   activeItemClassName?: string;
 
   mobileLabel?: string;
+  
+  // Новый флаг: как отображать на мобилке
+  // "dropdown" - выпадающий список (по умолчанию)
+  // "column" - просто колонка элементов
+  mobileDisplayMode?: "dropdown" | "column";
 };
+
 export default function TabsList({
   items,
   activeId,
@@ -29,6 +35,7 @@ export default function TabsList({
   itemClassName,
   activeItemClassName,
   mobileLabel = "Категория",
+  mobileDisplayMode = "dropdown", // по умолчанию dropdown
 }: TabsListProps) {
   const activeIndex = Math.max(
     0,
@@ -116,9 +123,35 @@ export default function TabsList({
     }
   };
 
-  return (
-    <div className={`${s.root} ${className ?? ""}`}>
-      {/* ===== MOBILE ===== */}
+  // Рендер мобильной версии в зависимости от режима
+  const renderMobile = () => {
+    if (mobileDisplayMode === "column") {
+      return (
+        <div className={s.mobileColumn}>
+          {mobileLabel && <div className={s.mobileLabel}>{mobileLabel}</div>}
+          <div className={s.columnList}>
+            {items.map((el) => {
+              const isActive = activeId === el.id;
+              return (
+                <div
+                  key={el.id}
+                  className={`${s.columnItem} ${isActive ? s.columnItemActive : ""}`}
+                  onClick={() => onChange(el.id)}
+                >
+                  <span className={s.columnItemTitle}>{el.title}</span>
+                  {isActive && (
+                    <span className={s.columnItemIndicator}>✓</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // dropdown mode (default)
+    return (
       <div className={s.mobile}>
         <div className={s.mobileLabel}>{mobileLabel}</div>
 
@@ -153,6 +186,13 @@ export default function TabsList({
           )}
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className={`${s.root} ${className ?? ""}`}>
+      {/* ===== MOBILE ===== */}
+      {renderMobile()}
 
       {/* ===== DESKTOP ===== */}
       <div className={s.tabs} role="tablist">

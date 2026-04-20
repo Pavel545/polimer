@@ -1,18 +1,45 @@
 .contact {
-  background: url(../../../../public/img/contact/fon.webp);
+  background: url(/img/contact/fon.webp);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 90px 0;
   position: relative;
+  overflow: hidden;
 }
 
 .contact::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
+  background: linear-gradient(to right,#12122186 0%,#12122186 50%,#121221 50%, #121221 100%);
   pointer-events: none;
+  z-index: 1;
+}
+
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.contactDecor {
+  width: 100%;
+  max-width: 700px;
+  justify-self: end;
+  align-self: center;
+}
+
+.contactDecorImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .contactsFormBox {
@@ -20,12 +47,12 @@
   max-width: 450px;
   background: var(--fon-chernyy-3);
   border-radius: 20px;
-  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 28px 22px;
+  box-sizing: border-box;
 }
 
 .contactsFormBox h2 {
@@ -70,6 +97,7 @@
   color: var(--tekst-belyy);
   outline: none;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
@@ -115,7 +143,6 @@
   padding-left: 8px;
 }
 
-/* Стили для чекбокса */
 .checkboxWrapper {
   margin: 5px 0 10px 0;
   text-align: left;
@@ -197,7 +224,6 @@
   color: var(--tekst-svetlyy-siniy);
 }
 
-/* Кнопка */
 .submit {
   margin-top: 10px;
   transition: all 0.3s ease;
@@ -209,24 +235,85 @@
   cursor: not-allowed;
 }
 
-.submit.success {
-  background: #4caf50;
-  border-color: #4caf50;
-  cursor: default;
+/* success block */
+.successBox {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 18px;
+  box-sizing: border-box;
+  animation: successFade 0.35s ease;
 }
 
-/* Анимация успеха */
-@keyframes successPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+.successIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 700;
+  background: rgba(76, 175, 80, 0.16);
+  color: #7ef08a;
+  border: 1px solid rgba(126, 240, 138, 0.35);
 }
 
-.success {
-  animation: successPulse 0.5s ease;
+.successTitle {
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--belyy);
+  text-transform: uppercase;
+}
+
+.successDescription {
+  max-width: 300px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes successFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ================== RESPONSIVE ================== */
+@media (max-width: 980px) {
+  .contactContent {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+.contact::before {
+  content: none;
+  background: linear-gradient(to bottom,#12122186 0%,#12122186 50%,#121221 50%, #121221 100%);
+}
+  .contactsFormBox {
+    max-width: 100%;
+    order: 1;
+  }
+
+  .contactDecor {
+    display: none;
+    max-width: 520px;
+    justify-self: center;
+    order: 2;
+  }
+}
+
 @media (max-width: 740px) {
   .contact {
     padding: 64px 0;
@@ -245,17 +332,29 @@
     height: 130px;
     margin-bottom: 14px;
   }
-  
+
   .checkboxWrapper {
     margin: 0 0 8px 0;
   }
-  
+
   .checkboxText {
     font-size: 11px;
   }
-  
+
   .errorText {
     font-size: 10px;
+  }
+
+  .successBox {
+    min-height: 260px;
+  }
+
+  .successTitle {
+    font-size: 24px;
+  }
+
+  .successDescription {
+    font-size: 13px;
   }
 }
 
@@ -277,26 +376,50 @@
   .contactsFormInput {
     height: 46px;
   }
-  
+
   .checkboxCustom {
     min-width: 18px;
     width: 18px;
     height: 18px;
   }
-  
+
   .checkboxInput:checked + .checkboxCustom::after {
     left: 5px;
     top: 1px;
     width: 5px;
     height: 10px;
   }
-  
+
   .checkboxText {
     font-size: 10px;
   }
-  
+
   .errorText {
     font-size: 9px;
     margin-top: 2px;
+  }
+
+  .successBox {
+    min-height: 220px;
+    padding: 20px 14px;
+  }
+
+  .successIcon {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  .successTitle {
+    font-size: 20px;
+  }
+
+  .successDescription {
+    font-size: 12px;
+    max-width: 260px;
+  }
+
+  .contactDecor {
+    max-width: 100%;
   }
 }

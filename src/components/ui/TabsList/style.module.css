@@ -10,34 +10,28 @@
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   border-bottom: 1px solid var(--seryy-2);
 }
 
 .tabsItem {
-  position: relative;
-
-  height: 60px;
-  padding: 0 16px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  user-select: none;
-
-  font-weight: 500;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: var(--seryy-1);
-
-  transition: 0.3s ease;
-
-  /* чтобы текст не ломал сетку */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+     cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+    height: 60px;
+    color: var(--seryy-1);
+    /* white-space: nowrap; */
+    text-overflow: ellipsis;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all .3s;
+    display: flex;
+    position: relative;
 }
 
 /* hover */
@@ -210,5 +204,77 @@
   .dropdownButton,
   .menuItem {
     transition: none;
+  }
+}
+
+
+/* =========================
+   MOBILE COLUMN MODE
+========================= */
+
+.mobileColumn {
+  display: none;
+  padding: 16px 0;
+}
+
+.columnList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.columnItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--temnyy-1);
+  border: 1px solid var(--seryy-2);
+  border-radius: var(--br);
+  color: var(--seryy-1);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.columnItem:hover {
+  background: var(--seryy-3);
+  color: var(--belyy);
+  border-color: var(--seryy-3);
+}
+
+.columnItemActive {
+  background: var(--temnyy-1);
+  color: var(--belyy);
+  border-color: var(--belyy);
+  border-width: 2px;
+  padding: 13px 15px; /* компенсация увеличенного border */
+}
+
+.columnItemTitle {
+  flex: 1;
+}
+
+.columnItemIndicator {
+  color: var(--belyy);
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 12px;
+}
+
+/* Обновляем медиа-запросы */
+@media (max-width: 740px) {
+  .tabs {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .mobileColumn {
+    display: block;
   }
 }

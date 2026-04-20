@@ -1,0 +1,107 @@
+.brak {
+  padding: 80px 0;
+  color: var(--foreground);
+  background: var(--background);
+  overflow: hidden;
+}
+
+.content {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--third-family);
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--belyy);
+}
+
+.text {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.5;
+  color: var(--seryy-1);
+}
+
+.sliderWrap {
+  width: 100%;
+}
+
+.swiper {
+  width: 100%;
+  overflow: visible;
+}
+
+.slide {
+  height: auto;
+}
+
+
+
+.imageBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--br);
+  overflow: hidden;
+  background: var(--temnyy-1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.slide:hover .image {
+  transform: scale(1.04);
+}
+
+/* Десктоп: просто 5 карточек в ряд, без скролла */
+@media (min-width: 768px) {
+  .swiper {
+    /* pointer-events: none; */
+  }
+}
+
+/* Мобилка */
+@media (max-width: 767px) {
+  .brak {
+    padding: 56px 0;
+  }
+
+  .content {
+    margin-top: 28px;
+    gap: 32px;
+  }
+
+  .block {
+    gap: 14px;
+  }
+
+  .subtitle {
+    font-size: 22px;
+  }
+
+  .text {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .imageBox {
+    border-radius: 14px;
+    aspect-ratio: 1 / 1;
+  }
+}

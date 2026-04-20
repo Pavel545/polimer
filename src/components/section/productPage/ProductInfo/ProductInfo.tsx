@@ -15,6 +15,8 @@ import {
   SlideInLeft,
 } from "@/components/ui/Motion";
 import Image from "next/image";
+import { Instruct } from "../../hero/hero";
+import Lightbox from "@/components/ui/Lightbox/lightbox";
 
 type ProductInfoTabId = number;
 
@@ -22,7 +24,8 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
   const [catActive, setCatActive] = useState<ProductInfoTabId>(data.tabs[0]?.id ?? 1);
   const [isMobile, setIsMobile] = useState(false);
   const [imageTabId, setImageTabId] = useState<ProductInfoTabId | null>(null);
-
+  const [activeItem, setActiveItem] = useState<Instruct | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   // Проверка на мобильное устройство
   useEffect(() => {
     const checkMobile = () => {
@@ -81,6 +84,15 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
   // Проверяем, нужно ли показывать изображение
   const showImage = imageTabId !== null && activeTab?.fileUrl;
 
+  const openModal = (item: Instruct) => {
+    setActiveItem(item);
+    setIsLightboxOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsLightboxOpen(false);
+    setActiveItem(null);
+  };
   return (
     <section className={s.ProductInfo}>
       <div className="container">
@@ -140,7 +152,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                           <h3 className={s.colTitle}>{activeContent.leftTitle}</h3>
                           {activeContent?.instructSrc &&
                             <div className={s.imageContainer}>
-                              <Image className={s.productImage} src={activeContent?.instructSrc} alt={activeContent.leftTitle} width={500} height={600} />
+                              <Image onClick={() => openModal({ title: activeContent.leftTitle, gallery: [{ image: activeContent?.instructSrc, pdf: activeContent?.instructPdf }] })} className={s.productImage} src={activeContent?.instructSrc} alt={activeContent.leftTitle} width={500} height={600} />
 
 
                             </div>
@@ -148,12 +160,18 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                           }
                           {activeContent?.instructPdf &&
                             <div className={s.imageContainer}>
-                              <a className={s.fileDown}  href={activeContent?.instructPdf} title={activeContent.leftTitle} download="" target="_blank" rel="noopener noreferrer">Скачать инструкицю</a>
+                              <a className={s.fileDown} href={activeContent?.instructPdf} title={activeContent.leftTitle} download="" target="_blank" rel="noopener noreferrer">Скачать инструкицю</a>
 
 
                             </div>
 
                           }
+                          <Lightbox
+                            isOpen={isLightboxOpen}
+                            images={activeItem?.gallery || []}
+                            title={activeItem?.title}
+                            onClose={closeModal}
+                          />
                         </>
                       </SlideInLeft>
 
@@ -221,8 +239,8 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                           <Stagger stagger={0.1} amount={0.1}>
                             <ol className={s.list}>
                               {activeContent.advantages.map((text, i) => (
-                                <StaggerItem key={i}  className={s.paragraph}>
-                                    <span dangerouslySetInnerHTML={{__html:text}}></span>
+                                <StaggerItem key={i} className={s.paragraph}>
+                                  <span dangerouslySetInnerHTML={{ __html: text }}></span>
                                 </StaggerItem>
                               ))}
                             </ol>
@@ -250,6 +268,55 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                       </SlideInRight>
                     </div>
                   )}
+
+                   {activeContent.kind === "installation" && (
+                    <div className={s.twoCols}>
+                      <SlideInLeft delay={0.1} amount={0.2} className={s.col}>
+                        <>
+                          <h3 className={s.colTitle}>{activeContent.leftTitle}</h3>
+                          {activeContent?.instructSrc &&
+                            <div className={s.imageContainer}>
+                              <Image onClick={() => openModal({ title: activeContent.leftTitle, gallery: [{ image: activeContent?.instructSrc, pdf: activeContent?.instructPdf }] })} className={s.productImage} src={activeContent?.instructSrc} alt={activeContent.leftTitle} width={500} height={600} />
+
+
+                            </div>
+
+                          }
+                          {activeContent?.instructPdf &&
+                            <div className={s.imageContainer}>
+                              <a className={s.fileDown} href={activeContent?.instructPdf} title={activeContent.leftTitle} download="" target="_blank" rel="noopener noreferrer">Скачать инструкицю</a>
+
+
+                            </div>
+
+                          }
+                          <Lightbox
+                            isOpen={isLightboxOpen}
+                            images={activeItem?.gallery || []}
+                            title={activeItem?.title}
+                            onClose={closeModal}
+                          />
+                        </>
+                      </SlideInLeft>
+
+
+                      <SlideInRight delay={0.1} amount={0.2} className={s.col}>
+                        <>
+                          <h2 className={s.colTitle}>{activeContent.rightTitle}</h2>
+                          <Stagger stagger={0.1} amount={0.1}>
+                            <div className={s.list}>
+                              {activeContent.advantages.map((text, i) => (
+                                <StaggerItem key={i} className={s.paragraph}>
+                                  <div dangerouslySetInnerHTML={{ __html: text }}></div>
+                                </StaggerItem>
+                              ))}
+                            </div>
+                          </Stagger>
+                        </>
+                      </SlideInRight>
+                    </div>
+                  )}
+
 
                   {activeContent.kind === "description_types" && (
                     <div className={s.twoCols}>

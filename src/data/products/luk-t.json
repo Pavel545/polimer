@@ -27,34 +27,34 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/luk-h/1.jpg",
+          "url": "/img/products/luk-h/1.webp",
           "alt": "Описание фото",
           "colorId": "gray",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/luk-h/2.jpg",
+          "url": "/img/products/luk-h/2.webp",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img3",
-          "url": "/img/products/luk-h/3.jpg",
+          "url": "/img/products/luk-h/3.webp",
           "colorId": "black",
-          "sort": 2
+          "sort": 3
         },
         {
           "id": "img4",
-          "url": "/img/products/luk-h/4.jpg",
+          "url": "/img/products/luk-h/4.webp",
           "colorId": "black",
-          "sort": 1
+          "sort": 4
         },
         {
           "id": "img5",
-          "url": "/img/products/luk-h/5.jpg",
+          "url": "/img/products/luk-h/5.webp",
           "colorId": "black",
-          "sort": 1
+          "sort": 5
         }
       ]
     }

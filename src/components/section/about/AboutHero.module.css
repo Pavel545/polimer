@@ -1,5 +1,6 @@
 .hero {
   background: var(--fon-chernyy-3);
+  overflow: hidden;
 }
 
 .heroTitle {

@@ -3,44 +3,63 @@
   "slug": "polimerpeschaniy-bordyur-porebrik",
   "titleShort": "Полимерпесчаный поребрик, бордюр",
   "titleFull": "Полимерпесчаный поребрик, бордюр",
-  "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
+  "description": "<h3>Сфера применения:</h3>  <ul><li></li><li></li><li></li><li></li> </ul> <h3>Цвета полимерпесчаной плитки:</h3><ul><li>Коричневый (шоколад)</li><li>Зеленый</li><li>Красный (кирпичный)</li><li>Серый</li><li>Черный</li></ul>        ",
   "instructionUrl": "/# ",
   "variants": [
     {
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
-      "priceRub": 180 ,
+      "priceRub": 180,
       "colors": [
         {
           "id": "black",
-          "name": "Черный",
-          "hex": "#000000"
+          "name": "шеколад",
+          "hex": "#755b50"
+        },
+        {
+          "id": "red",
+          "name": "Красная",
+          "hex": "#8d3e29"
         },
         {
           "id": "green",
-          "name": "Зеленый",
-          "hex": "#00FF00"
+          "name": "Серая",
+          "hex": "#9d9d9d"
         }
       ],
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/слаг-продукта/1.jpg",
+          "url": "/img/products/parebrik/1.webp",
           "alt": "Описание фото",
           "colorId": "black",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/слаг-продукта/2.jpg",
+          "url": "/img/products/parebrik/2.webp",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img3",
-          "url": "/img/products/слаг-продукта/3.jpg",
-          "colorId": "green",
-          "sort": 1
+          "url": "/img/products/parebrik/3.webp",
+          "colorId": "black",
+          "sort": 3
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/parebrik/4.webp",
+          "alt": "Описание фото",
+          "colorId": "red",
+          "sort": 4
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/parebrik/5.webp",
+          "alt": "Описание фото",
+          "colorId": "red",
+          "sort": 5
         }
       ]
     }

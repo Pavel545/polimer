@@ -3,6 +3,8 @@
   "slug": "lyuk-s-zapornym-ustroistvom",
   "titleShort": "Люк с запорным устройством",
   "titleFull": "ПОЛИМЕРНО-ПЕСЧАНЫЙ КАНАЛИЗАЦИОННЫЙ ЛЮК С ЗАПОРНЫМ УСТРОЙСТВОМ",
+  "warning": "Рекомендуется выбрать полимерно-песчаный люк с запасом по прочности, ведь незначительная разница в стоимости порядка 100-300р может значительно улучшить ваш комфорт и безопасность его эксплуатации.",
+  "remember": "Правильно подобранный по нагрузке люк будет служить вам верой и правдой. Вы просто устанавливаете люк и забываете о нем на долгие годы. ",
   "description": "Полимерно-песчаный канализационный люк с запорным устройством производственной компании Полимерные Технологии — это изделие предназначенное для защиты колодцев системы канализации, водоснабжения и других инженерных сетей. <br/><br/>Полимерпесчаный люк с запорным устройством устанавливается на колодцах, где требуется ограничить доступ людей или избежать случайного открытия люка посторонними лицами. На полимерно-песчаный люк устанавливается флажковый запорный механизм под ключ шестигранник М8 по обе стороны крышки полимерпесчаного люка. Запорный механизм может быть установлен на канализационные полимерно-песчаные люки тип «Л», «ЛУ», «С», «Т» ",
   "instructionUrl": "# или https://example.com/instruction.pdf",
   "variants": [
@@ -20,22 +22,37 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/lyuk-s-zapornym-ustroistvom/1.jpg",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/1.webp",
           "alt": "Описание фото",
           "colorId": "black",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/lyuk-s-zapornym-ustroistvom/2.jpg",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/2.webp",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img3",
-          "url": "/img/products/lyuk-s-zapornym-ustroistvom/3.jpg",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/3.webp",
+          "alt": "Описание фото",
           "colorId": "black",
-          "sort": 1
+          "sort": 3
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/4.jpg",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 4
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/lyuk-s-zapornym-ustroistvom/5.webp",
+          "alt": "Описание фото",
+          "colorId": "black",
+          "sort": 5
         }
       ]
     }

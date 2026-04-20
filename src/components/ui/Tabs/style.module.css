@@ -93,6 +93,7 @@
 /* внутренний отступ как раньше был у .body */
 .animInner {
   padding: 0 0 24px;
+  color: #888888;
 }
 
 
@@ -114,14 +115,14 @@
 }
 
 .kicker {
-font-weight: 500;
-font-style: Medium;
-font-size: 16px;
-line-height: 100%;
-letter-spacing: 0%;
-text-transform: uppercase;
-color: var(--seryy-2);
-margin-bottom: 10px;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  color: var(--seryy-2);
+  margin-bottom: 10px;
 
 
 }
@@ -144,10 +145,10 @@ margin-bottom: 10px;
 
 
 
-font-weight: 500;
-font-size: 16px;
-line-height: 130%;
-letter-spacing: 0%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 130%;
+  letter-spacing: 0%;
 
 }
 
@@ -185,6 +186,7 @@ letter-spacing: 0%;
   .cols {
     grid-template-columns: 1fr;
   }
+
   .panel {
     padding: 20px 18px;
   }
@@ -194,18 +196,23 @@ letter-spacing: 0%;
   .head {
     padding: 18px 0;
   }
+
   .salary {
     font-size: 16px;
   }
+
   .title {
     font-size: 16px;
   }
+
   .sub {
     font-size: 14px;
   }
+
   .actions {
     flex-direction: column;
   }
+
   .actionBtn {
     width: 100%;
     justify-content: center;

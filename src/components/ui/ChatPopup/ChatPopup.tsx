@@ -1,105 +1,345 @@
 "use client";
 
-import { type JSX, useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import {
+  type JSX,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import s from "./ChatPopup.module.css";
+import { useMedia } from "@/lib/Media";
+
+type Attachment =
+  | {
+    type: "image";
+    src: string;
+    alt?: string;
+  }
+  | {
+    type: "file";
+    href: string;
+    name: string;
+    label?: string;
+  }
+  | {
+    type: "link";
+    href: string;
+    label: string;
+    target?: "_blank" | "_self";
+  };
+
+type ProductCard = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  meta?: string[];
+  image?: string;
+  href?: string;
+};
+
+type BotPayload = {
+  intent?: string;
+  answer: string;
+  attachments?: Attachment[];
+  cards?: ProductCard[];
+};
 
 type Message = {
   id: string;
-  text: string;
   isUser: boolean;
-  timestamp: Date;
+  timestamp: string;
+  text?: string;
+  payload?: BotPayload;
   isError?: boolean;
 };
 
-type ChatSession = {
-  id: string;
-  messages: Message[];
-  createdAt: Date;
-};
+const FAQ_ITEMS = [
+  "КАКИЕ ЛЮКИ САМЫЕ КРЕПКИЕ ДЛЯ ПРОМЫШЛЕННЫХ ЗОН?",
+  "РАБОТАЕТЕ ЛИ ВЫ С ФИЗ. ЛИЦАМИ?",
+  "ПРИВЕЗЁТЕ ЛЮКИ В МОЙ ГОРОД?",
+  "МОЖНО ЛИ СДЕЛАТЬ ЛЮК ПО МОЕМУ ДИЗАЙНУ?",
+  "КАК МНЕ УСТАНОВИТЬ ПОЛИМЕРПЕСЧАНЫЙ КОЛОДЕЦ?",
+];
 
-// Компонент для форматирования текста сообщений
-const FormattedMessage = ({ text }: { text: string }) => {
-  const formatText = (content: string) => {
-    // Разделяем на строки
-    const lines = content.split('\n');
+function formatTime(value: string): string {
+  const date = new Date(value);
+  return date.toLocaleTimeString("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
-    return lines.map((line, lineIndex) => {
-      // Проверяем на маркированный список (строки начинающиеся с -, *, • или цифр с точкой)
-      const bulletMatch = line.match(/^[\s]*[-*•]\s+(.+)/);
-      const numberMatch = line.match(/^[\s]*(\d+)\.\s+(.+)/);
+function generateSessionId(): string {
+  return `session_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+}
 
-      if (bulletMatch) {
-        return (
-          <div key={lineIndex} className={s.listItem}>
-            <span className={s.bullet}>•</span>
-            <span className={s.listText}>{formatInline(bulletMatch[1])}</span>
-          </div>
-        );
-      }
+function parseInline(text: string): JSX.Element[] {
+  const parts: JSX.Element[] = [];
+  const chunks = text.split(/(\*\*.*?\*\*)/g);
 
-      if (numberMatch) {
-        return (
-          <div key={lineIndex} className={s.listItem}>
-            <span className={s.number}>{numberMatch[1]}.</span>
-            <span className={s.listText}>{formatInline(numberMatch[2])}</span>
-          </div>
-        );
-      }
-
-      // Проверка на жирный текст (между **)
-      if (line.includes('**')) {
-        return (
-          <div key={lineIndex} className={s.messageLine}>
-            {formatInline(line)}
-          </div>
-        );
-      }
-
-      // Обычный текст
-      if (line.trim()) {
-        return (
-          <div key={lineIndex} className={s.messageLine}>
-            {formatInline(line)}
-          </div>
-        );
-      }
-
-      // Пустая строка - добавляем отступ
-      return <div key={lineIndex} className={s.messageLineBreak} />;
-    });
-  };
-
-  const formatInline = (text: string) => {
-    const parts: (string | JSX.Element)[] = [];
-    let lastIndex = 0;
-
-    // Регулярное выражение для поиска **жирного текста**
-    const boldRegex = /\*\*(.*?)\*\*/g;
-    let match;
-
-    while ((match = boldRegex.exec(text)) !== null) {
-      // Добавляем текст до жирного
-      if (match.index > lastIndex) {
-        parts.push(text.substring(lastIndex, match.index));
-      }
-      // Добавляем жирный текст
-      parts.push(<strong key={match.index} className={s.boldText}>{match[1]}</strong>);
-      lastIndex = match.index + match[0].length;
+  chunks.forEach((chunk, index) => {
+    if (chunk.startsWith("**") && chunk.endsWith("**")) {
+      parts.push(
+        <strong key={index} className={s.boldText}>
+          {chunk.slice(2, -2)}
+        </strong>
+      );
+      return;
     }
 
-    // Добавляем оставшийся текст
-    if (lastIndex < text.length) {
-      parts.push(text.substring(lastIndex));
+    parts.push(<span key={index}>{chunk}</span>);
+  });
+
+  return parts;
+}
+
+function FormattedText({ text }: { text: string }): JSX.Element {
+  const lines = text.split("\n");
+
+  return (
+    <div className={s.formattedMessage}>
+      {lines.map((line, index) => {
+        const bulletMatch = line.match(/^\s*[-*•]\s+(.+)/);
+        const numberMatch = line.match(/^\s*(\d+)\.\s+(.+)/);
+
+        if (bulletMatch) {
+          return (
+            <div key={index} className={s.listItem}>
+              <span className={s.bullet}>•</span>
+              <span className={s.listText}>{parseInline(bulletMatch[1])}</span>
+            </div>
+          );
+        }
+
+        if (numberMatch) {
+          return (
+            <div key={index} className={s.listItem}>
+              <span className={s.number}>{numberMatch[1]}.</span>
+              <span className={s.listText}>{parseInline(numberMatch[2])}</span>
+            </div>
+          );
+        }
+
+        if (!line.trim()) {
+          return <div key={index} className={s.messageLineBreak} />;
+        }
+
+        return (
+          <div key={index} className={s.messageLine}>
+            {parseInline(line)}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function BotAttachments({
+  attachments,
+}: {
+  attachments?: Attachment[];
+}): JSX.Element | null {
+  if (!attachments?.length) return null;
+  console.log(attachments);
+
+  return (
+    <div className={s.attachments}>
+      {attachments.map((item, index) => {
+        if (item.type === "image") {
+          console.log(item.src);
+
+          return (
+            <div key={index} className={s.attachmentImageCard}>
+              <img
+                src={item.src}
+                alt={item.alt || "Изображение"}
+                className={s.attachmentImage}
+              />
+            </div>
+          );
+        }
+
+        if (item.type === "file") {
+          return (
+            <a
+              key={index}
+              href={item.href}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className={s.attachmentFile}
+            >
+              <span className={s.attachmentFileIcon}>PDF</span>
+              <span className={s.attachmentFileContent}>
+                <span className={s.attachmentFileLabel}>
+                  {item.label || item.name}
+                </span>
+                <span className={s.attachmentFileName}>{item.name}</span>
+              </span>
+            </a>
+          );
+        }
+
+        return (
+          <a
+            key={index}
+            href={item.href}
+            target={item.target || "_blank"}
+            rel="noopener noreferrer"
+            className={s.attachmentLink}
+          >
+            <span>{item.label}</span>
+            <span className={s.attachmentArrow}>↗</span>
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
+function BotCards({ cards }: { cards?: ProductCard[] }): JSX.Element | null {
+  if (!cards?.length) return null;
+
+  return (
+    <div className={s.cardsGrid}>
+      {cards.map((card) => {
+        const content = (
+          <>
+            <div className={s.cardImageWrap}>
+              {card.image ? (
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className={s.cardImage}
+                />
+              ) : (
+                <div className={s.cardImageFallback}>ЛЮК</div>
+              )}
+            </div>
+
+            <div className={s.cardBody}>
+              <div className={s.cardTitle}>{card.title}</div>
+
+              {card.subtitle ? (
+                <div className={s.cardSubtitle}>{card.subtitle}</div>
+              ) : null}
+
+              {card.description ? (
+                <div className={s.cardDescription}>{card.description}</div>
+              ) : null}
+
+              {card.meta?.length ? (
+                <div className={s.cardMetaList}>
+                  {card.meta.map((metaItem, index) => (
+                    <span key={index} className={s.cardMetaChip}>
+                      {metaItem}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </>
+        );
+
+        if (card.href) {
+          return (
+            <a
+              key={card.id}
+              href={card.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={s.productCard}
+            >
+              {content}
+            </a>
+          );
+        }
+
+        return (
+          <div key={card.id} className={s.productCard}>
+            {content}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function BotMessageContent({
+  payload,
+  fallbackText,
+}: {
+  payload?: BotPayload;
+  fallbackText?: string;
+}): JSX.Element {
+  if (!payload) {
+    return <FormattedText text={fallbackText || ""} />;
+  }
+
+  return (
+    <div className={s.botStructured}>
+      <FormattedText text={payload.answer} />
+      <BotAttachments attachments={payload.attachments} />
+      <BotCards cards={payload.cards} />
+    </div>
+  );
+}
+
+function normalizeBotResponse(raw: unknown): BotPayload {
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+
+      if (parsed && typeof parsed === "object" && "answer" in parsed) {
+        return {
+          intent: typeof parsed.intent === "string" ? parsed.intent : "text",
+          answer: typeof parsed.answer === "string" ? parsed.answer : "",
+          attachments: Array.isArray(parsed.attachments) ? parsed.attachments : [],
+          cards: Array.isArray(parsed.cards) ? parsed.cards : [],
+        };
+      }
+
+      return {
+        intent: "text",
+        answer: raw,
+        attachments: [],
+        cards: [],
+      };
+    } catch {
+      return {
+        intent: "text",
+        answer: raw,
+        attachments: [],
+        cards: [],
+      };
     }
+  }
 
-    return parts.length > 0 ? parts : text;
+  if (raw && typeof raw === "object") {
+    const parsed = raw as Partial<BotPayload> & {
+      response?: Partial<BotPayload> | string;
+    };
+
+    if ("answer" in parsed || "attachments" in parsed || "cards" in parsed) {
+      return {
+        intent: typeof parsed.intent === "string" ? parsed.intent : "text",
+        answer: typeof parsed.answer === "string" ? parsed.answer : "",
+        attachments: Array.isArray(parsed.attachments) ? parsed.attachments : [],
+        cards: Array.isArray(parsed.cards) ? parsed.cards : [],
+      };
+    }
+  }
+
+  return {
+    intent: "text",
+    answer: "Извините, не удалось обработать ответ.",
+    attachments: [],
+    cards: [],
   };
-
-  return <div className={s.formattedMessage}>{formatText(text)}</div>;
-};
-
-export default function ChatPopup() {
+}
+export default function ChatPopup(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
@@ -107,341 +347,431 @@ export default function ChatPopup() {
   const [sessionId, setSessionId] = useState<string>("");
   const [unreadCount, setUnreadCount] = useState<number>(0);
 
+  const lastScrollY = useRef(0);
+  const [isHidden, setIsHidden] = useState<boolean>(false);
+
+  const isMobile = useMedia("(max-width: 768px)");
+
+  const [typedText, setTypedText] = useState<string>("");
+  const [typedIndex, setTypedIndex] = useState<number>(0);
+  const [typedSubIndex, setTypedSubIndex] = useState<number>(0);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const chatWindowRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
-  // Initialize chat session
+  const hasMessages = messages.length > 0;
+  const shouldShowFaq = !hasMessages;
+
   useEffect(() => {
-    const initSession = () => {
-      const storedSessionId = localStorage.getItem("chat_session_id");
-      const storedMessages = localStorage.getItem("chat_messages");
+    const storedSessionId = localStorage.getItem("chat_session_id_v2");
+    const storedMessages = localStorage.getItem("chat_messages_v2");
 
-      if (storedSessionId && storedMessages) {
-        setSessionId(storedSessionId);
-        const parsedMessages = JSON.parse(storedMessages);
-        setMessages(parsedMessages.map((msg: any) => ({
-          ...msg,
-          timestamp: new Date(msg.timestamp)
-        })));
-      } else {
-        const newSessionId = generateSessionId();
-        setSessionId(newSessionId);
-        localStorage.setItem("chat_session_id", newSessionId);
+    if (storedSessionId) {
+      setSessionId(storedSessionId);
+    } else {
+      const nextId = generateSessionId();
+      setSessionId(nextId);
+      localStorage.setItem("chat_session_id_v2", nextId);
+    }
 
-        // const welcomeMessage: Message = {
-        //   id: Date.now().toString(),
-        //   text: "Здравствуйте! Я виртуальный помощник компании 73Полимер. Чем могу помочь?\n\nВы можете спросить меня о:\n• типах люков\n• характеристиках продукции\n• условиях доставки\n• ценах и наличии",
-        //   isUser: false,
-        //   timestamp: new Date(),
-        // };
-        // setMessages([welcomeMessage]);
-        // localStorage.setItem("chat_messages", JSON.stringify([welcomeMessage]));
+    if (storedMessages) {
+      try {
+        const parsed = JSON.parse(storedMessages) as Message[];
+        setMessages(parsed);
+      } catch {
+        setMessages([]);
       }
-    };
-
-    initSession();
+    }
   }, []);
 
-  // Auto-scroll to bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    localStorage.setItem("chat_messages_v2", JSON.stringify(messages));
   }, [messages]);
 
-  // Focus input when chat opens
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 300);
-      setUnreadCount(0);
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isLoading]);
+
+  useEffect(() => {
+    if (!isOpen || !inputRef.current) return;
+
+    const t = setTimeout(() => {
+      inputRef.current?.focus();
+    }, 250);
+
+    setUnreadCount(0);
+
+    return () => clearTimeout(t);
   }, [isOpen]);
 
-  // Track unread messages when chat is closed
   useEffect(() => {
     if (!isOpen && messages.length > 0) {
-      const lastMessage = messages[messages.length - 1];
-      if (!lastMessage.isUser) {
-        setUnreadCount(prev => prev + 1);
+      const last = messages[messages.length - 1];
+      if (!last.isUser) {
+        setUnreadCount((prev) => prev + 1);
       }
     }
   }, [messages, isOpen]);
 
-  // ESC closes chat
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        closeChat();
-      }
+      if (e.key === "Escape") setIsOpen(false);
     };
+
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
-  // Block body scroll when chat is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
+    const onMouseDown = (e: MouseEvent) => {
+      if (!isOpen) return;
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onMouseDown);
+    return () => document.removeEventListener("mousedown", onMouseDown);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) return;
+
+    const currentText = FAQ_ITEMS[typedIndex] ?? "";
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!isDeleting && typedSubIndex < currentText.length) {
+      timeout = setTimeout(() => {
+        setTypedSubIndex((prev) => prev + 1);
+        setTypedText(currentText.slice(0, typedSubIndex + 1));
+      }, 70);
+    } else if (!isDeleting && typedSubIndex === currentText.length) {
+      timeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, 1600);
+    } else if (isDeleting && typedSubIndex > 0) {
+      timeout = setTimeout(() => {
+        setTypedSubIndex((prev) => prev - 1);
+        setTypedText(currentText.slice(0, typedSubIndex - 1));
+      }, 35);
     } else {
-      document.body.style.overflow = "";
+      timeout = setTimeout(() => {
+        setIsDeleting(false);
+        setTypedIndex((prev) => (prev + 1) % FAQ_ITEMS.length);
+      }, 250);
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
-  // Click outside to close
+    return () => clearTimeout(timeout);
+  }, [typedIndex, typedSubIndex, isDeleting, isOpen]);
+
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (chatWindowRef.current && !chatWindowRef.current.contains(e.target as Node) && isOpen) {
-        closeChat();
-      }
-    };
+    const handleScroll = () => {
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+      const currentScrollY = window.scrollY;
 
-  const generateSessionId = (): string => {
-    return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  };
-
-  const toggleChat = (): void => setIsOpen((prev) => !prev);
-  const closeChat = (): void => setIsOpen(false);
-
-  const saveMessages = (updatedMessages: Message[]) => {
-    localStorage.setItem("chat_messages", JSON.stringify(updatedMessages));
-  };
-
-  const sendMessageToAPI = async (userMessage: string): Promise<string> => {
-    try {
-      const response = await fetch("https://73polimer-acr-agency.waw0.amvera.tech/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userMessage,
-          session_id: sessionId,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+      if (isOpen) {
+        setIsHidden(false);
+        lastScrollY.current = currentScrollY;
+        return;
       }
 
-      const data = await response.json();
-      console.log(data.answer);
+      if (currentScrollY <= 20) {
+        setIsHidden(false);
+      } else if (
+        currentScrollY > lastScrollY.current &&
+        currentScrollY > 120
+      ) {
+        setIsHidden(true);
+      }
 
-      return data.response || data.answer || "Извините, произошла ошибка. Пожалуйста, попробуйте позже.";
-    } catch (error) {
-      console.error("Chat API error:", error);
-      throw new Error("Не удалось отправить сообщение. Проверьте подключение к интернету.");
+      lastScrollY.current = currentScrollY;
+    };
+
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHidden]);
+
+  const askToAPI = async (message: string): Promise<BotPayload> => {
+
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        session_id: sessionId,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
     }
+
+    const data = await response.json();
+    console.log(data);
+
+    return normalizeBotResponse(data.response ?? data);
   };
 
-  const sendMessage = async (): Promise<void> => {
-    if (!inputValue.trim() || isLoading) return;
-
-    const userMessageText = inputValue.trim();
-    setInputValue("");
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: userMessageText,
+  const pushUserMessage = (text: string) => {
+    const next: Message = {
+      id: crypto.randomUUID(),
       isUser: true,
-      timestamp: new Date(),
+      text,
+      timestamp: new Date().toISOString(),
     };
 
-    const updatedMessages = [...messages, userMessage];
-    setMessages(updatedMessages);
-    saveMessages(updatedMessages);
+    setMessages((prev) => [...prev, next]);
+  };
+
+  const pushBotMessage = (payload: BotPayload) => {
+    const next: Message = {
+      id: crypto.randomUUID(),
+      isUser: false,
+      payload,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, next]);
+  };
+
+  const pushErrorMessage = (text: string) => {
+    const next: Message = {
+      id: crypto.randomUUID(),
+      isUser: false,
+      text,
+      timestamp: new Date().toISOString(),
+      isError: true,
+    };
+
+    setMessages((prev) => [...prev, next]);
+  };
+
+  const sendMessage = async (presetText?: string): Promise<void> => {
+    const value = (presetText ?? inputValue).trim();
+
+    if (!value || isLoading) return;
+
+    if (!presetText) {
+      setInputValue("");
+    }
+
+    pushUserMessage(value);
     setIsLoading(true);
 
     try {
-      const botResponse = await sendMessageToAPI(userMessageText);
-
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: botResponse,
-        isUser: false,
-        timestamp: new Date(),
-      };
-
-      const finalMessages = [...updatedMessages, botMessage];
-      setMessages(finalMessages);
-      saveMessages(finalMessages);
+      const payload = await askToAPI(value);
+      pushBotMessage(payload);
     } catch (error) {
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: error instanceof Error ? error.message : "Произошла ошибка. Пожалуйста, попробуйте позже.",
-        isUser: false,
-        timestamp: new Date(),
-        isError: true,
-      };
-
-      const errorMessages = [...updatedMessages, errorMessage];
-      setMessages(errorMessages);
-      saveMessages(errorMessages);
+      pushErrorMessage(
+        error instanceof Error
+          ? "Не удалось получить ответ. Проверьте соединение и попробуйте ещё раз."
+          : "Произошла ошибка. Попробуйте позже."
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
-
-  const formatTime = (date: Date): string => {
-    return date.toLocaleTimeString("ru-RU", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
   const clearHistory = (): void => {
-    if (confirm("Очистить историю сообщений?")) {
-      const newSessionId = generateSessionId();
-      setSessionId(newSessionId);
-      localStorage.setItem("chat_session_id", newSessionId);
-
-      const welcomeMessage: Message = {
-        id: Date.now().toString(),
-        text: "Здравствуйте! Я виртуальный помощник компании 73Полимер. Чем могу помочь?\n\nВы можете спросить меня о:\n• типах люков\n• характеристиках продукции\n• условиях доставки\n• ценах и наличии",
-        isUser: false,
-        timestamp: new Date(),
-      };
-      setMessages([welcomeMessage]);
-      localStorage.setItem("chat_messages", JSON.stringify([welcomeMessage]));
-      setUnreadCount(0);
-    }
+    const nextId = generateSessionId();
+    setSessionId(nextId);
+    localStorage.setItem("chat_session_id_v2", nextId);
+    setMessages([]);
+    setUnreadCount(0);
   };
+
+  const lineText = useMemo(() => {
+    return typedText || "";
+  }, [typedText]);
 
   return (
     <>
-      {/* Chat Button */}
       <button
         type="button"
-        className={`${s.chatButton} ${isOpen ? s.chatButtonHidden : ""}`}
-        onClick={toggleChat}
+        className={`${s.chatLauncher} ${isOpen ? s.chatLauncherHidden : ""}`}
+        onClick={() => setIsOpen(true)}
         aria-label="Открыть чат"
       >
-        Спросить у ИИ-ассистента
-        {unreadCount > 0 && (
-          <span className={s.chatButtonBadge}>
+        <span className={s.chatLauncherDots} aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+
+        <span className={s.chatLauncherLabel}>{!isMobile && !isHidden ? "Спросить у ИИ-ассистента:" : "ИИ-ассистент"}</span>
+
+        {!isMobile && !isHidden && <span className={s.chatLauncherTyping}>
+          {lineText}
+          <span className={s.chatLauncherCaret} />
+        </span>}
+
+        {/* {unreadCount > 0 && (
+          <span className={s.chatLauncherBadge}>
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
-        )}
+        )} */}
       </button>
 
-      {/* Chat Popup */}
       {isOpen && (
         <>
-          {/* Overlay */}
           <div className={s.overlay} />
 
-          {/* Chat Window */}
-          <div ref={chatWindowRef} className={s.chatWindow}>
-            <div className={s.faq}>
-
-            </div>
-
-            {/* Messages Area */}
-            <div className={s.chatMessages}>
-              {messages.length === 0 ? (
-                <div className={s.emptyState}>
-                  <p>Напишите нам, и мы поможем!</p>
-                </div>
-              ) : (
-                messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`${s.message} ${message.isUser ? s.messageUser : s.messageBot
-                      } ${message.isError ? s.messageError : ""}`}
-                  >
-                    <div className={s.messageContent}>
-                      {message.isUser ? (
-                        <p className={s.messageText}>{message.text}</p>
-                      ) : (
-                        <FormattedMessage text={message.text} />
-                      )}
-                      <span className={s.messageTime}>
-                        {formatTime(message.timestamp)}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              )}
-              {isLoading && (
-                <div className={`${s.message} ${s.messageBot}`}>
-                  <div className={s.messageContent}>
-                    <div className={s.typingIndicator}>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                  </div>
+          <div ref={panelRef} className={s.chatPanel}>
+            <div className={s.hero}>
+              {shouldShowFaq && (
+                <div className={s.faqRow}>
+                  {FAQ_ITEMS.map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      className={s.faqChip}
+                      onClick={() => sendMessage(item)}
+                      disabled={isLoading}
+                    >
+                      {item}
+                    </button>
+                  ))}
                 </div>
               )}
-              <div ref={messagesEndRef} />
+
+              <div className={s.heroBody}>
+                {!hasMessages ? (
+                  <div className={s.heroTitleBox}>
+                    <h2 className={s.heroTitle}>
+                      УЗНАЙТЕ БОЛЬШЕ О ПРОИЗВОДСТВЕ
+                      <br />
+                      ПОЛИМЕРПЕСЧАНЫХ ЛЮКОВ
+                    </h2>
+                  </div>
+                ) : (
+                  <div className={s.chatMessages}>
+                    {messages.map((message) => (
+                      <div
+                        key={message.id}
+                        className={`${s.message} ${message.isUser ? s.messageUser : s.messageBot
+                          } ${message.isError ? s.messageError : ""}`}
+                      >
+                        <div className={s.messageContent}>
+                          {message.isUser ? (
+                            <p className={s.messageText}>{message.text}</p>
+                          ) : (
+                            <BotMessageContent
+                              payload={message.payload}
+                              fallbackText={message.text}
+                            />
+                          )}
+
+                          <span className={s.messageTime}>
+                            {formatTime(message.timestamp)}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+
+                    {isLoading && (
+                      <div className={`${s.message} ${s.messageBot}`}>
+                        <div className={s.messageContent}>
+                          <div className={s.typingIndicator}>
+                            <span />
+                            <span />
+                            <span />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <div ref={messagesEndRef} />
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Input Area */}
-            <div className={s.chatInputArea}>
+            <div className={s.inputBar}>
               <input
                 ref={inputRef}
                 type="text"
                 className={s.chatInput}
-                placeholder={isLoading ? "Пожалуйста, подождите..." : "Введите сообщение..."}
+                placeholder={
+                  isLoading
+                    ? "Пожалуйста, подождите..."
+                    : "Задайте любой интересующий Вас вопрос"
+                }
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    sendMessage();
+                  }
+                }}
                 disabled={isLoading}
               />
+
               <button
                 type="button"
-                className={s.chatSend}
-                onClick={sendMessage}
+                className={s.sendButton}
+                onClick={() => sendMessage()}
                 disabled={!inputValue.trim() || isLoading}
                 aria-label="Отправить сообщение"
               >
                 <svg
-                  width="20"
-                  height="20"
+                  width="26"
+                  height="26"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+                    d="M5 12H19M13 6L19 12L13 18"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
               </button>
-             <button
-                  type="button"
-                  className={s.chatClear}
-                  onClick={clearHistory}
-                  aria-label="Очистить историю"
-                  title="Очистить историю"
+
+              <button
+                type="button"
+                className={s.clearButton}
+                onClick={clearHistory}
+                aria-label="Очистить историю"
+                title="Очистить историю"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 6H21M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M10 11V17M14 11V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </button>
+                  <path
+                    d="M3 6H21M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6M6 6V20C6 21.1 6.9 22 8 22H16C17.1 22 18 21.1 18 20V6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M10 11V17M14 11V17"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </>

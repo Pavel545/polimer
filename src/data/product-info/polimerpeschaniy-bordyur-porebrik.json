@@ -26,28 +26,19 @@
         ]
       }
     },
-    {
+     {
       "id": 2,
-      "title": "Описание и виды",
+      "title": "Монтаж / укладка поребрика",
       "content": {
-        "kind": "description_types",
-        "leftTitle": "ОПИСАНИЕ:",
-        "description": [
-          "",
-          ""
+        "kind": "installation",
+        "rightTitle": "подробный Монтаж поребрика:",
+        "advantages": [
         ],
-        "rightTitle": "ВИДЫ:",
-        "types": [
-          {
-            "title": "",
-            "text": ""
-          },
-          {
-            "title": "",
-            "text": ""
-          }
-        ]
+       "leftTitle": "Инструкиця по установке (краткая):",
+        "instructSrc":"/img/instruct/4.jpg",
+        "instructPdf":"/docs/instruct/4.pdf"
       }
+      
     }
   ]
 }

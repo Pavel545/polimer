@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade } from "swiper/modules";
 import { Swiper as SwiperType } from "swiper";
@@ -21,7 +21,16 @@ type ReviewSlide = {
 
 export default function Reviews() {
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
+
+  useEffect(() => {
+    const checkViewport = () => setIsMobile(window.innerWidth <= 768);
+
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+    return () => window.removeEventListener("resize", checkViewport);
+  }, []);
 
   const slides = useMemo<ReviewSlide[]>(
     () => [
@@ -101,6 +110,15 @@ export default function Reviews() {
     []
   );
 
+  const total = slides.length;
+
+  const desktopStep = 54;
+  const mobileStep = 50;
+
+  const railTransform = isMobile
+    ? `translateX(calc(60px - ${active * mobileStep}px))`
+    : `translateY(calc(54px - ${active * desktopStep}px))`;
+
   return (
     <section className={s.reviews}>
       <div className="container">
@@ -124,8 +142,8 @@ export default function Reviews() {
               <SwiperSlide key={item.id}>
                 <article className={s.card}>
                   <div className={s.imageCol}>
-                    <div className={s.imageBox}>
-                      <img src={item.img} alt={item.name} className={s.image} />
+                    <div className={s.imageFloat}>
+                      <img loading="lazy" src={item.img} alt={item.name} className={s.image} />
                     </div>
                   </div>
 
@@ -134,33 +152,68 @@ export default function Reviews() {
                     <h3 className={s.name}>{item.name}</h3>
                     <p className={s.text}>{item.text}</p>
                   </div>
+
+                  <div className={s.cardNav}>
+                    <button
+                      type="button"
+                      className={s.arrow}
+                      onClick={() => swiperRef.current?.slidePrev()}
+                      aria-label="Предыдущий отзыв"
+                    >
+                      <span>{isMobile ? "←" : "↑"}</span>
+                    </button>
+
+                    <div className={s.railViewport}>
+                      <div
+                        className={s.railTrack}
+                        style={{ transform: railTransform }}
+                      >
+                        {slides.map((item, idx) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            className={`${s.railItem} ${
+                              idx === active ? s.railItemActive : ""
+                            }`}
+                            onClick={() => swiperRef.current?.slideToLoop(idx)}
+                            aria-label={`Перейти к отзыву ${idx + 1}`}
+                          >
+                            <span className={s.railItemInner}>
+                              <img
+                                src={
+                                  item.avatar === "girl"
+                                    ? "/img/reviews/gerl.png"
+                                    : "/img/reviews/men.png"
+                                }
+                                alt={item.name}
+                              />
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className={s.railFocus} />
+                    </div>
+
+                    <button
+                      type="button"
+                      className={s.arrow}
+                      onClick={() => swiperRef.current?.slideNext()}
+                      aria-label="Следующий отзыв"
+                    >
+                      <span>{isMobile ? "→" : "↓"}</span>
+                    </button>
+
+                    <div className={s.counter}>
+                      <span>{String(active + 1).padStart(2, "0")}</span>
+                      <span>/</span>
+                      <span>{String(total).padStart(2, "0")}</span>
+                    </div>
+                  </div>
                 </article>
               </SwiperSlide>
             ))}
           </Swiper>
-
-          <div className={s.sidePagination}>
-            {slides.map((item, idx) => (
-              <button
-                key={item.id}
-                type="button"
-                aria-label={`Перейти к отзыву ${idx + 1}`}
-                className={`${s.sideDot} ${idx === active ? s.sideDotActive : ""}`}
-                onClick={() => swiperRef.current?.slideToLoop(idx)}
-              >
-                <span className={s.sideDotInner}>
-                  <img
-                    src={
-                      item.avatar === "girl"
-                        ? "/img/reviews/gerl.png"
-                        : "/img/reviews/men.png"
-                    }
-                    alt={item.name}
-                  />
-                </span>
-              </button>
-            ))}
-          </div>
         </div>
       </div>
     </section>

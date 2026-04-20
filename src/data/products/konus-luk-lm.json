@@ -22,37 +22,31 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.jpg",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.webp",
           "colorId": "black",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/2.jpg",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/2.webp",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img3",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/3.jpg",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/3.webp",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img4",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/4.jpg",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/4.webp",
           "colorId": "black",
           "sort": 2
         },
         {
           "id": "img5",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg",
-          "colorId": "black",
-          "sort": 2
-        },
-        {
-          "id": "img6",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/6.jpg",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.webp",
           "colorId": "black",
           "sort": 2
         }

@@ -27,7 +27,7 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/luk-l/1.jpg",
+          "url": "/img/products/luk-l/1.webp",
           "alt": "Описание фото",
           "colorId": "korichneviy",
           "sort": 1
@@ -40,9 +40,21 @@
         },
         {
           "id": "img3",
-          "url": "/img/products/luk-l/3.jpg",
+          "url": "/img/products/luk-l/3.webp",
           "colorId": "korichneviy",
-          "sort": 2
+          "sort": 3
+        },
+        {
+          "id": "img4",
+          "url": "/img/products/luk-l/4.webp",
+          "colorId": "korichneviy",
+          "sort": 4
+        },
+        {
+          "id": "img5",
+          "url": "/img/products/luk-l/5.webp",
+          "colorId": "korichneviy",
+          "sort": 5
         }
       ]
     }
