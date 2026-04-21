@@ -12,24 +12,17 @@
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
       "priceRub": 1000,
-      "colors": [
+     "colors": [
         {
           "id": "green-dark",
           "name": "Тёмно зелёный",
           "hex": "#006400"
         },
         {
-          "id": "green-light",
-          "name": "Светло зелёный",
-          "hex": "#19b600"
-        }
-        ,
-        {
           "id": "khaki",
           "name": "Хаки",
           "hex": "#323437"
-        }
-        ,
+        },
         {
           "id": "brown",
           "name": "Коричневый",
@@ -47,40 +40,33 @@
         }
       ],
       "images": [
-         {
+        {
           "id": "img1",
-          "url": "/img/products/luk-lu/1.jpg",
+          "url": "/img/products/luk-lm/1.jpg",
           "colorId": "brown",
           "sort": 1
         },
-         {
+        {
           "id": "img2",
-          "url": "/img/products/luk-lu/2.jpg",
+          "url": "/img/products/luk-lm/2.jpg",
           "colorId": "red",
           "sort": 2
         },
-        
         {
           "id": "img3",
-          "url": "/img/products/luk-lu/3.jpg",
+          "url": "/img/products/luk-lm/3.jpg",
           "colorId": "green-dark",
           "sort": 3
         },
         {
           "id": "img4",
-          "url": "/img/products/luk-lu/4.jpg",
+          "url": "/img/products/luk-lm/4.jpg",
           "colorId": "khaki",
           "sort": 4
         },
         {
-          "id": "img5",
-          "url": "/img/products/luk-lu/5.jpg",
-          "colorId": "green-light",
-          "sort": 5
-        },
-        {
           "id": "img6",
-          "url": "/img/products/luk-lu/6.jpg",
+          "url": "/img/products/luk-lm/6.jpg",
           "colorId": "gray",
           "sort": 6
         }

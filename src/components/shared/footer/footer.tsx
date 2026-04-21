@@ -54,7 +54,7 @@ export default function Footer(): JSX.Element {
     },
     {
       id: "7",
-      slug: "luk-gts",
+      slug: "luk-c-logotipom",
       title: "Люк полимерпесчаный c логотипом",
     }, {
       id: "8",

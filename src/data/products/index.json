@@ -13,7 +13,7 @@
     "id": "luk-l",
     "slug": "luk-l",
     "titleShort": "Люк - Л",
-    "titleFull": "Для тратуара, пешеходной зоны",
+    "titleFull": "Для тротуара, пешеходной зоны",
     "description": "( легкий )",
     "priceRub": 1470,
     "categoryId": 1,
@@ -21,9 +21,9 @@
   },
    {
     "id": "13",
-    "slug": "",
+    "slug": "luk-lu",
     "titleShort": "Люк - ЛУ",
-    "titleFull": "Для нагруженных пешиходных зон",
+    "titleFull": "Для нагруженных пешеходных зон",
     "description": "( легкий усиленный )",
     "priceRub": 2100,
     "categoryId": 1,
@@ -60,14 +60,14 @@
     "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg"
   },
   {
-    "id": "luk-gts",
-    "slug": "luk-gts",
+    "id": "luk-c-logotipom",
+    "slug": "luk-c-logotipom",
     "titleShort": "Люк с логотипом",
     "titleFull": "Для вашей рекламы на люке ",
     "description": "ПОЛИМЕРНО-ПЕСЧАНЫЙ с логотипом",
     "priceRub": 2800,
     "categoryId": 1,
-    "img": "/img/products/luk-gts/prev.jpg"
+    "img": "/img/products/luk-gts/6.jpg"
   },
   {
     "id": "lyuk-s-zapornym-ustroistvom",

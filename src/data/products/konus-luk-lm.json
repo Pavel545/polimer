@@ -17,6 +17,11 @@
           "id": "black",
           "name": "Черный",
           "hex": "#000000"
+        },
+         {
+          "id": "green",
+          "name": "зёлёный",
+          "hex": "green"
         }
       ],
       "images": [
@@ -33,12 +38,6 @@
           "sort": 2
         },
         {
-          "id": "img3",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/3.webp",
-          "colorId": "black",
-          "sort": 2
-        },
-        {
           "id": "img4",
           "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/4.webp",
           "colorId": "black",
@@ -46,7 +45,7 @@
         },
         {
           "id": "img5",
-          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.webp",
+          "url": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/6.jpg",
           "colorId": "black",
           "sort": 2
         }

@@ -327,7 +327,9 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                           <Stagger stagger={0.15} amount={0.1}>
                             {activeContent.description.map((p, i) => (
                               <StaggerItem key={i} className={s.paragraph}>
-                                {p}
+                                <p dangerouslySetInnerHTML={{__html:p}}>
+
+                                </p>
                               </StaggerItem>
                             ))}
                           </Stagger>
