@@ -67,7 +67,7 @@
     "description": "ПОЛИМЕРНО-ПЕСЧАНЫЙ с логотипом",
     "priceRub": 2800,
     "categoryId": 1,
-    "img": "/img/products/luk-gts/6.jpg"
+    "img": "/img/products/luk-gts/1.jpg"
   },
   {
     "id": "lyuk-s-zapornym-ustroistvom",
@@ -82,9 +82,9 @@
   {
     "id": "333-polimerpeschanaya-plitka-na-8-kirpichey",
     "slug": "333-polimerpeschanaya-plitka-na-8-kirpichey",
-    "titleShort": "Полимер&shy;песчаная плитка",
-    "titleFull": "Полимерпесчаная плитка (8 кирпичей)",
-    "description": "Полимерпесчаная тротуарная плитка \"8 кирпичей\" отлично подходит для пешеходных площадок и дорожек. Обладает достаточной прочностью и стойкостью к выгоранию.",
+    "titleShort": "плитка Полимерно - песчаная ",
+    "titleFull": "для благоустройства территории",
+    "description": "",
     "priceRub": 180,
     "categoryId": 2,
     "img": "/img/products/333-polimerpeschanaya-plitka-na-8-kirpichey/1.jpg"
@@ -92,9 +92,9 @@
   {
     "id": "polimerpeschaniy-bordyur-porebrik",
     "slug": "polimerpeschaniy-bordyur-porebrik",
-    "titleShort": "Полимер&shy;песчаный поребрик, бордюр",
-    "titleFull": "Полимерпесчаный поребрик, бордюр",
-    "description": "Полимерпесчаный бордюр — это изделие предназначенное для ограничения или фиксации полимернопесчаной тротуарной плитки. ",
+    "titleShort": "поребрик, бордюр Полимерно - песчаный ",
+    "titleFull": "для благоустройства территории",
+    "description": " ",
     "priceRub": 260,
     "categoryId": 2,
     "img": "/img/products/parebrik/1.webp"
@@ -102,12 +102,12 @@
   {
     "id": "polimerpeschaniy-livneviy-lotok",
     "slug": "polimerpeschaniy-livneviy-lotok",
-    "titleShort": "Полимер&shy;песчаный ливневый водоотвод",
-    "titleFull": "Полимерпесчаный ливневый водоотвод",
-    "description": "Полимерпесчаный водоотвод или дождеприемник — это изделие, предназначенное для организации водоотведения в тех местах, где есть необходимость отвода воды. ",
+    "titleShort": " водоотвод Полимерно - песчаный  ",
+    "titleFull": "для водоотведения",
+    "description": "",
     "priceRub": 210,
     "categoryId": 2,
-    "img": "/img/products/polimerpeschaniy-livneviy-lotok/1.jpg"
+    "img": "/img/products/vodootvod/2.webp"
   },
   {
     "id": "kolco-smotrovogo-kolodca",

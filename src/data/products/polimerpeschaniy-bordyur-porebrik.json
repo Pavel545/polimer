@@ -1,8 +1,8 @@
 {
   "id": "polimerpeschaniy-bordyur-porebrik",
   "slug": "polimerpeschaniy-bordyur-porebrik",
-  "titleShort": "Полимерпесчаный поребрик, бордюр",
-  "titleFull": "Полимерпесчаный поребрик, бордюр",
+  "titleShort": "поребрик, бордюр полимерно - песчаный ",
+  "titleFull": "Ппоребрик, бордюр полимерпесчаный для благоустройства территории",
   "description": "<h3>Сфера применения:</h3>  <ul><li></li><li></li><li></li><li></li> </ul> <h3>Цвета полимерпесчаной плитки:</h3><ul><li>Коричневый (шоколад)</li><li>Зеленый</li><li>Красный (кирпичный)</li><li>Серый</li><li>Черный</li></ul>        ",
   "instructionUrl": "/# ",
   "variants": [
@@ -10,21 +10,31 @@
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
       "priceRub": 180,
-      "colors": [
+     "colors": [
         {
-          "id": "black",
-          "name": "шеколад",
-          "hex": "#755b50"
+          "id": "green-dark",
+          "name": "Тёмно зелёный",
+          "hex": "#006400"
+        },
+        {
+          "id": "khaki",
+          "name": "Хаки",
+          "hex": "#323437"
+        },
+        {
+          "id": "brown",
+          "name": "Коричневый",
+          "hex": "#482b00"
         },
         {
           "id": "red",
-          "name": "Красная",
-          "hex": "#8d3e29"
+          "name": "Красный",
+          "hex": "#d80000"
         },
         {
-          "id": "green",
-          "name": "Серая",
-          "hex": "#9d9d9d"
+          "id": "gray",
+          "name": "Серый",
+          "hex": "#808080"
         }
       ],
       "images": [

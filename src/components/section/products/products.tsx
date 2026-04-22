@@ -63,7 +63,7 @@ export default function Products(): JSX.Element {
           activeItemClassName={s.active}
         />}
         <h2 className={"h2 " + s.productsTitle}>
-          Каталог: {categories[catActive - 1]?.titleW}
+           {categories[catActive - 1]?.titleW}
         </h2>
 
      {!isMobile  && <TabsList

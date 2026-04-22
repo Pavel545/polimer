@@ -5,7 +5,7 @@
       "title": "инструкция по монтажу и характеристика",
       "content": {
         "kind": "instruct_characteristics",
-        "leftTitle": "Инструкиця по установке:",
+        "leftTitle": "Инструкция по установке:",
         "instructSrc": "/img/instruct/2.jpg",
         "instructPdf": "/docs/instruct/2.pdf",
         "rightTitle": "ХАРАКТЕРИСТИКА:",
@@ -20,7 +20,7 @@
           },
           {
             "label": "Высота",
-            "value": "50 мм"
+            "value": "60 мм"
           },
           {
             "label": "Масса",
@@ -31,7 +31,7 @@
             "value": "до 3т, на 1м.кв."
           },
           {
-            "label": "Количество изделий на палете",
+            "label": "Количество изделий на поддоне",
             "value": "40шт"
           }
         ]

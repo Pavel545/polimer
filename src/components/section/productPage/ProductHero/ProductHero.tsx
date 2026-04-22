@@ -17,13 +17,19 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/ui/Motion";
+import Lightbox, { SlideItem } from "@/components/ui/Lightbox/lightbox";
+import { Instruct } from "../../hero/hero";
 
 type Props = {
   product: ProductEntity;
 };
 
+
+
 export default function ProductHero({ product }: Props): JSX.Element {
   const router = useRouter();
+    const [activeItem, setActiveItem] = useState<Instruct | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const { openRequest } = useModal();
   const variant = product.variants[0];
 
@@ -71,6 +77,17 @@ export default function ProductHero({ product }: Props): JSX.Element {
       setActiveColorId(img.colorId);
     }
   };
+
+
+   const openModal = (item: Instruct) => {
+      setActiveItem(item);
+      setIsLightboxOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsLightboxOpen(false);
+      setActiveItem(null);
+    };
 
   const renderThumbs = (className?: string) => (
     <div className={`${s.galleryBottom} ${className ?? ""}`}>
@@ -216,14 +233,14 @@ export default function ProductHero({ product }: Props): JSX.Element {
                 <p
                   className={`${s.infoText} ${s.warning}`}
                 >
-                  Важно! : {product.warning}
+                  {product.warning}
                 </p>
               </Lift>}
 
               {product.remember && <Lift delay={0.6} amount={0.2}>
                 <p
-                  className={`${s.infoText} ${s.remember}`}
-                  dangerouslySetInnerHTML={{ __html: product.remember }}
+                  className={`${s.infoText}`}
+                  dangerouslySetInnerHTML={{ __html: " Важно! " + product.remember }}
 
 
                 >
@@ -291,6 +308,14 @@ export default function ProductHero({ product }: Props): JSX.Element {
                       </Stagger>
                     </div>
                   </div>
+                </>
+              </Fade>
+              <Fade className={s.set} delay={0.7} amount={0.2}>
+
+                <>
+                  <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
+                    Выбор полимерпесчаного люка
+                  </button>
                   <motion.button
                     onClick={openRequest}
                     className={"butt " + s.infoCta}
@@ -306,14 +331,19 @@ export default function ProductHero({ product }: Props): JSX.Element {
                   >
                     Оформить заказ
                   </motion.button></>
-              </Fade>
 
+              </Fade>
 
 
             </>
           </SlideInRight>
         </div>
-
+<Lightbox
+        isOpen={isLightboxOpen}
+        images={activeItem?.gallery || []}
+        title={activeItem?.title}
+        onClose={closeModal}
+      />
         {!isMobile && renderThumbs()}
       </div>
     </section>

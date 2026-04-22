@@ -119,6 +119,8 @@
 .heroH2Sp {
   font-size: clamp(13px, 1.2vw, 25px);
   color: var(--seryy-1);
+  padding-top: 10px;
+  display: block;
 }
 
 /* ================== RESPONSIVE ================== */

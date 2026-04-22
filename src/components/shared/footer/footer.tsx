@@ -39,7 +39,7 @@ export default function Footer(): JSX.Element {
     },
     {
       id: "3",
-      slug: "",
+      slug: "luk-lu",
       title: "Люк канализационный полимерпесчаный «ЛУ»",
     },
     {

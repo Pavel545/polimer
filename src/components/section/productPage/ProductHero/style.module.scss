@@ -16,6 +16,9 @@
 
 /* ===== Gallery ===== */
 .gallery {
+  position: sticky;
+  top: 100px;
+      height: fit-content;
 }
 
 .galleryPrev {
@@ -212,8 +215,10 @@
 
 .set{
   display: grid;
-  grid-template-columns: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr;
   align-items: end;
+  gap: 30px;
+  margin: 15px 0;
 }
 
 .infoPriceText {
@@ -326,6 +331,10 @@
     top: 8px;
     bottom: 8px;
     width: 3px;
+  }
+
+  .gallery{
+    position: static;
   }
 }
 

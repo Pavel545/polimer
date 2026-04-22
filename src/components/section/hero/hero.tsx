@@ -64,18 +64,18 @@ export default function Hero() {
         <div className="container">
           <div className={s.heroContent}>
             <h1 className="h1">
-              <span className={`seryy ${s.subTitle}`}>Канализационные люки</span> <br /> полимерпесчаные
+              <span className={`seryy ${s.subTitle}`}>люки Канализационные</span> <br /> полимерно-песчаные
             </h1>
 
             <h2 className={s.heroH2}>
-              Производство и <b>оптовая</b> продажа: <br /> - люки полимерпесчаные,<br /> - плитка тротуарная полимерпесчаная, <br />- водоотводы полимерпесчаные, <br /> - поребрики полимерпесчаные<br /> <span className={s.heroH2Sp}> компания  Полимерные Технологии</span>
+              Производство и <b>оптовая</b> продажа: <br /> - люки полимерпесчаные,<br /> - плитка тротуарная полимерпесчаная, <br />- водоотводы полимерпесчаные, <br /> - поребрики полимерпесчаные<br /> <span className={s.heroH2Sp}>  ООО "Полимерные Технологии"</span>
             </h2>
 
             <div className={s.heroButBox}>
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.jpg", pdf: "/docs/instruct/1.pdf" }] })} >
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
                 Выбор полимерпесчаного люка
               </button>
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/2.pdf" }] })} >
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/3.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/4.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/5.png", pdf: "/docs/instruct/Инструкция полная.pdf" }] })} >
                 Инструкция по монтажу
               </button>
 
