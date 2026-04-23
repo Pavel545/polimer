@@ -20,13 +20,14 @@
   overflow: hidden;
 
   /* вместо height: 280px */
-  height: clamp(200px, 22vw, 280px);
+  height: clamp(200px, 22vw, 350px);
 }
 
 .advantagesContentItemImg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
 }
 .advantagesContentItemText:nth-child(2n) {
   background: var(--temnyy-1);
@@ -120,7 +121,9 @@
     gap: 26px;
     margin-top: 24px;
   }
-
+  .advantagesContentItemText{
+    padding: 10px;
+  }
   .advantagesContentItemText h3 {
     font-size: 20px;
   }

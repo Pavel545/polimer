@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { 
-  SlideInLeft, 
-  SlideInRight, 
-  ScaleIn, 
-  Stagger, 
-  StaggerItem 
+import {
+  SlideInLeft,
+  SlideInRight,
+  ScaleIn,
+  Stagger,
+  StaggerItem
 } from "@/components/ui/Motion";
 import s from "./AboutHero.module.css";
 
@@ -34,7 +34,7 @@ export default function AboutHero() {
                 <StaggerItem>
                   <SlideInLeft delay={0.2} amount={0.2}>
                     <motion.h3
-                      className="h2"
+                      className={`h2 ${s.heroTitle}`}
                       whileHover={{ x: 10 }}
                       transition={{ duration: 0.3 }}
                     >

@@ -1,0 +1,76 @@
+// accordion.module.scss
+.accordion {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: left;
+
+  padding: 15px ;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+}
+
+.open {
+  transform: rotate(45deg);
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+
+  padding: 15px 30px;
+}
+
+.active {
+  max-height: 500px; // можно увеличить если контента много
+}
+.header.active{
+   background: var(--temnyy-1);
+}
+.inner {
+  padding: 10px 0 20px;
+  color: rgba(255, 255, 255, 0.7);
+
+  ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  a {
+    color: #4da3ff;
+    text-decoration: underline;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+
+    td, th {
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px;
+    }
+  }
+}

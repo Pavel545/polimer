@@ -118,6 +118,7 @@ export type ProductListItem = {
   priceRub: number;
   categoryId: number;
   img: string; // главное изображение
+  imgMob?: string; // изображение для мобильных устройств
   type?: string; // опциональное поле, если хотим сохранить тип
 };
 

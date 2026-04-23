@@ -19,7 +19,6 @@ export default function AboutPage() {
       
       />
       <Mission/>
-      <Eko/>
       <AboutInfo />
       {/* <Story /> */}
       <AboutAdvantages />

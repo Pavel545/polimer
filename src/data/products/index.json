@@ -27,7 +27,7 @@
     "description": "( легкий усиленный )",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/luk-lm/3.jpg"
+    "img": "/img/products/luk-lu/1.webp"
   },
   {
     "id": "luk-c",
@@ -57,7 +57,8 @@
     "description": " (ПОЛИМЕРНО-ПЕСЧАНЫЙ КОНУС-ЛЮК)",
     "priceRub": 2100,
     "categoryId": 1,
-    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg"
+    "img": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/5.jpg",
+    "imgMob": "/img/products/konusniy-perehodnik-smotrovogo-kolodca/1.jpg"
   },
   {
     "id": "luk-c-logotipom",
@@ -72,7 +73,7 @@
   {
     "id": "lyuk-s-zapornym-ustroistvom",
     "slug": "lyuk-s-zapornym-ustroistvom",
-    "titleShort": "Люк с запорным устройством",
+    "titleShort": "Люк с ЗЗУ",
     "titleFull": "для защиты колодцев, инженерных сетей ",
     "description": "Полимерпесчаный люк с запорным устройством",
     "priceRub": 3000,

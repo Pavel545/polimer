@@ -17,12 +17,12 @@ export default function Footer(): JSX.Element {
   const link: NavLink[] = [
     { href: "/about-us", text: `О компании ООО "Полимерные Технологии"` },
     { href: "/blog", text: `Новости ООО "Полимерные Технологии"` },
-    // { href: "/vacancies", text: "Вакансии" },
+    { href: "/sotrudnichestvo", text: "Условия сотрудничества" },
     { href: "/contacts", text: "Контакты ООО \"Полимерные Технологии\"" },
   ];
 
   const lukProducts: Product[] = [
-     {
+    {
       id: "6",
       slug: "konus-luk-lm",
       title: "Конус-люк канализационный полимерпесчаный «ЛМ»",
@@ -81,17 +81,17 @@ export default function Footer(): JSX.Element {
       title: "Полимерпесчаный ливневый лоток",
     }
   ];
-const colodecProd: Product[] =[
-   {
+  const colodecProd: Product[] = [
+    {
       id: "1",
       slug: "kolco-smotrovogo-kolodca",
       title: "Кольцо смотрового колодца",
-    },{
+    }, {
       id: "2",
       slug: "dno-smotrovogo-kolodca",
       title: "Дно смотрового колодца",
     },
-]
+  ]
   // Company details for microdata and easy maintenance
   const companyDetails = {
     name: "ООО «Полимерные Технологии»",

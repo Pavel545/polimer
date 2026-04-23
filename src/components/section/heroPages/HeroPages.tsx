@@ -54,8 +54,8 @@ export default function HeroPages({ title, h1, text, fon }: HeroPages) {
                             delay: 0.7,
                             ease: [0.22, 1, 0.36, 1]
                         }}
+                        dangerouslySetInnerHTML={{__html:h1}}
                     >
-                        {h1}
                     </motion.h1>
 
                     {/* Текст (если есть) */}

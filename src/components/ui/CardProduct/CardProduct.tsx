@@ -6,6 +6,7 @@ import { motion, Variants } from "framer-motion";
 import React, { JSX } from "react";
 import s from "./CardProduct.module.css";
 import { ProductListItem } from "@/types/product";
+import { useMedia } from "@/lib/Media";
 
 type Props = {
   product: ProductListItem;
@@ -22,11 +23,13 @@ export default function CardProduct({
   variants,
   style,
 }: Props): JSX.Element {
+    const isMobile = useMedia("(max-width: 768px)");
+
   const CardInner = (
     <>
       <div className={s.media}>
         <Image
-          src={product.img}
+          src={isMobile ? product.imgMob || product.img : product.img}
           alt={product.titleShort}
           width={600}
           height={400}

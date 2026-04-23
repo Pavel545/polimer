@@ -9,6 +9,7 @@
   flex-direction: column;
 
   position: relative;
+  padding-top: 60px;
 }
 
 /* лёгкое затемнение, чтобы текст читался (опционально, но обычно нужно) */

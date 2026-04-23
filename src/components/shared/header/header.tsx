@@ -10,6 +10,12 @@ type NavLink = {
   href: string;
   text: string;
 };
+type Product = {
+  id: string;
+  slug: string;
+  title: string;
+};
+
 
 export default function Header(): JSX.Element {
   const { openRequest } = useModal();
@@ -20,9 +26,79 @@ export default function Header(): JSX.Element {
     { href: "/products", text: "Продукция" },
     { href: "/about-us", text: "О нас" },
     { href: "/blog", text: "Блог" },
-    // { href: "/vacancies", text: "Вакансии" },
+    { href: "/sotrudnichestvo", text: "Условия сотрудничества" },
+  ];
+  const lukProducts: Product[] = [
+     {
+      id: "6",
+      slug: "konus-luk-lm",
+      title: "Конус-люк тип «ЛМ»",
+    },
+    {
+      id: "1",
+      slug: "luk-lm",
+      title: "Люк тип «ЛМ»",
+    },
+    {
+      id: "2",
+      slug: "luk-l",
+      title: "Люк тип «Л»",
+    },
+    {
+      id: "3",
+      slug: "luk-lu",
+      title: "Люк тип  «ЛУ»",
+    },
+    {
+      id: "4",
+      slug: "luk-c",
+      title: "Люк тип «С»",
+    },
+    {
+      id: "5",
+      slug: "luk-t",
+      title: "Люк тип  «Т»",
+    },
+    {
+      id: "7",
+      slug: "luk-c-logotipom",
+      title: "Люк c логотипом",
+    }, {
+      id: "8",
+      slug: "lyuk-s-zapornym-ustroistvom",
+      title: "Люк с ЗЗУ",
+    },
   ];
 
+
+  const terProd: Product[] = [
+    {
+      id: "1",
+      slug: "333-polimerpeschanaya-plitka-na-8-kirpichey",
+      title: "Тротуарная плитка ",
+    },
+    {
+      id: "2",
+      slug: "polimerpeschaniy-bordyur-porebrik",
+      title: "Поребрик, бордюр",
+    },
+    {
+      id: "3",
+      slug: "polimerpeschaniy-livneviy-lotok",
+      title: " Ливневый водоотвод",
+    }
+  ];
+const colodecProd: Product[] =[
+   {
+      id: "1",
+      slug: "kolco-smotrovogo-kolodca",
+      title: "Кольцо смотрового колодца",
+    },{
+      id: "2",
+      slug: "dno-smotrovogo-kolodca",
+      title: "Дно смотрового колодца",
+    },
+]
   const closeMenu = (): void => setIsOpen(false);
   const toggleMenu = (): void => setIsOpen((v) => !v);
 
@@ -155,6 +231,38 @@ export default function Header(): JSX.Element {
                 <a className={s.mobileLink} href={e.href} onClick={closeMenu}>
                   {e.text}
                 </a>
+                { e.href === "/products/" && (
+                  
+                  <ul className={s.mobileSubLinks}>
+
+                   {lukProducts.map((luc, idx) => (
+                     <li>
+                      <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
+                        {luc.title}
+                      </a>
+                    </li>
+                   ))}
+                   <br />
+                   
+                   {terProd.map((luc, idx) => (
+                     <li>
+                      <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
+                        {luc.title}
+                      </a>
+                    </li>
+                   ))}
+                   <br />
+                   {colodecProd.map((luc, idx) => (
+                     <li>
+                      <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
+                        {luc.title}
+                      </a>
+                    </li>
+                   ))}
+                    
+                  </ul>
+                )}
+
               </li>
             ))}
           </ul>

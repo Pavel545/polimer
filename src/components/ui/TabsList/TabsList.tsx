@@ -128,7 +128,7 @@ export default function TabsList({
     if (mobileDisplayMode === "column") {
       return (
         <div className={s.mobileColumn}>
-          {mobileLabel && <div className={s.mobileLabel}>{mobileLabel}</div>}
+          {/* {mobileLabel && <div className={s.mobileLabel}>{mobileLabel}</div>} */}
           <div className={s.columnList}>
             {items.map((el) => {
               const isActive = activeId === el.id;

@@ -75,7 +75,7 @@ export default function Hero() {
               <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
                 Выбор полимерпесчаного люка
               </button>
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/3.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/4.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/5.png", pdf: "/docs/instruct/Инструкция полная.pdf" }] })} >
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/3.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/4.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/5.png", pdf: "/docs/instruct/Инструкция полная.pdf" }] })} >
                 Инструкция по монтажу
               </button>
 

@@ -1,0 +1,99 @@
+.section {
+    padding: 70px 0;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    min-height: 90vh;
+}
+
+.intro {
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 120%;
+    color: var(--belyy);
+    max-width: 520px;
+    margin-bottom: 30px;
+}
+
+.text {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 130%;
+    color: var(--seryy-1);
+    max-width: 500px;
+}
+
+
+
+
+
+
+/* ===== TABLET ===== */
+@media (max-width: 1024px) {
+    .section {
+        padding: 50px 0;
+    }
+
+    .content {
+        gap: 30px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .text {
+        font-size: 15px;
+    }
+}
+
+
+
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .intro {
+        position: static; // отключаем sticky
+        margin-bottom: 30px;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+}
+
+
+
+
+/* ===== SMALL MOBILE ===== */
+@media (max-width: 480px) {
+    .section {
+        padding: 40px 0;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .text {
+        font-size: 13px;
+    }
+}

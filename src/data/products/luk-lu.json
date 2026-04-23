@@ -42,33 +42,27 @@
       "images": [
         {
           "id": "img1",
-          "url": "/img/products/luk-lm/1.jpg",
-          "colorId": "brown",
+          "url": "/img/products/luk-lu/1.webp",
+          "colorId": "",
           "sort": 1
         },
         {
           "id": "img2",
-          "url": "/img/products/luk-lm/2.jpg",
-          "colorId": "red",
+          "url": "/img/products/luk-lu/2.webp",
+          "colorId": "",
           "sort": 2
         },
         {
           "id": "img3",
-          "url": "/img/products/luk-lm/3.jpg",
-          "colorId": "green-dark",
+          "url": "/img/products/luk-lu/3.webp",
+          "colorId": "",
           "sort": 3
         },
         {
           "id": "img4",
-          "url": "/img/products/luk-lm/4.jpg",
-          "colorId": "khaki",
+          "url": "/img/products/luk-lu/4.webp",
+          "colorId": "",
           "sort": 4
-        },
-        {
-          "id": "img6",
-          "url": "/img/products/luk-lm/6.jpg",
-          "colorId": "gray",
-          "sort": 6
         }
       ]
     }

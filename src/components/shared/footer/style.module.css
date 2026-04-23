@@ -131,12 +131,13 @@
   .siteMap {
     display: flex;
     flex-direction: column-reverse;
-
+    align-items: center;
   }
 
   .col {
     padding: 20px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
+    justify-content: center;
   }
 
   .footer {
@@ -145,6 +146,8 @@
 
   .footerLink {
     white-space: wrap;
+    text-align: center;
+    width: 100%;
   }
 
   .list li {

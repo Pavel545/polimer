@@ -101,15 +101,8 @@ export default function Products(): JSX.Element {
         <div className="flex-center">
           <button
             className={"butt " + s.heroBtn + " " + s.heroBtn2}
-            onClick={() =>
-              openModal({
-                title: "Инструкция по монтажу",
-                gallery: [
-                  { image: "/img/instruct/1.jpg", pdf: "/docs/instruct/1.pdf" },
-                  { image: "/img/instruct/2.jpg", pdf: "/docs/instruct/2.pdf" },
-                ],
-              })
-            }
+           
+            onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/3.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/4.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" },{ image: "/img/instruct/5.png", pdf: "/docs/instruct/Инструкция полная.pdf" }] })}
           >
             Инструкция по монтажу
           </button>
