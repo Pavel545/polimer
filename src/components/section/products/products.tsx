@@ -98,7 +98,7 @@ export default function Products(): JSX.Element {
           })}
         </Stagger>
 
-        <div className="flex-center">
+        <div className={`flex-center ${s.prodBut}`}>
           <button
             className={"butt " + s.heroBtn + " " + s.heroBtn2}
            
@@ -106,14 +106,19 @@ export default function Products(): JSX.Element {
           >
             Инструкция по монтажу
           </button>
-
-          <Lightbox
+<button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерно-песчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
+                Выбор полимерно-песчаного люка
+              </button>
+              
+             
+         
+        </div>
+         <Lightbox
             isOpen={isLightboxOpen}
             images={activeItem?.gallery || []}
             title={activeItem?.title}
             onClose={closeModal}
           />
-        </div>
       </div>
     </section>
   );

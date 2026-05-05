@@ -74,7 +74,7 @@ export default function BlogContent({ content }: BlogContentProps) {
                             case 'quote':
                                 return (
                                     <blockquote key={index} className={s.quote}>
-                                        <p className={s.quoteText}>{block.text}</p>
+                                        <p className={s.quoteText} dangerouslySetInnerHTML={{__html:block.text}}></p>
                                         {block.author && (
                                             <cite className={s.quoteAuthor}>— {block.author}</cite>
                                         )}
