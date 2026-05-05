@@ -10,7 +10,7 @@ export default function Contacts() {
         phone: "+7 (800) 222 43 09",
         phoneRaw: "+78002224309",
         email: "73polimer@mail.ru",
-        telegram: "https://t.me/polymertech",
+        telegram: "",
         max: "",
         vk: "",
     };
@@ -62,7 +62,7 @@ export default function Contacts() {
                     </div>
 
                     {/* Соцсети */}
-                    <div className={s.contactBlock}>
+                    {/* <div className={s.contactBlock}>
                         <h2>Мы в мессенджерах и соцсетях</h2>
                         <div className={s.socRow}>
                             <a
@@ -90,7 +90,7 @@ export default function Contacts() {
                                 <Image src="/icons/vk.svg" alt="VK" width={44} height={44} />
                             </a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Карта */}

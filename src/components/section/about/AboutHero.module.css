@@ -104,3 +104,60 @@
     font-size: 13px;
   }
 }
+
+
+
+/* Add these styles to your existing CSS */
+.heroSlider {
+  width: 100%;
+  border-radius: var(--br);
+  overflow: hidden;
+}
+
+.heroSlider :global(.swiper-button-prev),
+.heroSlider :global(.swiper-button-next) {
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.heroSlider :global(.swiper-button-prev:hover),
+.heroSlider :global(.swiper-button-next:hover) {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.heroSlider :global(.swiper-button-prev:after),
+.heroSlider :global(.swiper-button-next:after) {
+  font-size: 18px;
+}
+
+.heroSlider :global(.swiper-pagination-bullet) {
+  background: white;
+  opacity: 0.5;
+}
+
+.heroSlider :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+  background: white;
+}
+
+.heroSlider :global(.swiper-pagination-bullet:hover) {
+  opacity: 0.8;
+}
+
+/* Responsive adjustments for slider controls */
+@media (max-width: 768px) {
+  .heroSlider :global(.swiper-button-prev),
+  .heroSlider :global(.swiper-button-next) {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .heroSlider :global(.swiper-button-prev:after),
+  .heroSlider :global(.swiper-button-next:after) {
+    font-size: 14px;
+  }
+}

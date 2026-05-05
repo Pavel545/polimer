@@ -78,7 +78,7 @@ export default function Footer(): JSX.Element {
     {
       id: "3",
       slug: "polimerpeschaniy-livneviy-lotok",
-      title: "Полимерпесчаный ливневый лоток",
+      title: "Полимерпесчаный водоотвод",
     }
   ];
   const colodecProd: Product[] = [
@@ -158,10 +158,10 @@ export default function Footer(): JSX.Element {
               </li>
 
 
-              <li className={s.socRow}>
+              {/* <li className={s.socRow}>
                 <a
                   className={s.footerSoc}
-                  href="https://t.me/polymertech"
+                  href="https://t.me/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Telegram"
@@ -186,7 +186,7 @@ export default function Footer(): JSX.Element {
                 >
                   <Image src="/icons/vk.svg" alt="Связаться по VK" width={44} height={44} />
                 </a>
-              </li>
+              </li> */}
             </ul>
 
           </div>

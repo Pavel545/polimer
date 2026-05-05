@@ -68,9 +68,7 @@ function validate(values: FormState): FormErrors {
   }
 
   const msg = values.message.trim();
-  if (msg.length < 10) {
-    errors.message = "Сообщение должно быть минимум 10 символов";
-  } else if (msg.length > 500) {
+  if (msg.length > 500) {
     errors.message = "Сообщение не должно превышать 500 символов";
   }
 
@@ -87,6 +85,15 @@ function validateForSubmit(values: FormState): FormErrors {
   return errors;
 }
 
+// Функция для проверки, можно ли разблокировать кнопку
+function isFormValidForSubmit(values: FormState): boolean {
+  const nameValid = values.name.trim().length >= 2 && values.name.trim().length <= 50;
+  const phoneValid = isPhoneComplete(values.phone);
+  const agreementValid = values.agreement === true;
+  
+  return nameValid && phoneValid && agreementValid;
+}
+
 export default function Contact() {
   const [values, setValues] = useState<FormState>(initial);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -94,9 +101,16 @@ export default function Contact() {
   const [isSuccess, setIsSuccess] = useState(false);
   const timerRef = useRef<number | null>(null);
 
+  // Вычисляем, активна ли кнопка
+  const isButtonDisabled = useMemo(() => {
+    return isSubmitting || !isFormValidForSubmit(values);
+  }, [isSubmitting, values]);
+
+  // Этот useMemo больше не нужен, так как мы используем isFormValidForSubmit
+  // Но оставим для других возможных проверок
   const canSubmit = useMemo(() => {
     const e = validate(values);
-    return Object.keys(e).length === 0;
+    return Object.keys(e).length === 0 && values.agreement;
   }, [values]);
 
   useEffect(() => {
@@ -206,7 +220,7 @@ export default function Contact() {
                     value={values.name}
                     onChange={(e) => handleChange("name", e.target.value)}
                     type="text"
-                    placeholder="Ваше имя"
+                    placeholder="Ваше имя *"
                     autoComplete="name"
                     disabled={isSubmitting}
                   />
@@ -219,7 +233,7 @@ export default function Contact() {
                     value={values.phone}
                     onChange={handlePhoneChange}
                     type="tel"
-                    placeholder="+7 (___) ___-__-__"
+                    placeholder="+7 (___) ___-__-__ *"
                     inputMode="tel"
                     autoComplete="tel"
                     disabled={isSubmitting}
@@ -258,7 +272,7 @@ export default function Contact() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Политикой конфиденциальности
+                          Политикой конфиденциальности *
                         </a>
                       </span>
                     </label>
@@ -271,7 +285,12 @@ export default function Contact() {
                 <button
                   className={`butt ${s.submit}`}
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isButtonDisabled}
+                  style={{
+                    opacity: isButtonDisabled ? 0.55 : 1,
+                    cursor: isButtonDisabled ? "not-allowed" : "pointer",
+                    transition: "all 0.3s ease"
+                  }}
                 >
                   {isSubmitting ? "Отправляем..." : "Отправить"}
                 </button>

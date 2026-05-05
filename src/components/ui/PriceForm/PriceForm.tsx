@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import s from "./PopupForm.module.css";
+import s from "./PriceForm.module.css";
 
 type Props = {
   onClose: () => void;
@@ -11,7 +11,7 @@ type Props = {
 type FormState = {
   name: string;
   phone: string;
-  message: string;
+  email: string;
   agreement: boolean;
 };
 
@@ -20,7 +20,7 @@ type FormErrors = Partial<Record<keyof FormState, string>>;
 const initial: FormState = {
   name: "",
   phone: "",
-  message: "",
+  email: "",
   agreement: false,
 };
 
@@ -56,6 +56,10 @@ function isPhoneComplete(masked: string): boolean {
   return digitsOnly(masked).length === 11;
 }
 
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
 function validateFields(values: FormState): FormErrors {
   const errors: FormErrors = {};
 
@@ -70,10 +74,12 @@ function validateFields(values: FormState): FormErrors {
     errors.phone = "Введите корректный номер телефона.";
   }
 
-  const msg = values.message.trim();
-  if (msg.length > 500) {
-      errors.message = "Сообщение не должно превышать 500 символов.";
-    }
+  const email = values.email.trim();
+  if (!email) {
+    errors.email = "Введите email адрес.";
+  } else if (!isValidEmail(email)) {
+    errors.email = "Введите корректный email адрес.";
+  }
 
   return errors;
 }
@@ -88,16 +94,7 @@ function validateForSubmit(values: FormState): FormErrors {
   return errors;
 }
 
-// Новая функция: проверка, можно ли разблокировать кнопку
-function isFormValidForSubmit(values: FormState): boolean {
-  const nameValid = values.name.trim().length >= 2 && values.name.trim().length <= 50;
-  const phoneValid = isPhoneComplete(values.phone);
-  const agreementValid = values.agreement === true;
-  
-  return nameValid && phoneValid && agreementValid;
-}
-
-export default function PopupForm({ onClose }: Props) {
+export default function PriceForm({ onClose }: Props) {
   const [values, setValues] = useState<FormState>(initial);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitError, setSubmitError] = useState("");
@@ -129,23 +126,23 @@ export default function PopupForm({ onClose }: Props) {
 
   const onChange =
     (key: keyof FormState) =>
-      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        let next: string | boolean = e.target.value;
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      let next: string | boolean = e.target.value;
 
-        if (key === "phone") {
-          next = formatPhoneRU(e.target.value);
-        }
+      if (key === "phone") {
+        next = formatPhoneRU(e.target.value);
+      }
 
-        setValues((prev) => ({ ...prev, [key]: next }));
-        setSubmitError("");
+      setValues((prev) => ({ ...prev, [key]: next }));
+      setSubmitError("");
 
-        setErrors((prev) => {
-          if (!prev[key]) return prev;
-          const copy = { ...prev };
-          delete copy[key];
-          return copy;
-        });
-      };
+      setErrors((prev) => {
+        if (!prev[key]) return prev;
+        const copy = { ...prev };
+        delete copy[key];
+        return copy;
+      });
+    };
 
   const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({ ...prev, agreement: e.target.checked }));
@@ -169,6 +166,15 @@ export default function PopupForm({ onClose }: Props) {
     onClose();
   };
 
+  const triggerDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/docs/Ценовое предложение.pdf"; 
+    link.download = "Ценовое предложение.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -184,8 +190,8 @@ export default function PopupForm({ onClose }: Props) {
       const payload = {
         name: values.name.trim(),
         phone: values.phone.trim(),
-        message: values.message.trim(),
-        topic: "Заявка из popup-формы",
+        email: values.email.trim(),
+        topic: "Запрос прайс-листа",
       };
 
       const response = await fetch("/api/send-form", {
@@ -202,10 +208,15 @@ export default function PopupForm({ onClose }: Props) {
         if (result?.fields && typeof result.fields === "object") {
           setErrors(result.fields);
         } else {
-          setSubmitError(result?.error || "Не удалось отправить. Попробуйте ещё раз.");
+          setSubmitError(
+            result?.error || "Не удалось отправить. Попробуйте ещё раз."
+          );
         }
         return;
       }
+
+      // Отправка успешна — скачиваем PDF
+      triggerDownload();
 
       setIsSuccess(true);
       setValues(initial);
@@ -214,16 +225,15 @@ export default function PopupForm({ onClose }: Props) {
 
       timerRef.current = window.setTimeout(() => {
         closeAll();
-      }, 2500);
+      }, 4000);
     } catch {
-      setSubmitError("Не удалось отправить. Проверьте соединение и попробуйте ещё раз.");
+      setSubmitError(
+        "Не удалось отправить. Проверьте соединение и попробуйте ещё раз."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  // Вычисляем, активна ли кнопка
-  const isButtonDisabled = isSubmitting || !isFormValidForSubmit(values);
 
   const contentVariants = {
     hidden: {},
@@ -241,8 +251,17 @@ export default function PopupForm({ onClose }: Props) {
   };
 
   return (
-    <div className={s.popOverley} onMouseDown={closeAll} role="dialog" aria-modal="true">
-      <motion.div variants={contentVariants} initial="hidden" animate="visible">
+    <div
+      className={s.popOverley}
+      onMouseDown={closeAll}
+      role="dialog"
+      aria-modal="true"
+    >
+      <motion.div
+        variants={contentVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <motion.div
           className={s.popBackdrop}
           initial={{ opacity: 0 }}
@@ -270,52 +289,100 @@ export default function PopupForm({ onClose }: Props) {
 
             {!isSuccess ? (
               <>
-                <h3 className={s.popTitle}>Оставить заявку</h3>
+                <div className={s.header}>
+                  <div className={s.iconWrapper}>
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M14 2v6h6M16 13H8M16 17H8M10 9H8"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className={s.popTitle}>Скачать прайс-лист</h3>
+                </div>
+
                 <p className={s.popText}>
-                  Заполните форму, и мы свяжемся с вами для обсуждения деталей и
-                  индивидуального подхода к заказу
+                  Мы ценим наших новых и постоянных клиентов. <br /><br /> Пожалуйста,
+                  заполните форму и прайс-лист будет отправлен вам
+                  автоматически. <br /> Мы всегда рады взаимовыгодному сотрудничеству.
                 </p>
 
                 <form className={s.popForm} onSubmit={onSubmit} noValidate>
-                  <div className={s.field}>
+                  <motion.div
+                    className={s.field}
+                    variants={itemVariants}
+                  >
                     <input
                       className={`${s.popFormInput} ${errors.name ? s.inputError : ""}`}
                       value={values.name}
                       onChange={onChange("name")}
                       type="text"
-                      placeholder="Ваше имя *"
+                      placeholder="Ваше имя"
                       autoComplete="name"
                       disabled={isSubmitting}
                     />
-                    {errors.name && <div className={s.errorText}>{errors.name}</div>}
-                  </div>
+                    {errors.name && (
+                      <div className={s.errorText}>{errors.name}</div>
+                    )}
+                  </motion.div>
 
-                  <div className={s.field}>
+                  <motion.div
+                    className={s.field}
+                    variants={itemVariants}
+                  >
                     <input
                       className={`${s.popFormInput} ${errors.phone ? s.inputError : ""}`}
                       value={values.phone}
                       onChange={onChange("phone")}
                       type="tel"
-                      placeholder="+7 (___) ___-__-__ *"
+                      placeholder="+7 (___) ___-__-__"
                       inputMode="tel"
                       autoComplete="tel"
                       disabled={isSubmitting}
                     />
-                    {errors.phone && <div className={s.errorText}>{errors.phone}</div>}
-                  </div>
+                    {errors.phone && (
+                      <div className={s.errorText}>{errors.phone}</div>
+                    )}
+                  </motion.div>
 
-                  <div className={s.field}>
-                    <textarea
-                      className={`${s.popFormTextarea} ${errors.message ? s.inputError : ""}`}
-                      value={values.message}
-                      onChange={onChange("message")}
-                      placeholder="Ваше сообщение"
+                  <motion.div
+                    className={s.field}
+                    variants={itemVariants}
+                  >
+                    <input
+                      className={`${s.popFormInput} ${errors.email ? s.inputError : ""}`}
+                      value={values.email}
+                      onChange={onChange("email")}
+                      type="email"
+                      placeholder="Ваш email"
+                      autoComplete="email"
                       disabled={isSubmitting}
                     />
-                    {errors.message && <div className={s.errorText}>{errors.message}</div>}
-                  </div>
+                    {errors.email && (
+                      <div className={s.errorText}>{errors.email}</div>
+                    )}
+                  </motion.div>
 
-                  <div className={s.field}>
+                  <motion.div
+                    className={s.field}
+                    variants={itemVariants}
+                  >
                     <label className={s.checkboxLabel}>
                       <input
                         type="checkbox"
@@ -333,28 +400,60 @@ export default function PopupForm({ onClose }: Props) {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Правилами обработки персональных данных *
+                          Правилами обработки персональных данных
                         </a>
                       </span>
                     </label>
                     {errors.agreement && (
                       <div className={s.errorText}>{errors.agreement}</div>
                     )}
-                  </div>
+                  </motion.div>
 
-                  {submitError && <div className={s.submitError}>{submitError}</div>}
+                  {submitError && (
+                    <motion.div
+                      className={s.submitError}
+                      variants={itemVariants}
+                    >
+                      {submitError}
+                    </motion.div>
+                  )}
 
-                  <button
-                    className={`butt ${s.submit}`}
-                    type="submit"
-                    disabled={isButtonDisabled}
-                    style={{
-                      opacity: isButtonDisabled ? 0.55 : 1,
-                      cursor: isButtonDisabled ? "not-allowed" : "pointer"
-                    }}
-                  >
-                    {isSubmitting ? "Отправляем..." : "Отправить"}
-                  </button>
+                  <motion.div variants={itemVariants}>
+                    <button
+                      className={`butt `}
+                      style={{width:"100%"}}
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      <span className={s.submitContent}>
+                        {isSubmitting ? (
+                          <>
+                            <span className={s.spinner} />
+                            Отправляем...
+                          </>
+                        ) : (
+                          <>
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                            Отправить запрос и cкачать <br className={s.mob} /> прайс-лист
+                          </>
+                        )}
+                      </span>
+                    </button>
+                  </motion.div>
                 </form>
               </>
             ) : (
@@ -365,7 +464,13 @@ export default function PopupForm({ onClose }: Props) {
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={s.successIcon}>
-                  <svg width="54" height="54" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <svg
+                    width="54"
+                    height="54"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
                     <path
                       d="M20 6L9 17l-5-5"
                       stroke="currentColor"
@@ -376,10 +481,15 @@ export default function PopupForm({ onClose }: Props) {
                   </svg>
                 </div>
 
-                <h3 className={s.successTitle}>Спасибо за заявку!</h3>
+                <h3 className={s.successTitle}>Прайс-лист скачан!</h3>
                 <p className={s.successText}>
-                  Ваша заявка в обработке. Наш сотрудник свяжется с вами в ближайшее время
+                  Спасибо за интерес к нашему предложению. Если у вас возникнут
+                  вопросы, мы с радостью на них ответим в ближайшее время.
                 </p>
+
+                <button className={`butt ${s.successBtn}`} onClick={closeAll}>
+                  Хорошо
+                </button>
               </motion.div>
             )}
           </motion.div>

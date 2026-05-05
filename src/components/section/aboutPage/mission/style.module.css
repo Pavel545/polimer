@@ -100,7 +100,7 @@
 
 .boxText p,
 .boxText li {
-    font-size: clamp(16px, 2rem, 20px);
+    font-size: clamp(16px, 1.3rem, 20px);
 
 }
 
@@ -137,7 +137,13 @@
     .content {
         grid-template-columns: 1fr;
 
-        margin: 30px 0;
+        margin: 20px 0;
 
     }
+
+    .boxText p,
+.boxText li {
+    font-size: 16px;
+
+}
 }

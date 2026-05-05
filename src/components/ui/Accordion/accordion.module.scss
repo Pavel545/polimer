@@ -20,7 +20,7 @@
   cursor: pointer;
   text-align: left;
 
-  padding: 15px ;
+  padding: 15px;
 }
 
 .icon {
@@ -42,9 +42,11 @@
 .active {
   max-height: 500px; // можно увеличить если контента много
 }
-.header.active{
-   background: var(--temnyy-1);
+
+.header.active {
+  background: var(--temnyy-1);
 }
+
 .inner {
   padding: 10px 0 20px;
   color: rgba(255, 255, 255, 0.7);
@@ -68,9 +70,22 @@
     border-collapse: collapse;
     margin-top: 10px;
 
-    td, th {
-      border: 1px solid rgba(255,255,255,0.2);
+    td,
+    th {
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 8px;
     }
+  }
+}
+
+
+
+@media (max-width: 470px) {
+  .header {
+    padding: 10px 15px;
+  }
+
+  .content {
+    padding: 6px 20px;
   }
 }

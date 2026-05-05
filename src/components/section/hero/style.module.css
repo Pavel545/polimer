@@ -48,12 +48,14 @@
 }
 
 .heroButBox {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
+  margin-top: 48px;
+  
 }
 
 .heroBtn {
-  margin-top: 48px;
 }
 
 .heroBtn2 {
@@ -123,6 +125,20 @@
   display: block;
 }
 
+
+.priceBtn {
+  background: var(--belyy);
+  color: var(--temnyy-1);
+  grid-column: 1 / span 2 ;
+}
+
+
+.priceBtn:hover {
+  background: var(--siniy-1);
+  color: var(--belyy);
+
+}
+
 /* ================== RESPONSIVE ================== */
 
 @media (max-width: 1024px) {
@@ -131,9 +147,7 @@
     padding: 44px 0 18px;
   }
 
-  .heroBtn {
-    margin-top: 28px;
-  }
+  
 
   .advGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -147,28 +161,32 @@
 .subTitle {
   font-size: clamp(21px, 3.4vw, 52px);
   text-align: justify;
- text-wrap-mode: nowrap;
+  text-wrap-mode: nowrap;
 }
+
 @media (max-width: 640px) {
   .heroButBox {
+    display: flex;
     flex-direction: column;
     gap: 0;
   }
 
   .heroContent {
-    max-width: 100%;
-    padding: 56px 0 14px;
-    gap: 12px;
-    height: 80vh;
+ gap: 12px;
+        max-width: 100%;
+        height: 90vh;
+        padding: 98px 0 14px;
   }
-
+  .contain {
+    height: 100%;
+  }
   .heroButBox {
     margin-top: auto;
     width: 100%;
   }
 
   .heroBtn {
-    margin-top: 18px;
+    margin-top: 8px;
     width: 100%;
     text-align: center;
   }

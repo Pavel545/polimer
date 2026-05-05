@@ -415,7 +415,10 @@
     height: 84px;
     min-height: 84px;
   }
-
+.set{
+  grid-template-columns: 1fr ;
+  gap: 5px;
+}
   .pHeroContent {
     padding-bottom: 40px;
   }

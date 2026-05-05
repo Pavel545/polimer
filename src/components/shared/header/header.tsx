@@ -231,7 +231,7 @@ const colodecProd: Product[] =[
                 <a className={s.mobileLink} href={e.href} onClick={closeMenu}>
                   {e.text}
                 </a>
-                { e.href === "/products/" && (
+                { e.href === "/products" && (
                   
                   <ul className={s.mobileSubLinks}>
 

@@ -17,7 +17,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/ui/Motion";
-import Lightbox, { SlideItem } from "@/components/ui/Lightbox/lightbox";
+import Lightbox from "@/components/ui/Lightbox/lightbox";
 import { Instruct } from "../../hero/hero";
 
 type Props = {
@@ -313,9 +313,11 @@ export default function ProductHero({ product }: Props): JSX.Element {
               <Fade className={s.set} delay={0.7} amount={0.2}>
 
                 <>
-                  <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
-                    Выбор полимерпесчаного люка
+                  {!product?.who && 
+                    <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерно-песчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
+                    Выбор полимерно-песчаного люка
                   </button>
+                  }
                   <motion.button
                     onClick={openRequest}
                     className={"butt " + s.infoCta}

@@ -8,7 +8,7 @@ export default function BlogPage() {
 
     return (
         <main style={{background:'var(--temnyy-1)'}}>
-            <HeroPages fon='/img/blog/fon.jpg' title='Блог' h1="наши последние разработки" text="Избранные статьи об полимерных технологиях, данных, автоматизации, стратегиях и проверенных результатах. Советы, тенденции и новости компании"/>
+            <HeroPages fon='/img/blog/fon.jpg' title='Блог' h1="НОВОСТИ КОМПАНИИ" />
             <BlogList/>
         </main>
     )

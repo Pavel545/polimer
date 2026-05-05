@@ -21,11 +21,11 @@ export default function About() {
         { src: "/img/about/logotip/2.jpg", alt: "Логотип на люке 2" },
        
       ],
-      href: "/products/luk-gts"
+      href: "/products/luk-c-logotipom"
     },
     {
       icon: "/icons/about/4.svg",
-      title: "Доставка люки до клиента",
+      title: "Доставка люков до клиента",
       text: "Собственная служба логистики доставит товар заказчикам по всей территории России",
       gallery: [
         { src: "/img/about/dostavka/3.jpg", alt: "Доставка 3" },

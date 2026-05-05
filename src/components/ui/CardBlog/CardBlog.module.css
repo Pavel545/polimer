@@ -43,3 +43,9 @@
   line-height: 130%;
   color: var(--seryy-1);
 }
+
+@media (max-width: 470px) {
+  .cardImg {
+        height: 200px;
+  }
+}

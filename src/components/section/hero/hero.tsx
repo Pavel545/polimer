@@ -4,7 +4,7 @@ import Lightbox, { SlideItem } from "@/components/ui/Lightbox/lightbox";
 import s from "./style.module.css";
 import Image from "next/image";
 import { useState } from "react";
-import Link from "next/link";
+import PriceForm from "@/components/ui/PriceForm/PriceForm";
 
 type Advantage = {
   icon: string;
@@ -18,7 +18,7 @@ export type Instruct = {
 export default function Hero() {
   const [activeItem, setActiveItem] = useState<Instruct | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
+  const [isPriceFormOpen, setIsPriceFormOpen] = useState(false);
   const advantages: Advantage[] = [
     { icon: "/icons/about/4.svg", text: "доставка по всей россии от нас до клиента" },
     { icon: "/icons/advantages/2.svg", text: "большой складской запас продукции" },
@@ -34,6 +34,15 @@ export default function Hero() {
   const closeModal = () => {
     setIsLightboxOpen(false);
     setActiveItem(null);
+  };
+
+  // Функция для открытия/закрытия попапа с прайс-листом
+  const openPriceForm = () => {
+    setIsPriceFormOpen(true);
+  };
+
+  const closePriceForm = () => {
+    setIsPriceFormOpen(false);
   };
 
   return (
@@ -61,7 +70,7 @@ export default function Hero() {
           <div className={s.heroOverlay}></div>
         </div>
 
-        <div className="container">
+        <div className={`container ${s.contain}`}>
           <div className={s.heroContent}>
             <h1 className="h1">
               <span className={`seryy ${s.subTitle}`}>люки Канализационные</span> <br /> полимерно-песчаные
@@ -72,14 +81,37 @@ export default function Hero() {
             </h2>
 
             <div className={s.heroButBox}>
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерпесчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
-                Выбор полимерпесчаного люка
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерно-песчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
+                Выбор полимерно-песчаного люка
               </button>
+              
               <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/3.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/4.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/5.png", pdf: "/docs/instruct/Инструкция полная.pdf" }] })} >
                 Инструкция по монтажу
               </button>
 
-
+             <button
+                className={"butt " + s.heroBtn + " " + s.heroBtn2 + " " + s.priceBtn}
+                onClick={openPriceForm}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  style={{ marginRight: '8px' }}
+                >
+                  <path
+                    d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Скачать оптовый прайс-лист
+              </button>
+              
             </div>
           </div>
         </div>
@@ -109,6 +141,10 @@ export default function Hero() {
         title={activeItem?.title}
         onClose={closeModal}
       />
+      {/* Попап для скачивания прайс-листа */}
+      {isPriceFormOpen && (
+        <PriceForm onClose={closePriceForm} />
+      )}
     </>
   );
 }

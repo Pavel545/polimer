@@ -26,6 +26,7 @@ export type GalImg ={
 export type ProductEntity = {
   id: string;
   slug: string; 
+  who:string;
   titleShort: string;
   titleFull: string;
   description: string;
@@ -112,6 +113,7 @@ export type ProductInfoData = {
 export type ProductListItem = {
   id: string; // изменяем на string
   slug: string;
+  who?:string;
   titleShort: string;
   titleFull: string;
   description: string;

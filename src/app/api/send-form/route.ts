@@ -1,210 +1,202 @@
 // app/api/send-form/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { NextRequest, NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
-type RequestPayload = {
-  name?: string;
-  phone?: string;
-  message?: string;
-  topic?: string;
+// Конфигурация SMTP
+const smtpConfig = {
+  host: 'smtp.yandex.ru',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'ForAnalyticss@yandex.ru', // Измените на правильный email
+    pass: 'mrsezovxgogmbqfz', // Нужно указать правильный пароль!
+  },
 };
+
+// Создаем transporter
+const transporter = nodemailer.createTransport(smtpConfig);
+
+// Проверяем соединение при старте
+transporter.verify(function(error, success) {
+  if (error) {
+    console.error('❌ Ошибка подключения к SMTP:', error);
+  } else {
+    console.log('✅ SMTP соединение настроено правильно');
+  }
+});
 
 function escapeHtml(str: string): string {
   return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function digitsOnly(v: string): string {
-  return v.replace(/\D/g, "");
-}
-
-function normalizePhone(phone: string): string {
-  let d = digitsOnly(phone);
-
-  if (d.startsWith("8")) d = "7" + d.slice(1);
-  if (d.length === 10) d = "7" + d;
-  if (!d.startsWith("7")) d = "7" + d;
-
-  return d.slice(0, 11);
-}
-
-function validatePayload(data: RequestPayload) {
-  const errors: Record<string, string> = {};
-
-  const name = (data.name || "").trim();
-  const phone = normalizePhone(data.phone || "");
-  const message = (data.message || "").trim();
-  const topic = (data.topic || "").trim();
-
-  if (name.length < 2) {
-    errors.name = "Введите имя (минимум 2 символа)";
-  } else if (name.length > 50) {
-    errors.name = "Имя не должно превышать 50 символов";
-  }
-
-  if (phone.length !== 11) {
-    errors.phone = "Введите корректный номер телефона";
-  }
-
-  if (message.length < 10) {
-    errors.message = "Сообщение должно быть минимум 10 символов";
-  } else if (message.length > 500) {
-    errors.message = "Сообщение не должно превышать 500 символов";
-  }
-
-  if (topic.length > 120) {
-    errors.topic = "Тема не должна превышать 120 символов";
-  }
-
-  return {
-    errors,
-    normalized: {
-      name,
-      phone,
-      message,
-      topic,
-    },
-  };
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function createEmailHTML(data: {
-  name: string;
+  name?: string;
   phone: string;
-  message: string;
+  message?: string;
   topic?: string;
 }): string {
-  const currentDate = new Date().toLocaleString("ru-RU");
-  const formType = data.topic || "Форма обратной связи";
-
+  const currentDate = new Date().toLocaleString('ru-RU');
+  const formType = data.topic || (data.message ? 'Полная форма' : 'Быстрая форма');
+  
   return `
     <!DOCTYPE html>
     <html lang="ru">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Заявка с сайта</title>
-      </head>
-      <body style="margin:0;padding:0;background:#f3f3f3;font-family:Arial,sans-serif;">
-        <div style="width:100%;padding:24px 12px;">
-          <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;padding:28px 24px;box-sizing:border-box;">
-            <h2 style="margin:0 0 12px;color:#000000;font-size:24px;line-height:1.3;">
-              Заявка с сайта <span style="color:#203c97;">73полимер.рф</span>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Заявка с сайта</title>
+    </head>
+    <body style="text-align: center; font-family: arial, sans-serif;">
+      <div style="width:100%; background: #eee; padding:30px; display: inline-block;">
+        <div style="width:600px; background: #eee; padding:0px; display: inline-block;">
+          <div style="text-align: center; background-color: #fff; padding: 30px; border-radius: 3px; line-height: 24px;">
+            <h2 style="margin-top: 10px; color:#000">
+              Заявка на сайте <span style="color: #203c97;">73полимер.рф</span>
             </h2>
-
-            <p style="margin:0 0 20px;color:#666666;font-size:13px;">
-              Время отправки: ${currentDate}
-            </p>
-
-            <table style="width:100%;border-collapse:collapse;">
+            <p style="color: #666; font-size: 12px;">Время отправки: ${currentDate}</p>
+            
+            <table style="margin-top: 20px; text-align: left; width: 100%;">
               <tr>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#444;">Форма</td>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#000;text-align:right;"><strong>${escapeHtml(formType)}</strong></td>
-              </tr>
-              <tr>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#444;">Имя</td>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#000;text-align:right;"><strong>${escapeHtml(data.name)}</strong></td>
-              </tr>
-              <tr>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#444;">Телефон</td>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#000;text-align:right;"><strong>${escapeHtml(data.phone)}</strong></td>
-              </tr>
-              <tr>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#444;vertical-align:top;">Сообщение</td>
-                <td style="padding:12px 0;border-bottom:1px solid #eeeeee;color:#000;text-align:right;"><strong>${escapeHtml(data.message)}</strong></td>
+                <td style="width: 100%; color: #000;">
+                  <ul style="list-style-type: none; margin: 0px; padding: 0px; font-size: 14px;">
+                    <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
+                      <span>Форма:</span> 
+                      <b style="float: right;">${formType}</b>
+                    </li>
+                    ${data.name ? `
+                    <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
+                      <span>Имя:</span> 
+                      <b style="float: right;">${escapeHtml(data.name)}</b>
+                    </li>
+                    ` : ''}
+                    <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
+                      <span>Телефон:</span> 
+                      <b style="float: right;">${escapeHtml(data.phone)}</b>
+                    </li>
+                    ${data.message ? `
+                    <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
+                      <span>Сообщение:</span> 
+                      <b style="float: right; max-width: 60%; text-align: right;">${escapeHtml(data.message)}</b>
+                    </li>
+                    ` : ''}
+                    ${data.topic ? `
+                    <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
+                      <span>Тема:</span> 
+                      <b style="float: right;">${escapeHtml(data.topic)}</b>
+                    </li>
+                    ` : ''}
+                  </ul>
+                </td>
               </tr>
             </table>
-
-            <div style="margin-top:20px;font-size:12px;color:#777777;">
-              Аналитический центр развитие
-            </div>
           </div>
+          
+          <table style="text-align: center; font-size: 12px; width: 100%; padding: 20px 0px;">
+            <tr>
+              <td>Техподдержка</td>
+              <td>Аналитический центр развитие</td>
+              <td>+7 (927) 270-53-30</td>
+              <td><a href="https://acr-agency.ru/">acr-agency.ru</a></td>
+            </tr>
+          </table>
         </div>
-      </body>
+      </div>
+    </body>
     </html>
   `;
 }
 
-const smtpHost = process.env.SMTP_HOST;
-const smtpPort = Number(process.env.SMTP_PORT || 465);
-const smtpUser = process.env.SMTP_USER;
-const smtpPass = process.env.SMTP_PASS;
-const smtpTo = process.env.FORM_TO_EMAIL;
-const smtpCopy = process.env.FORM_COPY_EMAIL;
-
-const transporter =
-  smtpHost && smtpUser && smtpPass
-    ? nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      })
-    : null;
-
 export async function POST(request: NextRequest) {
+  console.log('📨 Получен POST запрос на /api/send-form');
+  
   try {
-    if (!transporter || !smtpTo || !smtpUser) {
+    // Получаем данные из запроса
+    const body = await request.json();
+    const { name, phone, message, topic } = body;
+    
+    console.log('📝 Данные формы:', { name, phone, message, topic });
+    
+    // Проверяем обязательные поля
+    if (!phone) {
+      console.log('❌ Ошибка: телефон не указан');
       return NextResponse.json(
-        { error: "Почтовый сервис не настроен на сервере" },
-        { status: 500 }
-      );
-    }
-
-    const body = (await request.json()) as RequestPayload;
-    const { errors, normalized } = validatePayload(body);
-
-    if (Object.keys(errors).length > 0) {
-      return NextResponse.json(
-        { error: "Ошибка валидации", fields: errors },
+        { error: 'Телефон обязателен для заполнения' },
         { status: 400 }
       );
     }
-
-    const subject = `Заявка с сайта от ${new Date().toLocaleString("ru-RU")}`;
-    const html = createEmailHTML(normalized);
-
-    await transporter.sendMail({
-      from: `"Аналитический центр развитие" <${smtpUser}>`,
-      to: smtpTo,
-      subject,
-      html,
+    
+    // Определяем тему письма
+    const dateTime = new Date().toLocaleString('ru-RU');
+    const subject = `Заявка на сайте от ${dateTime}`;
+    
+    // Создаем HTML письма
+    const html = createEmailHTML({ name, phone, message, topic });
+    
+    console.log('📧 Отправка письма на 73polimer@mail.ru...');
+    
+    // Отправляем письмо основному получателю
+    const mainResult = await transporter.sendMail({
+      from: '"Аналитический центр развитие" <ForAnalyticss@yandex.ru>',
+      to: '73polimer@mail.ru',
+      subject: subject,
+      html: html,
     });
-
-    if (smtpCopy) {
-      await transporter.sendMail({
-        from: `"Аналитический центр развитие" <${smtpUser}>`,
-        to: smtpCopy,
-        subject,
-        html,
-      });
-    }
-
-    return NextResponse.json({
-      success: true,
-      message: "Форма успешно отправлена",
+    
+    console.log('✅ Письмо отправлено основному получателю:', mainResult.messageId);
+    
+    // Отправляем копию
+    console.log('📧 Отправка копии на ForAnalyticss@yandex.ru...');
+    const copyResult = await transporter.sendMail({
+      from: '"Аналитический центр развитие" <ForAnalyticss@yandex.ru>',
+      to: 'ForAnalyticss@yandex.ru',
+      subject: subject,
+      html: html,
     });
-  } catch (error) {
-    console.error("send-form error:", error);
-
+    
+    console.log('✅ Копия отправлена:', copyResult.messageId);
+    
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Форма успешно отправлена' 
+    });
+    
+  } catch (error: any) {
+    console.error('❌ Критическая ошибка при отправке:', error);
+    
+    // Детальный вывод ошибки
+    const errorDetails = {
+      message: error.message,
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode,
+    };
+    
+    console.error('Детали ошибки:', errorDetails);
+    
     return NextResponse.json(
-      { error: "Ошибка отправки письма" },
+      { 
+        error: 'Ошибка отправки письма', 
+        details: error.message 
+      },
       { status: 500 }
     );
   }
 }
 
+// Обработка OPTIONS запроса для CORS
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
     headers: {
-      Allow: "POST, OPTIONS",
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
 }
