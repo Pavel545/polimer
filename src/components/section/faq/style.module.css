@@ -11,5 +11,12 @@
 
 .list p {
   margin: 20px 10px;
- 
+
+}
+
+
+@media (max-width: 470px) {
+  .VacanciesContent {
+    padding: 60px 0 30px;
+  }
 }
