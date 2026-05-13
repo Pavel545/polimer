@@ -197,7 +197,7 @@ const items = [
       <HeroPages
         fon='/img/fonsotrud.jpg'
         title='Условия сотрудничества, оплаты и доставки'
-        h1='<span class="seryy">Условия</span> <br/> сотрудничества, оплаты <br /> и доставки'
+        h1='<span class="seryy">Условия сотрудничества,</span> <br/>  оплаты  и доставки'
       />
 
       <section className={s.section}>

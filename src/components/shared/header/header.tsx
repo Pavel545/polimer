@@ -233,10 +233,10 @@ const colodecProd: Product[] =[
                 </a>
                 { e.href === "/products" && (
                   
-                  <ul className={s.mobileSubLinks}>
+                  <ul key={`ul-${i}`} className={s.mobileSubLinks}>
 
                    {lukProducts.map((luc, idx) => (
-                     <li>
+                     <li key={`lukProducts-${idx}`}>
                       <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
                         {luc.title}
                       </a>
@@ -245,7 +245,7 @@ const colodecProd: Product[] =[
                    <br />
                    
                    {terProd.map((luc, idx) => (
-                     <li>
+                     <li  key={`terProd-${idx}`}>
                       <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
                         {luc.title}
                       </a>
@@ -253,7 +253,7 @@ const colodecProd: Product[] =[
                    ))}
                    <br />
                    {colodecProd.map((luc, idx) => (
-                     <li>
+                     <li   key={`colodecProd-${idx}`}>
                       <a className={s.mobileSubLink} href={`/products/${luc.slug}`} onClick={closeMenu}>
                         {luc.title}
                       </a>

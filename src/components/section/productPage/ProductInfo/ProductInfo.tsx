@@ -191,8 +191,20 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                               ))}
                             </div>
                           </Stagger>
+
+                          <div className={s.upakov}>
+                            {activeContent?.upacovka &&
+                              activeContent.upacovka.map((e, i) => (
+                                <div className={s.imageContainer}>
+                                  <Image onClick={() => openModal({ title: "Упаковка", gallery: [{ image: e }] })} className={s.productImage} src={e} alt={"Упаковка"} width={500} height={600} />
+                                </div>
+                              ))
+
+                            }
+                          </div>
                         </>
                       </SlideInRight>
+
                     </div>
                   )}
                   {activeContent.kind === "advantages" && (
@@ -245,6 +257,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                               ))}
                             </ol>
                           </Stagger>
+                          activeContent.advantages
                         </>
                       </SlideInLeft>
 
@@ -269,7 +282,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                     </div>
                   )}
 
-                   {activeContent.kind === "installation" && (
+                  {activeContent.kind === "installation" && (
                     <div className={s.twoCols}>
                       <SlideInLeft delay={0.1} amount={0.2} className={s.col}>
                         <>
@@ -327,7 +340,7 @@ export default function ProductInfo({ data }: { data: ProductInfoData }) {
                           <Stagger stagger={0.15} amount={0.1}>
                             {activeContent.description.map((p, i) => (
                               <StaggerItem key={i} className={s.paragraph}>
-                                <p dangerouslySetInnerHTML={{__html:p}}>
+                                <p dangerouslySetInnerHTML={{ __html: p }}>
 
                                 </p>
                               </StaggerItem>

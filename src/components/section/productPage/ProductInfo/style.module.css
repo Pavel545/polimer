@@ -18,7 +18,19 @@
     background: var(--temnyy-2) !important;
     color: var(--belyy)!important;
 }
+.upakov{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
 
+    margin: 30px 0;
+
+    gap: 20px;
+}
+
+
+.upakov :global(.closeBtn){
+    color: var(--belyy) !important;
+}
 
 .ProductInfoContent {
     margin-top: 40px;

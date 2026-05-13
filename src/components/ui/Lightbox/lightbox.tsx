@@ -9,18 +9,44 @@ interface LightboxProps {
   title?: string;
   onClose: () => void;
 }
+
 export type SlideItem = {
   image: string;
   pdf?: string;
 };
+
 export default function Lightbox({ isOpen, images, title, onClose }: LightboxProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isClosing, setIsClosing] = useState(false);
   const [dragX, setDragX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [imageOrientation, setImageOrientation] = useState<"portrait" | "landscape" | "square">("landscape");
 
   const startXRef = useRef(0);
   const currentXRef = useRef(0);
+
+  // Функция для определения ориентации изображения
+  const checkImageOrientation = (imageUrl: string) => {
+    const img = new Image();
+    img.onload = () => {
+      const ratio = img.width / img.height;
+      if (ratio > 1.1) {
+        setImageOrientation("landscape");
+      } else if (ratio < 0.9) {
+        setImageOrientation("portrait");
+      } else {
+        setImageOrientation("square");
+      }
+    };
+    img.src = imageUrl;
+  };
+
+  // Проверяем ориентацию при смене слайда или открытии лайтбокса
+  useEffect(() => {
+    if (isOpen && images[currentSlide]) {
+      checkImageOrientation(images[currentSlide].image);
+    }
+  }, [isOpen, currentSlide, images]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -101,7 +127,9 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
   };
 
   if (!isOpen && !isClosing) return null;
+  
   const currentItem = images[currentSlide];
+  
   return (
     <div
       className={`${s.lightbox} ${isClosing ? s.lightboxClosing : s.lightboxOpen}`}
@@ -120,7 +148,9 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
       </button>
 
       <div
-        className={`${s.lightboxContent} ${isClosing ? s.contentClosing : s.contentOpen}`}
+        className={`${s.lightboxContent} ${
+          isClosing ? s.contentClosing : s.contentOpen
+        } ${s[`orientation_${imageOrientation}`] || ""}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -142,43 +172,35 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
           onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
           onTouchEnd={handleDragEnd}
         >
-         
           <div
             className={`${s.sliderTrack} ${isDragging ? s.sliderTrackDragging : ""}`}
             style={{
               transform: `translateX(calc(-${currentSlide * 100}% + ${dragX}px))`,
             }}
           >
-            
             {images.map((image, index) => (
-              <>
-
-                <div className={s.slide} key={`slide-${index}`}>
-                  <img
-                    src={image.image}
-                    alt={`${title || "Изображение"} ${index + 1}`}
-                    className={s.slideImage}
-                    draggable={false}
-                  />
-                </div>
-
-
-
-              </>
+              <div className={s.slide} key={`slide-${index}`}>
+                <img
+                  src={image.image}
+                  alt={`${title || "Изображение"} ${index + 1}`}
+                  className={s.slideImage}
+                  draggable={false}
+                />
+              </div>
             ))}
           </div>
-           {currentItem?.pdf && (
-        <a
-          href={currentItem.pdf}
-          download
-          target="_blank"
-          rel="noopener noreferrer"
-          className={s.downloadBtn}
-          onClick={(e) => e.stopPropagation()}
-        >
-          Скачать PDF
-        </a>
-      )}
+          {currentItem?.pdf && (
+            <a
+              href={currentItem.pdf}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className={s.downloadBtn}
+              onClick={(e) => e.stopPropagation()}
+            >
+              Скачать PDF
+            </a>
+          )}
         </div>
       </div>
 
@@ -199,7 +221,6 @@ export default function Lightbox({ isOpen, images, title, onClose }: LightboxPro
           {currentSlide + 1} / {images.length}
         </div>
       )}
-      
     </div>
   );
 }

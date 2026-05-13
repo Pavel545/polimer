@@ -4,6 +4,7 @@ export interface BlogCardData {
   id: number;
   slug: string;
   title: string;
+  hero?: string;
   img: string;
   date: string;
   excerpt: string; // короткое описание для превью

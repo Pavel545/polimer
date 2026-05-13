@@ -33,6 +33,10 @@
             "label": "Количество изделий на поддоне",
             "value": "30шт"
           }
+        ],
+        "upacovka" :[
+          "/img/products/upa/конус-люк-1.webp",
+          "/img/products/upa/конус-люк.webp"
         ]
       }
     },

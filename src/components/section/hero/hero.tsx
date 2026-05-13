@@ -81,15 +81,36 @@ export default function Hero() {
             </h2>
 
             <div className={s.heroButBox}>
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерно-песчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
-                Выбор полимерно-песчаного люка
-              </button>
-              
-              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Инструкция по монтажу", gallery: [{ image: "/img/instruct/2.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/3.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/4.jpg", pdf: "/docs/instruct/Инструкция полная.pdf" }, { image: "/img/instruct/5.png", pdf: "/docs/instruct/Инструкция полная.pdf" }] })} >
-                Инструкция по монтажу
+              <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({
+                title: "Презентация компании", gallery:
+                  [
+                    { image: "/img/present/1.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/2.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/3.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/4.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/5.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/6.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/7.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/8.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/9.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/10.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/11.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/12.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/13.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/14.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/15.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/16.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/17.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/18.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                    { image: "/img/present/19.webp", pdf: "/docs/Полимерные технологии Презентация.pdf" },
+                  ]
+              })} >
+                Скачать презентацию и каталог продукции
               </button>
 
-             <button
+
+
+              <button
                 className={"butt " + s.heroBtn + " " + s.heroBtn2 + " " + s.priceBtn}
                 onClick={openPriceForm}
               >
@@ -111,7 +132,7 @@ export default function Hero() {
                 </svg>
                 Скачать оптовый прайс-лист
               </button>
-              
+
             </div>
           </div>
         </div>

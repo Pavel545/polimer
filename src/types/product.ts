@@ -64,6 +64,7 @@ export type TabContent =
     instructPdf: string;
     rightTitle: string;
     characteristics: Characteristic[];
+    upacovka?:string[];
   }| {
     kind: "installation";
     leftTitle: string;

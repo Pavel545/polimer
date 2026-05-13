@@ -15,6 +15,7 @@ export type ProductInfoTabContent =
       advantages: string[];              // пункты 1..n
       rightTitle: string;                // "ХАРАКТЕРИСТИКА:"
       characteristics: { label: string; value: string }[]; // "Диаметр крышки" -> "630 мм"
+      upacovka?:string[];
     }
   | {
       kind: "description_types";

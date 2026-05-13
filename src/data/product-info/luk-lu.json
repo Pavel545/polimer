@@ -34,6 +34,10 @@
             "label": "Количество изделий на поддоне",
             "value": "40шт"
           }
+        ],
+        "upacovka" :[
+          "/img/products/upa/Л(ЛУ).webp",
+          "/img/products/upa/Л(ЛУ)-1.webp"
         ]
       }
     },

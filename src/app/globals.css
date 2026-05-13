@@ -277,3 +277,46 @@ button {
   display: block;
 
 }
+
+
+
+/* Глобальные стили для всех модалок */
+.modal-open {
+  overflow: hidden;
+}
+
+/* Анимации для модалок */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Стили для скроллбара в модалках */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #FF6B35;
+  border-radius: 10px;
+}

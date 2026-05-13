@@ -35,6 +35,10 @@
             "label": "Количество изделий на поддоне",
             "value": "50шт"
           }
+        ],
+        "upacovka" :[
+          "/img/products/upa/ЛМ.webp",
+          "/img/products/upa/ЛМ-1.webp"
         ]
       }
     },

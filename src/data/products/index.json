@@ -118,7 +118,7 @@
     "description": "",
     "priceRub": 1800 ,
     "categoryId": 3,
-    "img": "/img/products/kolco-smotrovogo-kolodca/1.jpg"
+    "img": "/img/none.jpg"
   },
   {
     "id": "dno-smotrovogo-kolodca",
@@ -128,6 +128,6 @@
     "description": "",
     "priceRub": 2100,
     "categoryId": 3,
-    "img": "/img/products/dno-smotrovogo-kolodca/3.jpg"
+    "img": "/img/none.jpg"
   }
 ]
