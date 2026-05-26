@@ -72,8 +72,8 @@ function validateFields(values: FormState): FormErrors {
 
   const msg = values.message.trim();
   if (msg.length > 500) {
-      errors.message = "Сообщение не должно превышать 500 символов.";
-    }
+    errors.message = "Сообщение не должно превышать 500 символов.";
+  }
 
   return errors;
 }
@@ -93,7 +93,7 @@ function isFormValidForSubmit(values: FormState): boolean {
   const nameValid = values.name.trim().length >= 2 && values.name.trim().length <= 50;
   const phoneValid = isPhoneComplete(values.phone);
   const agreementValid = values.agreement === true;
-  
+
   return nameValid && phoneValid && agreementValid;
 }
 
@@ -186,7 +186,8 @@ export default function PopupForm({ onClose }: Props) {
         phone: values.phone.trim(),
         message: values.message.trim(),
         topic: "Заявка из popup-формы",
-        pageUrl: window.location.href
+        pageUrl: window.location.href,
+        pageTitle: document.title || window.location.href,
       };
 
       const response = await fetch("/api/send-form", {

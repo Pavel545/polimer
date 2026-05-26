@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"; // Добавляем импорт хука useState
 import Image from "next/image";
 import s from "./style.module.css";
 import { JSX } from "react";
@@ -15,6 +18,9 @@ type Product = {
 };
 
 export default function Footer(): JSX.Element {
+  // Состояние для управления аккордеоном
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
   const link: NavLink[] = [
     { href: "/about-us", text: `О компании ООО "Полимерные Технологии"` },
     { href: "/blog", text: `Новости ООО "Полимерные Технологии"` },
@@ -53,7 +59,7 @@ export default function Footer(): JSX.Element {
       slug: "luk-t",
       title: "Люк канализационный полимерпесчаный «Т»",
     },
-     {
+    {
       id: "9",
       slug: "luk-tm",
       title: "Люк канализационный полимерпесчаный  «ТМ»",
@@ -142,7 +148,17 @@ export default function Footer(): JSX.Element {
                 itemProp="logo"
               />
             </LocalizedLink>
-
+            <nav className={s.col} aria-label="Основная навигация">
+              <ul className={s.list}>
+                {link.map((e, i) => (
+                  <li key={i}>
+                    <LocalizedLink className={s.footerLink + " link"} href={e.href}>
+                      {e.text}
+                    </LocalizedLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
             <ul>
               <li className={s.linkSoc}>
                 <a
@@ -198,17 +214,7 @@ export default function Footer(): JSX.Element {
           </div>
 
           <div className={s.siteMap}>
-            <nav className={s.col} aria-label="Основная навигация">
-              <ul className={s.list}>
-                {link.map((e, i) => (
-                  <li key={i}>
-                    <LocalizedLink className={s.footerLink + " link"} href={e.href}>
-                      {e.text}
-                    </LocalizedLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+
             <nav className={s.col} aria-label="Навигация по продукции">
               <ul className={s.list}>
                 <li>
@@ -234,6 +240,9 @@ export default function Footer(): JSX.Element {
                   </li>
                 ))}
               </ul>
+
+            </nav>
+            <nav className={s.col}>
               <ul className={s.list}>
                 <li>
                   <LocalizedLink className={s.footerLink + " link " + s.siteMapTitle} href="/products">
@@ -286,57 +295,83 @@ export default function Footer(): JSX.Element {
           </div>
 
 
+
         </div>
 
-        {/* Company details row with microdata */}
+        {/* Company details accordion with microdata */}
         <div className={s.companyDetails}>
-          <h3>
-            Реквизиты:
-          </h3>
-          <div className={s.detailsGrid}>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>Юридический адрес:</span>
-              <span itemProp="taxID">{companyDetails.legalAddress}</span>
+          <div
+            className={s.detailsHeader}
+            onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsDetailsOpen(!isDetailsOpen)}
+            aria-expanded={isDetailsOpen}
+            aria-controls="company-details-content"
+          >
+            <h3>Реквизиты:</h3>
+            <span className={`${s.accordionIcon} ${isDetailsOpen ? s.open : ''}`}>▼</span>
+          </div>
+
+          <div
+            id="company-details-content"
+            className={`${s.detailsContent} ${isDetailsOpen ? s.expanded : ''}`}
+          >
+            <div className={s.detailsGrid}>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>Юридический адрес:</span>
+                <span itemProp="taxID">{companyDetails.legalAddress}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>Почтовый адрес:</span>
+                <span itemProp="taxID">{companyDetails.postalAddress}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>Производство:</span>
+                <span itemProp="taxID">{companyDetails.factoryAddress}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>ИНН:</span>
+                <span itemProp="taxID">{companyDetails.inn}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>КПП:</span>
+                <span>{companyDetails.kpp}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>ОГРН:</span>
+                <span>{companyDetails.ogrn}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>ОКПО:</span>
+                <span>{companyDetails.okpo}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>Р/с:</span>
+                <span>{companyDetails.bankAccount}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>Банк:</span>
+                <span>{companyDetails.bankName}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>БИК:</span>
+                <span>{companyDetails.bik}</span>
+              </div>
+              <div className={s.detailItem}>
+                <span className={s.detailLabel}>Корр. счет:</span>
+                <span>{companyDetails.correspondentAccount}</span>
+              </div>
             </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>Почтовый адрес:</span>
-              <span itemProp="taxID">{companyDetails.postalAddress}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>Производство:</span>
-              <span itemProp="taxID">{companyDetails.factoryAddress}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>ИНН:</span>
-              <span itemProp="taxID">{companyDetails.inn}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>КПП:</span>
-              <span>{companyDetails.kpp}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>ОГРН:</span>
-              <span>{companyDetails.ogrn}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>ОКПО:</span>
-              <span>{companyDetails.okpo}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>Р/с:</span>
-              <span>{companyDetails.bankAccount}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>Банк:</span>
-              <span>{companyDetails.bankName}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>БИК:</span>
-              <span>{companyDetails.bik}</span>
-            </div>
-            <div className={s.detailItem}>
-              <span className={s.detailLabel}>Корр. счет:</span>
-              <span>{companyDetails.correspondentAccount}</span>
+            <div className={s.downloadWrapper}>
+              <a
+                href="/docs/Реквизиты Полимерные Технологии.doc"
+                className={s.downloadLink}
+                download
+                target="_blank"
+              >
+                📄 Скачать реквизиты (файл .doc)
+              </a>
             </div>
           </div>
         </div>

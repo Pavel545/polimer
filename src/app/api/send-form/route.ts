@@ -1,15 +1,17 @@
 // app/api/send-form/route.ts
+import { cleanPhone } from '@/lib/bitrix24';
+import { createDeal, findContactByPhone, upsertContact } from '@/lib/bitrix24-service';
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Конфигурация SMTP
 const smtpConfig = {
-  host: 'smtp.yandex.ru',
-  port: 465,
+  host: process.env.SMTP_HOST || 'smtp.yandex.ru',
+  port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 465,
   secure: true,
   auth: {
-    user: "ForAnalyticss@yandex.ru", // Измените на правильный email
-    pass: "mrsezovxgogmbqfz", // Нужно указать правильный пароль!
+    user: process.env.SMTP_USER, // Измените на правильный email
+    pass: process.env.SMTP_PASS, // Нужно указать правильный пароль!
   },
 };
 
@@ -34,9 +36,11 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
+// Добавляем email в интерфейс данных формы
 function createEmailHTML(data: {
   name?: string;
   phone: string;
+  email?: string;  // Добавляем email
   message?: string;
   topic?: string;
 }): string {
@@ -72,6 +76,12 @@ function createEmailHTML(data: {
                     <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
                       <span>Имя:</span> 
                       <b style="float: right;">${escapeHtml(data.name)}</b>
+                    </li>
+                    ` : ''}
+                    ${data.email ? ` 
+                    <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
+                      <span>Email:</span> 
+                      <b style="float: right;">${escapeHtml(data.email)}</b>
                     </li>
                     ` : ''}
                     <li style="width: 100%; padding: 10px 0px; border-bottom: 1px solid #eee;">
@@ -117,9 +127,21 @@ export async function POST(request: NextRequest) {
   try {
     // Получаем данные из запроса
     const body = await request.json();
-    const { name, phone, message, topic } = body;
+    let { name, phone, email, message, topic, pageUrl, pageTitle } = body;
 
-    console.log('📝 Данные формы:', { name, phone, message, topic });
+    // Валидируем и нормализуем email
+    const emailValidation = validateAndNormalizeEmail(email);
+    if (emailValidation.isValid) {
+      email = emailValidation.normalizedEmail;
+      console.log('✅ Email прошел валидацию:', email);
+    } else if (email && email.trim() !== '') {
+      console.log('⚠️ Email не прошел валидацию, будет проигнорирован:', email);
+      email = undefined; // Игнорируем невалидный email
+    } else {
+      email = undefined;
+    }
+
+    console.log('📝 Данные формы:', { name, phone, email, message, topic, pageUrl });
 
     // Проверяем обязательные поля
     if (!phone) {
@@ -130,24 +152,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // ======== БЛОК ОТПРАВКИ ПИСЕМ ========
+
     // Определяем тему письма
     const dateTime = new Date().toLocaleString('ru-RU');
     const subject = `Заявка на сайте от ${dateTime}`;
 
-    // Создаем HTML письма
-    const html = createEmailHTML({ name, phone, message, topic });
+    // Создаем HTML письма (передаем email)
+    const html = createEmailHTML({ name, phone: phone, email, message, topic });
 
-    console.log('📧 Отправка письма на 73polimer@mail.ru...');
+    // console.log('📧 Отправка письма на 73polimer@mail.ru...');
 
-    // Отправляем письмо основному получателю
-    const mainResult = await transporter.sendMail({
-      from: '"Аналитический центр развитие" <ForAnalyticss@yandex.ru>',
-      to: '73polimer@mail.ru',
-      subject: subject,
-      html: html,
-    });
-
-    console.log('✅ Письмо отправлено основному получателю:', mainResult.messageId);
+    // Отправляем письмо основному получателю 
+    // const mainResult = await transporter.sendMail({
+    //   from: '"Полимеры" <ForAnalyticss@yandex.ru>',
+    //   to: '73polimer@mail.ru',
+    //   subject: subject,
+    //   html: html,
+    // });
 
     // Отправляем копию
     console.log('📧 Отправка копии на ForAnalyticss@yandex.ru...');
@@ -160,15 +182,52 @@ export async function POST(request: NextRequest) {
 
     console.log('✅ Копия отправлена:', copyResult.messageId);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Форма успешно отправлена'
+    // ======== CRM ИНТЕГРАЦИЯ ========
+
+    let crmResult = null;
+
+    const crmPromise = processCrmIntegration({
+      name: name || 'Не указано',
+      phone: phone,
+      email: email,
+      message: message || '',
+      pageUrl: pageUrl || 'https://73полимер.рф',
+      pageTitle: pageTitle || pageUrl || 'Страница сайта', // <-- добавили
+      formId: 'popup_form_main',
     });
+
+    const timeoutPromise = new Promise((resolve) => {
+      setTimeout(() => resolve(null), 8000);
+    });
+
+    crmResult = await Promise.race([crmPromise, timeoutPromise]);
+
+    if (crmResult) {
+      console.log('🎉 CRM интеграция выполнена:', crmResult);
+    } else {
+      console.log('⚠️ CRM интеграция не выполнена или превышен таймаут');
+    }
+
+    // ======== ФОРМИРУЕМ ОТВЕТ ========
+
+    const responseData: any = {
+      success: true,
+      message: 'Форма успешно отправлена',
+      emailSent: true,
+    };
+
+    if (crmResult) {
+      responseData.crm = {
+        contactId: (crmResult as any)?.contactId,
+        dealId: (crmResult as any)?.dealId,
+      };
+    }
+
+    return NextResponse.json(responseData);
 
   } catch (error: any) {
     console.error('❌ Критическая ошибка при отправке:', error);
 
-    // Детальный вывод ошибки
     const errorDetails = {
       message: error.message,
       code: error.code,
@@ -181,12 +240,94 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        error: 'Ошибка отправки письма',
+        error: 'Ошибка отправки формы',
         details: error.message
       },
       { status: 500 }
     );
   }
+}
+
+// Добавляем новую функцию для обработки CRM
+
+async function processCrmIntegration(data: {
+  name: string;
+  phone: string;
+  message: string;
+  pageUrl: string;
+  pageTitle: string;
+  email?: string;
+  formId: string;
+}): Promise<{ contactId: number; dealId: number } | null> {
+  try {
+    console.log('🔄 Начало интеграции с Bitrix24 CRM');
+
+    if (!data.phone || cleanPhone(data.phone).length !== 11) {
+      console.log('❌ Некорректный номер телефона для CRM');
+      return null;
+    }
+
+    // Поиск существующего контакта
+    const existingContactId = await findContactByPhone(data.phone);
+
+    // Создаем или обновляем контакт (передаем email)
+    const contactId = await upsertContact(
+      data.name,
+      data.phone,
+      data.pageUrl,
+      data.pageTitle || 'Страница сайта',
+      existingContactId,
+      data.email,  // Передаем email
+      data.message
+    );
+
+    if (!contactId) {
+      throw new Error('Не удалось получить ID контакта');
+    }
+
+    // Создаем сделку
+    const dealId = await createDeal(
+      contactId,
+      data.name,
+      data.phone,
+      data.message,
+      true,
+      data.pageUrl,
+      data.pageTitle || 'Страница сайта',
+      data.formId
+    );
+
+    console.log('✅ CRM интеграция успешна:', { contactId, dealId });
+    return { contactId, dealId };
+
+  } catch (error) {
+    console.error('❌ Ошибка CRM интеграции:', error);
+    return null;
+  }
+}
+
+// Функция для валидации и нормализации email
+function validateAndNormalizeEmail(email?: string): { isValid: boolean; normalizedEmail: string | null } {
+  if (!email || email.trim() === '') {
+    return { isValid: false, normalizedEmail: null };
+  }
+
+  // Удаляем лишние пробелы и приводим к нижнему регистру
+  let normalizedEmail = email.trim().toLowerCase();
+
+  // Удаляем недопустимые символы (оставляем только буквы, цифры, точки, дефисы, подчеркивания, @)
+  normalizedEmail = normalizedEmail.replace(/[^\w\s@.-]/g, '');
+
+  // Базовая проверка формата email
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const isValid = emailRegex.test(normalizedEmail);
+
+  if (!isValid) {
+    console.log(`⚠️ Невалидный email: ${email} -> ${normalizedEmail}`);
+    return { isValid: false, normalizedEmail: null };
+  }
+
+  return { isValid: true, normalizedEmail };
 }
 
 // Обработка OPTIONS запроса для CORS

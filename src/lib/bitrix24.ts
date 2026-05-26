@@ -1,22 +1,21 @@
 // lib/bitrix24.ts
 
-// Конфигурация Bitrix24
 export const BITRIX_CONFIG = {
-  webhookUrl: 'https://dev-polimert.bitrix24.ru/rest/13/femtik6i81rklqfz/', // Замени на реальный webhook
+  // Вебхук URL из PHP примера (замени звездочки на реальный ключ)
+  webhookUrl: process.env.BITRIX24_WEBHOOK_URL,
   responsibleUserId: 21,
-  sourceId: 'WEB',
+  sourceId: 'WEB', // Код источника "Веб-сайт"
   sourceDescription: 'Веб-сайт 73полимер.рф',
-  formId: 'popup_form_main', // ID формы, согласуй с клиентом
+  formId: 'popup_form_main',
 };
 
-// ID пользовательских полей из ТЗ
+// ID пользовательских полей (из ТЗ)
 export const UF_FIELDS = {
   message: 'UF_CRM_1779108607', // Сообщение
   agreement: 'UF_CRM_1779108695', // Чек-бокс согласие
-  formId: 'UF_CRM_XXXXXXXXXX', // ID формы (нужно уточнить у клиента)
+  formId: 'UF_CRM_XXXXXXXXXX', // ID формы (НУЖНО УТОЧНИТЬ У КЛИЕНТА!)
 };
 
-// Вспомогательные функции для работы с телефоном
 export function cleanPhone(phone: string): string {
   return phone.replace(/\D/g, '');
 }

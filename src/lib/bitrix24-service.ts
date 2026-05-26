@@ -2,85 +2,187 @@
 
 import { BITRIX_CONFIG, UF_FIELDS, cleanPhone } from './bitrix24';
 
-// Функция для вызова API Bitrix24
+// Базовая функция вызова Bitrix24 API
 async function callBitrix(method: string, params: Record<string, any> = {}) {
-  const url = `${BITRIX_CONFIG.webhookUrl}${method}`;
-  
-  const formData = new URLSearchParams();
-  Object.entries(params).forEach(([key, value]) => {
-    formData.append(key, typeof value === 'object' ? JSON.stringify(value) : value.toString());
-  });
-
-  const response = await fetch(url, {
-    method: 'POST',
-    body: formData,
-  });
-
-  const result = await response.json();
-  
-  if (result.error) {
-    console.error(`❌ Bitrix24 API error [${method}]:`, result);
-    throw new Error(`Bitrix24 error: ${result.error_description || result.error}`);
+  if (!BITRIX_CONFIG.webhookUrl) {
+    throw new Error('BITRIX_CONFIG.webhookUrl is not defined');
   }
-  
-  return result;
+
+  const baseUrl = BITRIX_CONFIG.webhookUrl as string;
+  const url = `${baseUrl}${method}.json`;
+
+  // Для методов, которые изменяют данные (add, update), используем POST с телом
+  // Для методов чтения (get, find) можно использовать GET с параметрами в URL
+
+  const isReadMethod = method.includes('.get') || method.includes('.find') || method.includes('.list');
+
+  let fullUrl = url;
+  let body: string | undefined;
+
+  if (isReadMethod) {
+    // Для GET-запросов параметры в URL
+    const queryParams = buildQueryString(params);
+    fullUrl = queryParams ? `${url}?${queryParams}` : url;
+  } else {
+    // Для POST-запросов параметры в теле
+    body = buildQueryString(params);
+  }
+
+  const safeUrl = fullUrl.replace(/\/rest\/\d+\/[^/]+\//, '/rest/***/');
+  console.log(`🔷 Bitrix24 API call: ${method}`);
+  console.log('📤 URL:', safeUrl);
+  if (body) {
+    console.log('📤 Body (первые 200 символов):', body.substring(0, 200));
+  }
+
+  try {
+    const fetchOptions: RequestInit = {
+      method: isReadMethod ? 'GET' : 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    };
+
+    if (body) {
+      fetchOptions.body = body;
+    }
+
+    const response = await fetch(fullUrl, fetchOptions);
+
+    const result = await response.json();
+
+    console.log(`📥 Response from ${method}:`, JSON.stringify(result, null, 2));
+
+    if (result.error) {
+      console.error(`❌ Bitrix24 API error [${method}]:`, result);
+      throw new Error(`Bitrix24 error: ${result.error_description || result.error}`);
+    }
+
+    return result;
+  } catch (error) {
+    console.error(`❌ Network error [${method}]:`, error);
+    throw error;
+  }
 }
 
-// Поиск контакта по телефону через дубликаты
+// Вспомогательная функция для построения query string
+function buildQueryString(params: Record<string, any>): string {
+  function buildParts(obj: any, prefix = ''): Record<string, string> {
+    const result: Record<string, string> = {};
+
+    if (Array.isArray(obj)) {
+      obj.forEach((item, index) => {
+        const newPrefix = `${prefix}[${index}]`;
+        Object.assign(result, buildParts(item, newPrefix));
+      });
+    } else if (typeof obj === 'object' && obj !== null) {
+      Object.entries(obj).forEach(([key, value]) => {
+        const newPrefix = prefix ? `${prefix}[${key}]` : key;
+        Object.assign(result, buildParts(value, newPrefix));
+      });
+    } else {
+      if (obj !== undefined && obj !== null) {
+        result[prefix] = String(obj);
+      }
+    }
+
+    return result;
+  }
+
+  const allParams: Record<string, string> = {};
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      if (typeof value === 'object') {
+        Object.assign(allParams, buildParts(value, key));
+      } else {
+        allParams[key] = String(value);
+      }
+    }
+  });
+
+  const parts: string[] = [];
+  Object.entries(allParams).forEach(([key, value]) => {
+    parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+  });
+
+  return parts.join('&');
+}
+
+// Поиск контакта по телефону
 export async function findContactByPhone(phone: string): Promise<number | null> {
   try {
     const clean = cleanPhone(phone);
     console.log('🔍 Поиск контакта по телефону:', clean);
-    
+
     const result = await callBitrix('crm.duplicate.findbycomm', {
-      type: 'PHONE',
-      'values[0]': clean,
       entity_type: 'CONTACT',
+      type: 'PHONE',
+      values: [clean],
     });
 
-    const contactId = result?.result?.CONTACT?.[0];
-    console.log(contactId ? `✅ Контакт найден: ${contactId}` : 'ℹ️ Контакт не найден');
-    return contactId || null;
+    const contacts = result?.result?.CONTACT;
+    if (contacts && contacts.length > 0) {
+      console.log(`✅ Контакт найден: ${contacts[0]}`);
+      return contacts[0];
+    }
+
+    console.log('ℹ️ Контакт не найден');
+    return null;
   } catch (error) {
     console.error('❌ Ошибка поиска контакта:', error);
     return null;
   }
 }
 
-// Создание или обновление контакта
-export async function upsertContact(
-  name: string, 
-  phone: string, 
-  pageUrl: string,
-  existingContactId: number | null = null
-): Promise<number> {
-  const fields = {
-    NAME: name,
-    PHONE: [{ 
-      VALUE: cleanPhone(phone), 
-      VALUE_TYPE: 'WORK' 
-    }],
-    SOURCE_ID: BITRIX_CONFIG.sourceId,
-    SOURCE_DESCRIPTION: pageUrl,
-    ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
-  };
-
-  if (existingContactId) {
-    console.log('🔄 Обновление контакта:', existingContactId);
-    const result = await callBitrix('crm.contact.update', {
-      id: existingContactId,
-      fields,
-    });
-    return existingContactId;
-  } else {
-    console.log('➕ Создание нового контакта');
-    const result = await callBitrix('crm.contact.add', {
-      fields,
+// Получить контакт по ID
+export async function getContact(contactId: number) {
+  try {
+    const result = await callBitrix('crm.contact.get', {
+      id: contactId,
     });
     return result.result;
+  } catch (error) {
+    console.error('❌ Ошибка получения контакта:', error);
+    return null;
   }
 }
 
+// Добавить комментарий к контакту (сохраняем историю обращений)
+async function addContactComment(contactId: number, comment: string) {
+  try {
+    const contact = await getContact(contactId);
+    let currentComments = contact?.COMMENTS || '';
+
+    const now = new Date().toISOString();
+
+    const separator = '----------------------';
+
+    const newComment = `${separator}
+Новое обращение: ${now}
+
+${comment}
+
+${separator}`;
+
+    const updatedComments = currentComments
+      ? `${newComment}\n\n${currentComments}`
+      : newComment;
+
+    const result = await callBitrix('crm.contact.update', {
+      id: contactId,
+      FIELDS: {
+        COMMENTS: updatedComments,
+      },
+    });
+
+    console.log('✅ Комментарий контакта обновлен');
+    return result;
+
+  } catch (error) {
+    console.error('❌ Ошибка обновления комментария контакта:', error);
+  }
+}
 // Создание сделки
 export async function createDeal(
   contactId: number,
@@ -89,27 +191,149 @@ export async function createDeal(
   message: string,
   agreement: boolean,
   pageUrl: string,
+  pageTitle: string,
   formId: string
 ): Promise<number> {
   console.log('💰 Создание сделки для контакта:', contactId);
 
-  const fields = {
-    TITLE: `Заявка с сайта ${name} ${phone}`,
-    CONTACT_ID: contactId,
-    SOURCE_ID: BITRIX_CONFIG.sourceId,
-    SOURCE_DESCRIPTION: pageUrl,
-    ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
-    [UF_FIELDS.message]: message || '',
-    [UF_FIELDS.agreement]: agreement ? 'Да' : 'Нет',
-    COMMENTS: `Заявка с сайта. Страница: ${pageUrl}\nФорма: ${formId}`,
-  };
-
-  // Добавляем поле ID формы только если оно сконфигурировано
-  if (UF_FIELDS.formId !== 'UF_CRM_XXXXXXXXXX') {
-    fields[UF_FIELDS.formId] = formId;
+  if (!contactId) {
+    throw new Error('Не указан ID контакта для создания сделки');
   }
 
-  const result = await callBitrix('crm.deal.add', { fields });
-  console.log('✅ Сделка создана:', result.result);
-  return result.result;
+  let dealTitle = pageTitle ? `Заявка: ${pageTitle}` : 'Заявка с сайта';
+
+  if (name && name !== 'Не указано') {
+    dealTitle += ` - ${name}`;
+  }
+
+  const now = new Date();
+  const timeStr = now.toLocaleString('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  dealTitle += ` (${timeStr})`;
+
+  if (dealTitle.length > 200) {
+    dealTitle = dealTitle.substring(0, 197) + '...';
+  }
+
+  // Используем обычные переносы строк для COMMENTS
+  const separator = '━━━━━━━━━━━━━━━━━━━━━━';
+
+  const commentsText = `${separator}
+Новое обращение: ${now.toLocaleString('ru-RU')}
+Страница: ${pageTitle}
+Сообщение: ${message || 'Не указано'}
+URL: ${pageUrl}
+${separator}`;
+
+  const FIELDS: Record<string, any> = {
+    TITLE: dealTitle,
+    CONTACT_ID: contactId,
+    SOURCE_ID: BITRIX_CONFIG.sourceId,
+    SOURCE_DESCRIPTION: pageTitle,
+    ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
+    COMMENTS: commentsText,  // Теперь с \n вместо [BR]
+    DESCRIPTION: `📝 Сообщение: ${message || 'Не указано'}\n\nСтраница: ${pageTitle}\n URL: ${pageUrl}`,
+  };
+
+  if (message) {
+    FIELDS[UF_FIELDS.message] = message;
+  }
+
+  FIELDS[UF_FIELDS.agreement] = agreement ? 'Да' : 'Нет';
+
+  if (UF_FIELDS.formId && UF_FIELDS.formId !== 'UF_CRM_XXXXXXXXXX') {
+    FIELDS[UF_FIELDS.formId] = formId;
+  }
+
+  console.log('📦 Название сделки:', dealTitle);
+  console.log('📝 Комментарий сделки:', commentsText);
+
+  const result = await callBitrix('crm.deal.add', {
+    FIELDS: FIELDS,
+  });
+
+  const dealId = result.result;
+  console.log('✅ Сделка создана:', dealId);
+  return dealId;
+}
+
+
+
+// Создание или обновление контакта
+export async function upsertContact(
+  name: string,
+  phone: string,
+  pageUrl: string,
+  pageTitle: string,
+  existingContactId: number | null = null,
+  email?: string,
+  message?: string
+): Promise<number> {
+  const FIELDS: Record<string, any> = {
+    NAME: name,
+    PHONE: [
+      { VALUE: cleanPhone(phone), VALUE_TYPE: 'WORK' }
+    ],
+    SOURCE_ID: BITRIX_CONFIG.sourceId,
+    SOURCE_DESCRIPTION: pageTitle,
+    ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
+  };
+
+  // Добавляем email, если он есть
+  if (email && email.trim()) {
+    FIELDS.EMAIL = [{ VALUE: email.trim(), VALUE_TYPE: 'WORK' }];
+    console.log('📧 Добавляем email в контакт:', email);
+  }
+
+  if (existingContactId) {
+    console.log('🔄 Обновление существующего контакта:', existingContactId);
+
+    // Если контакт существует, но email не был сохранен ранее - обновим
+    if (email && email.trim()) {
+      try {
+        await callBitrix('crm.contact.update', {
+          id: existingContactId,
+          FIELDS: {
+            EMAIL: [{ VALUE: email.trim(), VALUE_TYPE: 'WORK' }]
+          }
+        });
+        console.log('✅ Email добавлен к существующему контакту');
+      } catch (error) {
+        console.error('❌ Ошибка добавления email:', error);
+      }
+    }
+
+    const contactComment = [
+      `🌐 Страница: ${pageTitle}`,
+      `📝 Сообщение: ${message || 'Не указано'}`,
+      `🔗 URL: ${pageUrl}`,
+    ].join('\n');
+
+    await addContactComment(existingContactId, contactComment);
+
+    console.log('ℹ️ Добавлен комментарий о новом обращении');
+    return existingContactId;
+  } else {
+    console.log('➕ Создание нового контакта');
+
+    const initialComment = [
+      `Первое обращение: ${new Date().toLocaleString('ru-RU')}`,
+      `🌐 Страница: ${pageTitle}`,
+      `📝 Сообщение: ${message || 'Не указано'}`,
+      `🔗 URL: ${pageUrl}`,
+    ].join('\n');
+
+    FIELDS.COMMENTS = initialComment;
+
+    const result = await callBitrix('crm.contact.add', {
+      FIELDS: FIELDS,
+    });
+    const newId = result.result;
+    console.log('✅ Контакт создан:', newId);
+    return newId;
+  }
 }

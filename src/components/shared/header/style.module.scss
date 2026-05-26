@@ -251,7 +251,9 @@
   position: fixed;
   top: 0;
   right: 0;
+  height: 100vh;
   height: 100dvh;
+
   width: min(86vw, 360px);
   background: var(--temnyy-1);
   transform: translateX(100%);
@@ -261,6 +263,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  overflow-y: scroll;
 }
 
 .mobilePanelOpen {
