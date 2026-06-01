@@ -28,7 +28,7 @@ type Props = {
 
 export default function ProductHero({ product }: Props): JSX.Element {
   const router = useRouter();
-    const [activeItem, setActiveItem] = useState<Instruct | null>(null);
+  const [activeItem, setActiveItem] = useState<Instruct | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const { openRequest } = useModal();
   const variant = product.variants[0];
@@ -44,7 +44,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
   );
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 740);
+    const checkMobile = () => setIsMobile(window.innerWidth <= 1024);
 
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -79,21 +79,21 @@ export default function ProductHero({ product }: Props): JSX.Element {
   };
 
 
-   const openModal = (item: Instruct) => {
-      setActiveItem(item);
-      setIsLightboxOpen(true);
-    };
-  
-    const closeModal = () => {
-      setIsLightboxOpen(false);
-      setActiveItem(null);
-    };
+  const openModal = (item: Instruct) => {
+    setActiveItem(item);
+    setIsLightboxOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsLightboxOpen(false);
+    setActiveItem(null);
+  };
 
   const renderThumbs = (className?: string) => (
     <div className={`${s.galleryBottom} ${className ?? ""}`}>
       <Stagger stagger={0.05} delay={0.4} amount={0.2}>
         <div className={s.galleryList} role="list">
-          {imagesSorted.length >1 && imagesSorted.map((img) => (
+          {imagesSorted.length > 1 && imagesSorted.map((img) => (
             <StaggerItem key={img.id}>
               <motion.div
                 className={`${s.card} ${img.id === activeImageId ? s.cardActive : ""}`}
@@ -246,77 +246,129 @@ export default function ProductHero({ product }: Props): JSX.Element {
                 >
                 </p>
               </Lift>}
-              <Fade className={s.set} delay={0.8} amount={0.2}>
-                <>
-                  <div className={s.colors}>
-                    <motion.span
-                      className={s.colorsLabel}
-                      animate={{ opacity: [0.7, 1, 0.7] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        repeatDelay: 1,
-                      }}
-                    >
-                      Цвета:
-                    </motion.span>
 
-                    <div
-                      className={s.colorsRow}
-                      role="radiogroup"
-                      aria-label="Выбор цвета"
-                    >
-                      <Stagger
-                        className={s.colorsRow}
-                        stagger={0.08}
-                        delay={0.9}
-                        amount={0.2}
-                      >
-                        {variant.colors.map((c) => {
-                          const isActive = c.id === activeColorId;
-                          return (
-                            <StaggerItem key={c.id}>
+              {variant.priceTitle && (
+                <Fade className={s.price} delay={0.7} amount={0.2}>
+                  <>
+                    <h3 className={s.priceTitle}>Цена</h3>
+                    <div style={{ display: "flex", gap: "40px" }}>
+
+                      <div>
+                        <h4>{variant.priceTitle}</h4>
+
+                      </div>
+                    </div>
+
+                  </>
+                </Fade>
+
+              )}
+
+              {variant.priceRub && (
+                <Fade className={s.price} delay={0.7} amount={0.2}>
+                  <>
+                    <h3 className={s.priceTitle}>Цена</h3>
+                    <div style={{ display: "flex", gap: "40px" }}>
+
+                      <div>
+                        <h4>На все: {variant.priceRub} ₽</h4>
+                        <div className={s.colorsRow}>
+                          {variant.colors.map((c) => {
+                            const isActive = c.id === activeColorId;
+                            const colorTitle = `${product.titleShort} - ${c.name}`;
+                            return (
                               <motion.button
+                                key={c.id}
                                 type="button"
                                 className={`${s.colorDot} ${isActive ? s.colorDotActive : ""}`}
                                 style={{ backgroundColor: c.hex }}
                                 onClick={() => handleColorPick(c.id)}
-                                aria-label={c.name}
-                                aria-checked={isActive}
-                                role="radio"
-                                whileHover={{
-                                  scale: 1.2,
-                                  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                                }}
-                                whileTap={{ scale: 0.9 }}
-                                animate={
-                                  isActive
-                                    ? {
-                                      scale: [1, 1.1, 1],
-                                      transition: {
-                                        duration: 0.5,
-                                        repeat: Infinity,
-                                        repeatDelay: 2,
-                                      },
-                                    }
-                                    : {}
-                                }
+                                aria-label={colorTitle}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
                               />
-                            </StaggerItem>
-                          );
-                        })}
-                      </Stagger>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </>
-              </Fade>
+
+                  </>
+                </Fade>
+
+              )}
+
+              {(variant.priceBlec || variant.priceColor) && (
+                <Fade className={s.price} delay={0.7} amount={0.2}>
+                  <>
+                    <h3 className={s.priceTitle}>Цена</h3>
+                    <div style={{ display: "flex", gap: "40px" }}>
+
+                      {/* Блок ЧЁРНЫЕ */}
+                      {variant.priceBlec && (
+                        <div>
+                          <h4>Чёрные: {variant.priceBlec} ₽</h4>
+                          <div className={s.colorsRow}>
+                            {variant.colors
+                              ?.filter(c => c.id === 'black' || c.name?.toLowerCase().includes('черн'))
+                              .map((c) => {
+                                const isActive = c.id === activeColorId;
+                                const colorTitle = `${product.titleShort} - ${c.name}`;
+                                return (
+                                  <motion.button
+                                    key={c.id}
+                                    type="button"
+                                    className={`${s.colorDot} ${isActive ? s.colorDotActive : ""}`}
+                                    style={{ backgroundColor: c.hex }}
+                                    onClick={() => handleColorPick(c.id)}
+                                    aria-label={colorTitle}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                  />
+                                );
+                              })}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Блок ЦВЕТНЫЕ */}
+                      {variant.priceColor && (
+                        <div>
+                          <h4>Цветные: {variant.priceColor} ₽</h4>
+                          <div className={s.colorsRow}>
+                            {variant.colors
+                              ?.filter(c => c.id !== 'black')
+                              .map((c) => {
+                                const isActive = c.id === activeColorId;
+                                const colorTitle = `${product.titleShort} - ${c.name}`;
+                                return (
+                                  <motion.button
+                                    key={c.id}
+                                    type="button"
+                                    className={`${s.colorDot} ${isActive ? s.colorDotActive : ""}`}
+                                    style={{ backgroundColor: c.hex }}
+                                    onClick={() => handleColorPick(c.id)}
+                                    aria-label={colorTitle}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                  />
+                                );
+                              })}
+                          </div>
+                        </div>
+                      )}
+
+                    </div>
+                  </>
+                </Fade>
+              )}
               <Fade className={s.set} delay={0.7} amount={0.2}>
 
                 <>
-                  {!product?.who && 
+                  {!product?.who &&
                     <button className={"butt " + s.heroBtn + " " + s.heroBtn2} onClick={() => openModal({ title: "Выбор полимерно-песчаного люка", gallery: [{ image: "/img/instruct/1.1.jpg", pdf: "/docs/instruct/Выбор (подбор) полимерпесчаного люка.pdf" }] })} >
-                    Выбор полимерно-песчаного люка
-                  </button>
+                      Выбор полимерно-песчаного люка
+                    </button>
                   }
                   <motion.button
                     onClick={openRequest}
@@ -331,7 +383,7 @@ export default function ProductHero({ product }: Props): JSX.Element {
                     }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Оформить заказ
+                    Запросить прайс-лист
                   </motion.button></>
 
               </Fade>
@@ -340,12 +392,12 @@ export default function ProductHero({ product }: Props): JSX.Element {
             </>
           </SlideInRight>
         </div>
-<Lightbox
-        isOpen={isLightboxOpen}
-        images={activeItem?.gallery || []}
-        title={activeItem?.title}
-        onClose={closeModal}
-      />
+        <Lightbox
+          isOpen={isLightboxOpen}
+          images={activeItem?.gallery || []}
+          title={activeItem?.title}
+          onClose={closeModal}
+        />
         {!isMobile && renderThumbs()}
       </div>
     </section>

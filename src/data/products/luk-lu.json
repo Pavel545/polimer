@@ -11,7 +11,8 @@
     {
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
-      "priceRub": 1000,
+      "priceBlec": 1050,
+      "priceColor": 1200,
      "colors": [
         {
           "id": "green-dark",

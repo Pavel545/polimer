@@ -314,13 +314,12 @@ export default function PriceForm({ onClose }: Props) {
                       />
                     </svg>
                   </div>
-                  <h3 className={s.popTitle}>Скачать прайс-лист</h3>
+                  <h3 className={s.popTitle}>Получить прайс-лист</h3>
                 </div>
 
                 <p className={s.popText}>
                   Мы ценим наших новых и постоянных клиентов. <br /><br /> Пожалуйста,
-                  заполните форму и прайс-лист будет отправлен вам
-                  автоматически. <br /> Мы всегда рады взаимовыгодному сотрудничеству.
+                  заполните форму и мы отправим вам прайс-лист. <br /> Мы всегда рады взаимовыгодному сотрудничеству.
                 </p>
 
                 <form className={s.popForm} onSubmit={onSubmit} noValidate>
@@ -448,7 +447,7 @@ export default function PriceForm({ onClose }: Props) {
                                 strokeLinejoin="round"
                               />
                             </svg>
-                            Отправить запрос и cкачать <br className={s.mob} /> прайс-лист
+                            Отправить запрос и получить <br className={s.mob} /> прайс-лист
                           </>
                         )}
                       </span>

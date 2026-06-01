@@ -16,7 +16,10 @@ export type ProductImage = {
 export type ProductVariant = {
   id: string;
   title: string;
-  priceRub: number;
+  priceRub?: number;
+  priceBlec?: number;
+  priceColor?: number;
+  priceTitle?: string;
   colors: ProductColor[];
   images: ProductImage[];
 };

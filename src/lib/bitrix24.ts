@@ -16,6 +16,3 @@ export const UF_FIELDS = {
   formId: 'UF_CRM_XXXXXXXXXX', // ID формы (НУЖНО УТОЧНИТЬ У КЛИЕНТА!)
 };
 
-export function cleanPhone(phone: string): string {
-  return phone.replace(/\D/g, '');
-}

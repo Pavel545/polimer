@@ -130,7 +130,7 @@ export default function Hero() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Скачать оптовый прайс-лист
+                Получить оптовый прайс-лист
               </button>
 
             </div>

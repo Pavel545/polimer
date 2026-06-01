@@ -1,6 +1,6 @@
 // lib/bitrix24-service.ts
 
-import { BITRIX_CONFIG, UF_FIELDS, cleanPhone } from './bitrix24';
+import { BITRIX_CONFIG, UF_FIELDS } from './bitrix24';
 
 // Базовая функция вызова Bitrix24 API
 async function callBitrix(method: string, params: Record<string, any> = {}) {
@@ -112,7 +112,7 @@ function buildQueryString(params: Record<string, any>): string {
 // Поиск контакта по телефону
 export async function findContactByPhone(phone: string): Promise<number | null> {
   try {
-    const clean = cleanPhone(phone);
+    const clean = phone;
     console.log('🔍 Поиск контакта по телефону:', clean);
 
     const result = await callBitrix('crm.duplicate.findbycomm', {
@@ -200,57 +200,39 @@ export async function createDeal(
     throw new Error('Не указан ID контакта для создания сделки');
   }
 
-  let dealTitle = pageTitle ? `Заявка: ${pageTitle}` : 'Заявка с сайта';
+  let dealTitle = `Заявка с сайта: ${name} ${phone}`;
 
-  if (name && name !== 'Не указано') {
-    dealTitle += ` - ${name}`;
-  }
-
-  const now = new Date();
-  const timeStr = now.toLocaleString('ru-RU', {
-    day: '2-digit',
-    month: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-  dealTitle += ` (${timeStr})`;
 
   if (dealTitle.length > 200) {
     dealTitle = dealTitle.substring(0, 197) + '...';
   }
 
-  // Используем обычные переносы строк для COMMENTS
-  const separator = '━━━━━━━━━━━━━━━━━━━━━━';
 
-  const commentsText = `${separator}
-Новое обращение: ${now.toLocaleString('ru-RU')}
-Страница: ${pageTitle}
-Сообщение: ${message || 'Не указано'}
-URL: ${pageUrl}
-${separator}`;
+
 
   const FIELDS: Record<string, any> = {
     TITLE: dealTitle,
+    CATEGORY_ID: 23, 
     CONTACT_ID: contactId,
-    SOURCE_ID: BITRIX_CONFIG.sourceId,
-    SOURCE_DESCRIPTION: pageTitle,
+    STAGE_ID: 'NEW',
+    SOURCE_ID: "9677718153",
+    SOURCE_DESCRIPTION: `${pageUrl}`,
     ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
-    COMMENTS: commentsText,  // Теперь с \n вместо [BR]
     DESCRIPTION: `📝 Сообщение: ${message || 'Не указано'}\n\nСтраница: ${pageTitle}\n URL: ${pageUrl}`,
   };
 
   if (message) {
     FIELDS[UF_FIELDS.message] = message;
   }
-
-  FIELDS[UF_FIELDS.agreement] = agreement ? 'Да' : 'Нет';
+  console.log("Согласие:", agreement ? 'Да' : 'Нет');
+  
+  FIELDS[UF_FIELDS.agreement] = agreement ? 'Y' : 'N';
 
   if (UF_FIELDS.formId && UF_FIELDS.formId !== 'UF_CRM_XXXXXXXXXX') {
     FIELDS[UF_FIELDS.formId] = formId;
   }
 
   console.log('📦 Название сделки:', dealTitle);
-  console.log('📝 Комментарий сделки:', commentsText);
 
   const result = await callBitrix('crm.deal.add', {
     FIELDS: FIELDS,
@@ -276,10 +258,10 @@ export async function upsertContact(
   const FIELDS: Record<string, any> = {
     NAME: name,
     PHONE: [
-      { VALUE: cleanPhone(phone), VALUE_TYPE: 'WORK' }
+      { VALUE:phone, VALUE_TYPE: 'WORK' }
     ],
-    SOURCE_ID: BITRIX_CONFIG.sourceId,
-    SOURCE_DESCRIPTION: pageTitle,
+    SOURCE_ID: "9677718153",
+     SOURCE_DESCRIPTION: `${pageUrl}`,
     ASSIGNED_BY_ID: BITRIX_CONFIG.responsibleUserId,
   };
 
@@ -307,27 +289,16 @@ export async function upsertContact(
       }
     }
 
-    const contactComment = [
-      `🌐 Страница: ${pageTitle}`,
-      `📝 Сообщение: ${message || 'Не указано'}`,
-      `🔗 URL: ${pageUrl}`,
-    ].join('\n');
 
-    await addContactComment(existingContactId, contactComment);
+
+    // await addContactComment(existingContactId);
 
     console.log('ℹ️ Добавлен комментарий о новом обращении');
     return existingContactId;
   } else {
     console.log('➕ Создание нового контакта');
 
-    const initialComment = [
-      `Первое обращение: ${new Date().toLocaleString('ru-RU')}`,
-      `🌐 Страница: ${pageTitle}`,
-      `📝 Сообщение: ${message || 'Не указано'}`,
-      `🔗 URL: ${pageUrl}`,
-    ].join('\n');
-
-    FIELDS.COMMENTS = initialComment;
+  
 
     const result = await callBitrix('crm.contact.add', {
       FIELDS: FIELDS,

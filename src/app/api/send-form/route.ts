@@ -1,5 +1,4 @@
 // app/api/send-form/route.ts
-import { cleanPhone } from '@/lib/bitrix24';
 import { createDeal, findContactByPhone, upsertContact } from '@/lib/bitrix24-service';
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
@@ -161,15 +160,15 @@ export async function POST(request: NextRequest) {
     // Создаем HTML письма (передаем email)
     const html = createEmailHTML({ name, phone: phone, email, message, topic });
 
-    // console.log('📧 Отправка письма на 73polimer@mail.ru...');
+    console.log('📧 Отправка письма на 73polimer@mail.ru...');
 
     // Отправляем письмо основному получателю 
-    // const mainResult = await transporter.sendMail({
-    //   from: '"Полимеры" <ForAnalyticss@yandex.ru>',
-    //   to: '73polimer@mail.ru',
-    //   subject: subject,
-    //   html: html,
-    // });
+    const mainResult = await transporter.sendMail({
+      from: '"Полимеры" <ForAnalyticss@yandex.ru>',
+      to: '73polimer@mail.ru',
+      subject: subject,
+      html: html,
+    });
 
     // Отправляем копию
     console.log('📧 Отправка копии на ForAnalyticss@yandex.ru...');
@@ -262,10 +261,10 @@ async function processCrmIntegration(data: {
   try {
     console.log('🔄 Начало интеграции с Bitrix24 CRM');
 
-    if (!data.phone || cleanPhone(data.phone).length !== 11) {
-      console.log('❌ Некорректный номер телефона для CRM');
-      return null;
-    }
+    // if (!data.phone || data.phone.length !== 11) {
+    //   console.log('❌ Некорректный номер телефона для CRM');
+    //   return null;
+    // }
 
     // Поиск существующего контакта
     const existingContactId = await findContactByPhone(data.phone);

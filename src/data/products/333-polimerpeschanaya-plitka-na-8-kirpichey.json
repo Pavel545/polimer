@@ -10,7 +10,7 @@
     {
       "id": "v1",
       "title": "Название варианта (Легкий/Средний/Тяжелый)",
-      "priceRub": 180,
+      "priceRub": 190,
       "colors": [
         {
           "id": "green-light",
